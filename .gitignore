@@ -1,5 +1,6 @@
 # Personnal
 build
+mktoolchain/toolchain
 
 # Prerequisites
 *.d
