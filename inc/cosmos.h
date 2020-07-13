@@ -6,3 +6,10 @@
 **  Copyright (C) 2020 - Leo Karoubi
 **
 \******************************************************************************/
+
+#ifndef _COSMOS_H_
+#define _COSMOS_H_
+
+#define COSMOS_SIGNATURE 0xC05A05
+
+#endif

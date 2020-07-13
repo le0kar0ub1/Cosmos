@@ -1,11 +1,18 @@
 # Cosmos
 
-Another birth of an x86 kernel named COSmOS (yeah, word count double).
+Another birth of a x86 kernel named COSmOS (yeah, word count double).
 
 ## Dependencies
 
   * `make` (dev under v4.3)
   * `grub-mkrescue` (dev under v2.04)
+
+## Install
+
+Cosmos use his own cross-compiler, build it by executiing the following command-line.
+The dependencies are also checked-up.
+
+`./mktoolchain/mktoolchain`
 
 ## Build
 
@@ -58,11 +65,14 @@ let's go again
 - [ ] Syscall interface and userspace
 - [ ] Middle driver
   - [ ] RTC
-- [ ] Multi process / threads
-  - [ ] Basic Scheduling
-  - [ ] User Threads
-  - [ ] Kernel threads
-  - [ ] Processes
+- [ ] Multi-threads
+  - [ ] Virtual
+    - [ ] Basic Scheduling
+    - [ ] User Threads
+    - [ ] Kernel threads
+    - [ ] Processes
+  - [ ] Physical
+    - [ ] Handling ?
 - [ ] Initrd
 - [ ] Filesystem
   - [ ] ...
