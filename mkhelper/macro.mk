@@ -7,21 +7,28 @@
 ##
 ###############################################################################
 
-sinclude $(PROJECT_PATH)/mkhelper/def.mk
-
+# Fatal errors are raised here
 define RAISE
 	@echo -e "[$(BoldRed)ABORTED$(Blank)]$(1)"
 	@exit 1
 endef
 
+# Cosmos build-time log
 define LOG
 	@echo -e "[$(BoldBlue)$(PROJECT)$(Blank)]$(1)"
 endef
 
-define EvalToolChainExistence
-	$(if $(filter $(PROJECT_PATH)/$(2), $(wildcard $(PROJECT_PATH)/$(2)/..)), $(call RAISE, "No GNU $(1) toolchain -- make toolchain"), $(call LOG, "GNU $(1) toolchain found"))
+# Is the toolchain built ?
+define EvalFatToolChainExistence
+	$(if $(filter $(PROJECT_PATH)/mktoolchain/toolchain, $(wildcard $(PROJECT_PATH)/mktoolchain)), $(call RAISE, "GNU toolchain not built -- ./mktoolchain/mktoolchain"), $(call LOG, "GNU toolchain found"))
 endef
 
+# Is the toolchain built ?
+define EvalBinaryToolChainExistence
+	$(if $(filter $(PROJECT_PATH)/mktoolchain/toolchain/bin/x86_64-elf-$(1), $(wildcard $(PROJECT_PATH)/mktoolchain/toolchain/bin)), $(call RAISE, "GNU tool $(1) not found"), $(call LOG, "GNU tool $(1) found"))
+endef
+
+# Is the binary present on the system ?
 define EvalBinaryExistence
 	$(if $(shell which $(1) 2> /dev/null),$(call LOG, Dependency found $(BoldMagenta)$(shell basename $(1))$(Blank)),$(call RAISE, Dependency not found $(BoldRed)$(shell basename $(1))$(Blank)))
 endef

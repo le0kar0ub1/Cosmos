@@ -1,6 +1,6 @@
 # Cosmos
 
-Another birth of a x86 kernel named COSmOS (yeah, word count double).
+Another birth of a x86_64 kernel named COSmOS (yeah, word count double).
 
 ## Dependencies
 
@@ -21,6 +21,9 @@ The only arch-target of Cosmos is x64, then the keyword `TARGET` is used here to
 | Target     | Effect                 |
 |------------|------------------------|
 | debug      | build kernel for debug |
+| release    | build kernel release   |
+
+Inspired from cargo (and others) philosophy.
 
 ### Kernel build
 

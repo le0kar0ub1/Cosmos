@@ -6,3 +6,7 @@
 ##  Copyright (C) 2020 - Leo Karoubi
 ##
 ###############################################################################
+
+sinclude mkhelper/def.mk
+sinclude mkhelper/macro.mk
+sinclude mkhelper/toolchain.mk

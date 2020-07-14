@@ -13,7 +13,7 @@ export PROJECT_PATH	:= $(realpath .)
 # File extension norm
 export EXTENSION_BIN	:=	bin
 export EXTENSION_ISO	:=	iso
-export EXTENSION_SRC	:=	.c
+export EXTENSION_CC		:=	.c
 export EXTENSION_OBJ	:=	.o
 export EXTENSION_ASM	:=	.S
 export EXTENSION_LIB	:=	.a
@@ -21,8 +21,14 @@ export EXTENSION_LIB	:=	.a
 # Versionning
 export VERSION			:=	0.1.0
 
-# Build directory
-export TARGET_PATH		:= $(PROJECT_PATH)/target
+export TARGET_PATH		=	$(PROJECT_PATH)/target
+
+# Build directory, defaulting to debug
+ifeq ($(TARGET),release)
+    TARGET_PATH		= $(TARGET_PATH)/release
+else
+    TARGET_PATH		= $(TARGET_PATH)/debug
+endif
 
 # Build target
 export TARGET_BINKRN	:=	$(PROJECT)-$(VERSION).$(BIN_EXTENSION)

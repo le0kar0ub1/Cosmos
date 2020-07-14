@@ -7,12 +7,12 @@
 ##
 ###############################################################################
 
-export TOOLCHAN_GNUBASE := $(PROJECT_PATH)/mktoolchain/toolchain/x86_64-elf-
+export TOOLCHAIN_GNUBASE := $(PROJECT_PATH)/mktoolchain/toolchain/x86_64-elf-
 
-export CC		:=	$(TOOLCHAN_GNUBASE)gcc
-export AS		:=	$(TOOLCHAN_GNUBASE)as
-export AR		:=	$(TOOLCHAN_GNUBASE)ar
-export LD		:=	$(TOOLCHAN_GNUBASE)ld
-export OBJCPY	:=	$(TOOLCHAN_GNUBASE)objcopy
-export OBJDMP	:=	$(TOOLCHAN_GNUBASE)objdump
-export RDELF	:=	$(TOOLCHAN_GNUBASE)readelf
+export CC		:=	$(TOOLCHAIN_GNUBASE)gcc
+export AS		:=	$(TOOLCHAIN_GNUBASE)as
+export AR		:=	$(TOOLCHAIN_GNUBASE)ar
+export LD		:=	$(TOOLCHAIN_GNUBASE)ld
+export OBJCPY	:=	$(TOOLCHAIN_GNUBASE)objcopy
+export OBJDMP	:=	$(TOOLCHAIN_GNUBASE)objdump
+export RDELF	:=	$(TOOLCHAIN_GNUBASE)readelf
