@@ -7,5 +7,8 @@
 ##
 ###############################################################################
 
-TARGET_SOURCE	=
+local = $(CALLED_LOCAL_DIRECTORY)
 
+TARGET_OBJECTS	+= $(addprefix $(local),	\
+					 boot.o		\
+					)

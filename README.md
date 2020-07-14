@@ -27,13 +27,13 @@ Inspired from cargo (and others) philosophy.
 
 ### Kernel build
 
-`make kernel [TARGET=$TARGET]`
+`make kernel [TARGET=$Target]`
 
 output: `elf` file.
 
 ### ISO build
 
-`make [iso] [TARGET=$TARGET]`
+`make [iso] [TARGET=$Target]`
 
 output: `iso` file.
 

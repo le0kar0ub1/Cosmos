@@ -1,4 +1,6 @@
 # Personnal
+*.iso
+*.bin
 build
 scripts
 mktoolchain/toolchain

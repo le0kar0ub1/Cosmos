@@ -10,6 +10,12 @@
 export PROJECT		:= Cosmos
 export PROJECT_PATH	:= $(realpath .)
 
+# Target architecture
+export ARCH := x86_64
+
+# Make verbosity
+MAKEFLAGS += --no-print-directory --silent
+
 # File extension norm
 export EXTENSION_BIN	:=	bin
 export EXTENSION_ISO	:=	iso
@@ -21,18 +27,50 @@ export EXTENSION_LIB	:=	.a
 # Versionning
 export VERSION			:=	0.1.0
 
-export TARGET_PATH		=	$(PROJECT_PATH)/target
-
-# Build directory, defaulting to debug
-ifeq ($(TARGET),release)
-    TARGET_PATH		= $(TARGET_PATH)/release
-else
-    TARGET_PATH		= $(TARGET_PATH)/debug
-endif
+# Target
+export TARGET_BASE_PATH	:=	$(PROJECT_PATH)/target
+export TARGET 			?= 	debug
+export TARGET_PATH		:=	$(PROJECT_PATH)/target
 
 # Build target
-export TARGET_BINKRN	:=	$(PROJECT)-$(VERSION).$(BIN_EXTENSION)
-export TARGET_ISOKRN	:=	$(PROJECT)-$(VERSION).$(ISO_EXTENSION)
+export TARGET_BINKRN	:=	$(PROJECT)-$(VERSION).$(EXTENSION_BIN)
+export TARGET_ISOKRN	:=	$(PROJECT)-$(VERSION).$(EXTENSION_ISO)
+
+# Cleaner as possible
+export CCFLAGS	=	-isystem $(PROJECT_PATH)/inc		\
+					-Wall								\
+					-MD									\
+					-pipe 								\
+					-Wcast-align					    \
+					-Wextra				 				\
+					-Wnested-externs					\
+					-Winline							\
+					-Wpragmas							\
+					-ffreestanding 						\
+					-std=gnu11							\
+					-Wuninitialized						\
+					-Wno-missing-braces					\
+					-Wcast-align						\
+					-Wwrite-strings						\
+					-Wparentheses						\
+					-Wunreachable-code					\
+					-Wunused							\
+					-Wmissing-field-initializers		\
+					-Wswitch-enum						\
+					-Wshadow				 			\
+					-fno-stack-protector				\
+					-Wuninitialized				 		\
+					-Wmissing-declarations				\
+					-Wmissing-prototypes				\
+					-Wstrict-prototypes					\
+					-Wpointer-arith						\
+					-static 							\
+					-fms-extensions 					\
+					-fno-omit-frame-pointer 			\
+
+export LDFLAGS	=   -nostdlib							\
+					-lgcc								\
+					-z max-page-size=0x1000				\
 
 # Output color
 export Red			:= \e[0;31m

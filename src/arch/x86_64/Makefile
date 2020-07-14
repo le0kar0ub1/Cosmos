@@ -7,3 +7,6 @@
 ##
 ###############################################################################
 
+local := $(CALLED_LOCAL_DIRECTORY)
+
+sinclude $(local)/boot/Makefile
