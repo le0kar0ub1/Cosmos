@@ -11,15 +11,7 @@ sinclude mkhelper/def.mk
 sinclude mkhelper/macro.mk
 sinclude mkhelper/toolchain.mk
 
-# Build directory, defaulting to debug
-ifeq ($(TARGET),release)
-    TARGET_PATH		:= $(TARGET_PATH)/release
-else ifeq ($(TARGET),debug)
-    TARGET_PATH		:= $(TARGET_PATH)/debug
-else
-    $(call RAISE,Invalid given target)
-endif
-
+# $(call RAISE, Invalid given target)
 .PHONY: all
 all: _kernel
 

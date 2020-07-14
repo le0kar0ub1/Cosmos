@@ -9,34 +9,39 @@
 
 sinclude $(PROJECT_PATH)/mkhelper/macro.mk
 
-TARGET_OBJECTS	=
+# Build directory, defaulting to debug
+ifeq ($(TARGET),release)
+    TARGET_PATH		:= $(TARGET_PATH)/release
+    CCFLAGS			+= -O2
+else
+    TARGET_PATH		:= $(TARGET_PATH)/debug
+    CCFLAGS			+= -g3
+endif
+
+TARGET_OBJECTS :=
 
 sinclude $(PROJECT_PATH)/src/arch/$(ARCH)/Makefile
-# sinclude $(PROJECT_PATH)/src/drivers/Makefile
-# sinclude $(PROJECT_PATH)/src/kernel/Makefile
-
-sinclude $(PROJECT_PATH)/mkhelper/builder.mk
-
+sinclude $(PROJECT_PATH)/src/drivers/Makefile
+sinclude $(PROJECT_PATH)/src/kernel/Makefile
 
 TARGET_OBJECTS	:=	$(patsubst $(PROJECT_PATH)%, $(TARGET_PATH)%, $(TARGET_OBJECTS))
+TARGET_DEPS		:= 	$(TARGET_OBJECTS:.o=.d)
 
 .PHONY: all
-all: debugobj #$(TARGET_BINKRN)
-
-debugobj: $(TARGET_OBJECTS)
-	echo " $(PROJECT_PATH) -> $(TARGET_PATH)"
-	echo "TARGET BUILD $(TARGET_OBJECTS) -> $(TARGET_OBJECTS)"
+all: $(TARGET_BINKRN)
 
 $(TARGET_BINKRN):	$(TARGET_OBJECTS)
-	$(CC) $(TARGET_OBJECTS) $(CCFLAGS) $(LDFLAGS) -o $(TARGET_BINKRN)
-	$(call BUILD_LOG,LD,$(TARGET_BINKRN))
+	$(CC) $(TARGET_OBJECTS) $(CCFLAGS) $(LDFLAGS) -o $(TARGET_PATH)/$(TARGET_BINKRN)
+	$(call BUILD_LOG,LD)
 
-# $(TARGET_PATH)%$(EXTENSION_OBJ): $(PROJECT_PATH)%$(EXTENSION_CC)
-# 	mkdir -p $(shell dirname $@)
-# 	$(CC) $(CCFLAGS) -c $< -o $@
-# 	$(call BUILD_LOG,CC,$@)
+-include $(TARGET_DEPS)
+$(TARGET_PATH)%$(EXTENSION_OBJ): $(PROJECT_PATH)%$(EXTENSION_CC)
+	mkdir -p $(shell dirname $@)
+	$(CC) $(CCFLAGS) -c $< -o $@
+	$(call BUILD_LOG,CC)
 
+-include $(TARGET_DEPS)
 $(TARGET_PATH)/%$(EXTENSION_OBJ): $(PROJECT_PATH)/%$(EXTENSION_ASM)
 	mkdir -p $(shell dirname $@)
 	$(CC) $(CCFLAGS) -c $< -o $@
-	$(call BUILD_LOG,AS,$@)
+	$(call BUILD_LOG,AS)
