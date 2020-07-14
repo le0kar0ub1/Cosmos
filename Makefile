@@ -22,6 +22,10 @@ kernel: toolchain
 .PHONY: toolchain
 toolchain:
 	$(call EvalFatToolChainExistence)
+	$(call EvalBinaryToolChainExistence,gcc)
+	$(call EvalBinaryToolChainExistence,ld)
+	$(call EvalBinaryExistence,grub-mkrescue)
+	$(call EvalBinaryExistence,xorriso)
 
 .PHONY: clean
 clean:
