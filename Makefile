@@ -11,13 +11,13 @@ sinclude mkhelper/def.mk
 sinclude mkhelper/macro.mk
 sinclude mkhelper/toolchain.mk
 
-# $(call RAISE, Invalid given target)
-.PHONY: all
-all: _kernel
-
-.PHONY: _kernel
-_kernel: toolchain
+.PHONY: all iso
+all iso: toolchain
 	$(MAKE) -C src
+
+.PHONY: kernel
+kernel: toolchain
+	$(MAKE) kernel -C src
 
 .PHONY: toolchain
 toolchain:
@@ -30,6 +30,14 @@ clean:
 .PHONY: re
 re: clean all
 
+ifeq ($(DEBUG),1)
+    QEMUOPT = -monitor stdio --no-reboot
+else
+    QEMUOPT = -serial stdio 
+endif
 .PHONY: run
-run:
-	qemu-system-x86_64
+run:	iso
+	qemu-system-x86_64 -cdrom $(TARGET_BASE_PATH)/debug/$(TARGET_ISOKRN) 	\
+						$(QEMUOPT)											\
+						-m 4G												
+						#-enable-kvm											\

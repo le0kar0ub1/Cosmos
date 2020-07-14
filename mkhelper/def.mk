@@ -36,6 +36,10 @@ export TARGET_PATH		:=	$(PROJECT_PATH)/target
 export TARGET_BINKRN	:=	$(PROJECT)-$(VERSION).$(EXTENSION_BIN)
 export TARGET_ISOKRN	:=	$(PROJECT)-$(VERSION).$(EXTENSION_ISO)
 
+# Linker script & cfg
+export COSMOS_LINKER	:=	src/arch/$(ARCH)/cosmos.ld
+export GRUB_CONFIG		:=	src/arch/$(ARCH)/grub.cfg
+
 # Cleaner as possible
 export CCFLAGS	=	-isystem $(PROJECT_PATH)/inc		\
 					-Wall								\
