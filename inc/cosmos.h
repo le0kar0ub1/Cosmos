@@ -10,6 +10,12 @@
 #ifndef _COSMOS_H_
 # define _COSMOS_H_
 
+# include <kernel/def/def.h>
+# include <kernel/def/bitfield.h>
+# include <kernel/def/iomem.h>
+# include <kernel/def/ksymtab.h>
+# include <kconfig.h>
+
 #define COSMOS_SIGNATURE 0xC05A05
 
 #endif /* _COSMOS_H_ */

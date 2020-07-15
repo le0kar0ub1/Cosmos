@@ -1,5 +1,15 @@
-#ifndef _MULTIBOOT2_HEADER_
-#define _MULTIBOOT2_HEADER_
+/********************************************************************************
+**  This file is part of the Cosmos project, and is made available under
+**  the terms of the GNU General Public License version 3.
+**
+**  Copyright (C) 2020 - Leo Karoubi
+**
+\******************************************************************************/
+
+#ifndef _MULTIBOOT2_H_
+# define _MULTIBOOT2_H_
+
+#include <kernel/def/def.h>
 
 struct multiboot_info
 {
@@ -406,4 +416,4 @@ struct multiboot_tag_load_base_addr
 
 #endif /* ! ASM_FILE */
 
-#endif /* ! _MULTIBOOT2_HEADER_ */
+#endif /* _MULTIBOOT2_H_ */
