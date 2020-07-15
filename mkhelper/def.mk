@@ -63,6 +63,8 @@ export CCFLAGS	=	-isystem $(PROJECT_PATH)/inc		\
 					-Wswitch-enum						\
 					-Wshadow				 			\
 					-fno-stack-protector				\
+					-m64 								\
+					-mgeneral-regs-only 				\
 					-Wuninitialized				 		\
 					-Wmissing-declarations				\
 					-Wmissing-prototypes				\
@@ -71,6 +73,12 @@ export CCFLAGS	=	-isystem $(PROJECT_PATH)/inc		\
 					-static 							\
 					-fms-extensions 					\
 					-fno-omit-frame-pointer 			\
+
+# Some macros
+CCFLAGS			+=	-D PROJECT=$(PROJECT)							\
+					-D COMPILER_VERSION=$(shell $(CC) -dumpversion)	\
+					-D PROJECT_VERSION=$(VERSION)					\
+					-D ARCH=$(ARCH)									\
 
 export LDFLAGS	=   -nostdlib							\
 					-lgcc								\

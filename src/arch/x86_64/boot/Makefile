@@ -10,5 +10,6 @@
 local = $(CALLED_LOCAL_DIRECTORY)
 
 TARGET_OBJECTS	+= $(addprefix $(local),	\
-					 boot.o		\
+						mbhdr.o				\
+						boot.o				\
 					)

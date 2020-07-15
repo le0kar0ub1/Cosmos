@@ -1,5 +1,4 @@
-/******************************************************************************\
-**
+/********************************************************************************
 **  This file is part of the Cosmos project, and is made available under
 **  the terms of the GNU General Public License version 3.
 **
@@ -7,9 +6,7 @@
 **
 \******************************************************************************/
 
-#ifndef _COSMOS_H_
-# define _COSMOS_H_
+#ifndef _KCONFIG_H_
+# define _KCONFIG_H_
 
-#define COSMOS_SIGNATURE 0xC05A05
-
-#endif /* _COSMOS_H_ */
+#endif /* _KCONFIG_H_ */
