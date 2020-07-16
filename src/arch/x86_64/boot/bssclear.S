@@ -11,8 +11,8 @@
 
 #include <arch/x86_64/boot/boot.h>
 
-.extern __BSS_START
-.extern __BSS_END
+.extern __PHYS_BSS_START
+.extern __PHYS_BSS_END
 
 .section .text
 
@@ -22,8 +22,8 @@
 .global clear_bss
 .type clear_bss, @function
 clear_bss:
-    mov V2P($__BSS_START), %eax
-    mov V2P($__BSS_END), %ebx
+    movl __PHYS_BSS_START, %eax
+    movl __PHYS_BSS_END, %ebx
     .bssclear:
         movb $0x0, (%eax)
         incl %eax

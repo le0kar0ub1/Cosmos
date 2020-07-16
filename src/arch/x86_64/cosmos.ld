@@ -114,14 +114,16 @@ SECTIONS
         PROVIDE(__end_data_ = .);
     }
 
-    PROVIDE(__BSS_START = .);
+    PROVIDE(__VIRT_BSS_START = .);
+    PROVIDE(__PHYS_BSS_START = . - __KERNEL_ADDR_TRNS);
     .bss ALIGN(0x1000) : AT(ADDR(.bss) - __KERNEL_ADDR_TRNS)
     {
         PROVIDE(__start_bss_ = .);
         *(.bss)
         PROVIDE(__end_bss_ = .);
     }
-    PROVIDE(__BSS_END = .);
+    PROVIDE(__VIRT_BSS_END = .);
+    PROVIDE(__PHYS_BSS_END = . - __KERNEL_ADDR_TRNS);
     PROVIDE(__BSS_SIZE = __BSS_END - __BSS_START);
 
     . = ALIGN(0x1000);

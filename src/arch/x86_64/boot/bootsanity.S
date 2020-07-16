@@ -7,7 +7,7 @@
 **
 \******************************************************************************/
 
-#include <kernel/mem/memory.h>
+#include <arch/x86_64/boot/boot.h>
 
 .code32
 
@@ -20,14 +20,13 @@
 .extern boot_crash
 .extern boot_vgaputs
 
-
 /*
 ** multiboot checkup
 */
 .global sanity_multiboot
 .type sanity_multiboot, @function
 sanity_multiboot:
-    mov V2P($_err_multiboot), %esi
+    mov V2P(_err_multiboot), %esi
     cmp $0x36d76289, %eax
     jne boot_crash
     ret
@@ -54,7 +53,7 @@ cpuid_detect:
     cmp %ecx, %eax
     jne cpuid_detected
 
-    mov V2P($_err_cpuid), %esi
+    mov V2P(_err_cpuid), %esi
     call boot_crash
 cpuid_detected:
     ret
@@ -77,7 +76,7 @@ lm_ckeckup:
     jz noLongMode
     ret
     noLongMode:
-        mov V2P($_err_nolm), %esi
+        mov V2P(_err_nolm), %esi
         call boot_crash
 
 /*

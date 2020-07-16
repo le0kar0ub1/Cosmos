@@ -14,7 +14,7 @@
 # define __KERNEL_VIRT_LINK 0xFFFFFFFF80100000
 # define __KERNEL_PHYS_LINK 0x0000000000100000
 
-// # define P2V(x) (x + &__KERNEL_ADDR_TRNS)
+# define P2V(x) (x + &__KERNEL_ADDR_TRNS)
 # define V2P(x) (x - __KERNEL_ADDR_TRNS)
 
 #endif /* _BOOT_H_ */
