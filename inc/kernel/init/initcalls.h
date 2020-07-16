@@ -1,5 +1,13 @@
-#ifndef __INITCALLS_H__
-#define __INITCALLS_H__
+/********************************************************************************
+**  This file is part of the Cosmos project, and is made available under
+**  the terms of the GNU General Public License version 3.
+**
+**  Copyright (C) 2020 - Leo Karoubi
+**
+\******************************************************************************/
+
+#ifndef _INITCALLS_H_
+# define _INITCALLS_H_
 
 #include "kernel/def/def.h"
 
@@ -38,4 +46,4 @@ void run_initcall_level(u8_t);
 #define run_gui_initcalls()        run_initcall_level(8)
 #define run_last_initcalls()       run_initcall_level(9)
 
-#endif
+#endif /* _INITCALLS_H_ */

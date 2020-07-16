@@ -34,8 +34,10 @@ clean:
 .PHONY: re
 re: clean all
 
-ifeq ($(DEBUG),1)
+ifeq ($(debug),soft)
     QEMUOPT = -monitor stdio --no-reboot
+else ifeq($(debug),gdb)
+    QEMUOPT = -s -S
 else
     QEMUOPT = -serial stdio 
 endif

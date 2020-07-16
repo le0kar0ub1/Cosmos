@@ -24,7 +24,7 @@ endef
 
 # Is the toolchain built ?
 define EvalFatToolChainExistence
-	$(if $(filter $(PROJECT_PATH)/mktoolchain/toolchain, $(wildcard $(PROJECT_PATH)/mktoolchain)), $(call RAISE, GNU toolchain not built -- $(BoldRed)./mktoolchain/mktoolchain$(Blank)), $(call LOG, GNU toolchain found))
+	$(if $(filter $(PROJECT_PATH)/mktoolchain/toolchain, $(wildcard $(PROJECT_PATH)/mktoolchain)), $(call RAISE, GNU toolchain not built -- $(BoldRed)mktoolchain/mktoolchain$(Blank)), $(call LOG, GNU toolchain found at $(BoldMagenta)mktoolchain/toolchain$(Blank)))
 endef
 
 # Is the tool in the toolchain ?

@@ -45,7 +45,7 @@ A configured *QEMU* run is provided.
 
 ## ROADMAP
 
-let's go again
+let's go again.
 
 - [ ] Kernel loaded higher-half
 - [ ] Boot
@@ -54,10 +54,10 @@ let's go again
   - [ ] GDT setup
   - [ ] IDT setup
   - [ ] TSS setup
-  - [ ] SMP setup
+  - [ ] SMP init
 - [ ] Early drivers
   - [ ] VGA
-  - [ ] PS/2 Keyboard
+  - [ ] UART
   - [ ] Timer
 - [ ] Memory
   - [ ] Physical Memory Management
@@ -68,6 +68,7 @@ let's go again
 - [ ] Syscall interface and userspace
 - [ ] Middle driver
   - [ ] RTC
+  - [ ] PS/2 Keyboard
 - [ ] Multi-threads
   - [ ] Virtual
     - [ ] Basic Scheduling

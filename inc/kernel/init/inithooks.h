@@ -1,5 +1,13 @@
-#ifndef __INITHOOKS_H__
-#define __INITHOOKS_H__
+/********************************************************************************
+**  This file is part of the Cosmos project, and is made available under
+**  the terms of the GNU General Public License version 3.
+**
+**  Copyright (C) 2020 - Leo Karoubi
+**
+\******************************************************************************/
+
+#ifndef _INITHOOKS_H_
+# define _INITHOOKS_H_
 
 typedef void (*inithook_t)(void);
 
@@ -23,7 +31,6 @@ typedef void (*inithook_t)(void);
 #define last_inithook(fn)       __define_inithook("9", fn, 9)
 
 void run_inithooks(void);
-
 void run_inithooks_bylevel(void);
 
-#endif
+#endif /* _INITHOOKS_H_ */

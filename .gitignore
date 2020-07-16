@@ -4,6 +4,7 @@
 build
 scripts
 mktoolchain/toolchain
+.vscode
 
 # Prerequisites
 *.d

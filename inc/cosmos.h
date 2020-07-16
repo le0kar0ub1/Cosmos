@@ -12,8 +12,10 @@
 
 # include <kernel/def/def.h>
 # include <kernel/def/bitfield.h>
-# include <kernel/def/iomem.h>
 # include <kernel/def/ksymtab.h>
+# include <kernel/io/port.h>
+# include <kernel/io/mem.h
+# include <kernel/drivers/drivers.h>
 # include <kconfig.h>
 
 #define COSMOS_SIGNATURE 0xC05A05
