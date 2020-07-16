@@ -36,7 +36,7 @@ re: clean all
 
 ifeq ($(debug),soft)
     QEMUOPT = -monitor stdio --no-reboot
-else ifeq($(debug),gdb)
+else ifeq ($(debug),gdb)
     QEMUOPT = -s -S
 else
     QEMUOPT = -serial stdio 
