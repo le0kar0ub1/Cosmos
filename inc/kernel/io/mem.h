@@ -10,6 +10,22 @@
 # define _IOMEM_H_
 
 # include <kernel/def/def.h>
+# include <kernel/def/access.h>
+
+struct memory_area {
+    char const    *name;
+    physaddr_t    start;
+    physaddr_t    end;
+    access_flag_t flag;
+};
+
+# define REGISTER_IO_PMM(name, start, end, flag)  \
+    static const struct memory_area name = {      \
+        .name  = name,                            \
+        .start = start,                           \
+        .end   = end,                             \
+        .flag  = flag,                            \ 
+    }
 
 static inline u8_t read8(virtaddr_t addr)
 {

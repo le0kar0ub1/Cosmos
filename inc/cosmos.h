@@ -13,6 +13,7 @@
 # include <kernel/def/def.h>
 # include <kernel/def/bitfield.h>
 # include <kernel/def/ksymtab.h>
+# include <kernel/def/access.h>
 # include <kernel/io/port.h>
 # include <kernel/io/mem.h
 # include <kernel/drivers/drivers.h>
