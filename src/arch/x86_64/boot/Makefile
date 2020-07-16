@@ -12,4 +12,5 @@ local = $(CALLED_LOCAL_DIRECTORY)
 TARGET_OBJECTS	+= $(addprefix $(local),	\
 						mbhdr.o				\
 						boot.o				\
+						bssclear.o			\
 					)
