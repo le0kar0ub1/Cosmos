@@ -8,9 +8,22 @@ SECTIONS
 {
     . = __KERNEL_VIRT_LINK;
 
+    /*
+    ** Ensure multiboot header is at the very beginning
+    */
     .multiboot ALIGN(0x1000) : AT(ADDR(.multiboot) - __KERNEL_ADDR_TRNS)
     {
         *(.multiboot)
+    }
+
+    /*
+    ** Ensure that these datas are at the beginning
+    */
+    .bootstrap ALIGN(0x1000) : AT(ADDR(.bootstrap) - __KERNEL_ADDR_TRNS)
+    {
+        *(.boot.text)
+        *(.boot.data)
+        *(.boot.rodata)
     }
 
     .text ALIGN(0x1000) : AT(ADDR(.text) - __KERNEL_ADDR_TRNS)
@@ -20,6 +33,9 @@ SECTIONS
         PROVIDE(__end_text_ = .);
     }
 
+    /*
+    ** section initcalls, used to register functions to call by init level
+    */
     .initcall ALIGN(0x8) : AT(ADDR(.initcall) - __KERNEL_ADDR_TRNS)
     {
         PROVIDE(__initcall_start = .);
@@ -67,6 +83,9 @@ SECTIONS
         PROVIDE(__initcall_end = .);
     }
 
+    /*
+    ** section inithook, used to register functions wich will be init each hook level
+    */
     .inithook ALIGN(0x8) : AT(ADDR(.inithook) - __KERNEL_ADDR_TRNS)
     {
         PROVIDE(__inithook_start = .);
@@ -93,6 +112,9 @@ SECTIONS
         PROVIDE(__inithook_end = .);
     }
 
+    /*
+    ** mark physical memory areas as system-reserved
+    */
     .pmm_reserved_area ALIGN(0x8) : AT(ADDR(.pmm_reserved_area) - __KERNEL_ADDR_TRNS)
     {
         PROVIDE(__pmm_reserved_area_start = .);

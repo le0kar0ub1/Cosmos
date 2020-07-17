@@ -13,33 +13,40 @@
 
 .section .text
 
-
 /*
-** Paging Set up
+** Bootstrap paging set up
 */
 .global setup_paging
 .type setup_paging, @function
 setup_paging:
     /* 
     ** new-meta recursive mapping hosted in index 510 PML4
-    ** idk if the idea is relevant but no solution to host the kernel in higher half
     */
     mov $V2P(kernel_pml4), %eax
     orl $(MMU_PRESENT | MMU_WRITABLE), %eax
     mov $V2P(kernel_pml4), %edi
     movl %eax, (__RECURSIVE_MAPPING_IDX * 8)(%edi)
 
+    /*
+    ** PDP in PML4 index
+    */
     mov $V2P(kernel_page_directory_pointer), %eax
     orl $(MMU_PRESENT | MMU_WRITABLE), %eax
     mov %eax, V2P(.kernel_plm4_kernel_entry)
     mov %eax, V2P(kernel_pml4)
 
+    /*
+    ** PD in PDP index
+    */
     mov $V2P(kernel_page_directory), %eax
     orl $(MMU_PRESENT | MMU_WRITABLE), %eax
     mov $V2P(kernel_page_directory_pointer), %edi
     movl %eax, (KERNEL_PDP_INDEX_START * 8)(%edi)
     movl %eax, (%edi)
 
+    /*
+    ** PT in PD index
+    */
     mov $V2P(kernel_page_table), %eax
     orl $(MMU_PRESENT | MMU_WRITABLE), %eax
     mov $V2P(kernel_page_directory), %edi
@@ -51,6 +58,10 @@ setup_paging:
         addl $PAGE_TOTAL_SZ, %eax
         addl $0x8, %edi
         loop .loop_pd
+
+    /*
+    ** Physical address in PT index
+    */
     mov $V2P(kernel_page_table), %edi
     xorl %edx, %edx
     movl $(40 * PAGE_ENTRY_NBR), %ecx
@@ -62,6 +73,9 @@ setup_paging:
         addl $8, %edi
         loop .loop_page
 
+    /*
+    ** load PML4 in cr3
+    */
     mov $V2P(kernel_pml4), %eax
     movl %eax, %cr3
 

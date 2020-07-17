@@ -23,6 +23,9 @@
 .global ia32_start
 .type ia32_start, @function
 ia32_start:
+    /*
+    ** Load GDT segments in segments register
+    */
     movw $KERNEL_DATA_SELECTOR, %ax
     movw %ax, %ds
     movw %ax, %ss
@@ -30,6 +33,9 @@ ia32_start:
     movw %ax, %fs
     movw %ax, %gs
 
+    /*
+    ** Jump in higher half using absolute jump
+    */
     lea .higher_half, %rax
     jmp *%rax
     .higher_half:

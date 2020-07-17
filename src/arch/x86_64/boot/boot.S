@@ -16,31 +16,49 @@
 .global _start
 .type _start, @function
 _start:
+    /*
+    ** Clear interrupt & direction flag
+    */
     cli
     cld
+    /*
+    ** physical stack loading
+    */
     mov $V2P(bootstrap_stack_top), %esp
 
     pushl %ebx # phys multiboot structure
 
+    /*
+    ** Some sanity checks,
+    ** All theses features are required
+    */
     call multiboot_sanity
     call cpuid_detect
     call ia32e_detect
 
-
+    /*
+    ** Bootstrap paging setup
+    */
     call setup_paging
 
+    /*
+    ** Load gdt ptr
+    */
     mov $V2P(gdtptr_phys), %eax
     lgdt (%eax)
 
     popl %ebx
+    /*
+    ** Update code selector
+    */
     ljmp $KERNEL_CODE_SELECTOR, $(ia32_start - __KERNEL_ADDR_TRNS)
 
     /* 
     ** in case of return, deadloop
     */
-    deadloop:
+    .deadloop:
         hlt
-        jmp deadloop
+        jmp .deadloop
 
 .section .bss
 

@@ -11,6 +11,10 @@
 
 .section .multiboot, "awdx"
 
+/*
+** The multiboot header, the bootloader need to found it at the very beginning.
+** To ensure that's the case, let's allocate a section.
+*/
 .balign 4
 multiboot_header:
     .4byte 0xE85250D6                 # magic

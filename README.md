@@ -47,11 +47,11 @@ A configured *QEMU* run is provided.
 
 let's go again.
 
-- [ ] Kernel loaded higher-half
+- [X] Kernel loaded higher-half
 - [ ] Boot
   - [ ] Multiboot 2
-  - [ ] Paging setup
-  - [ ] GDT setup
+  - [X] Paging setup
+  - [X] GDT setup
   - [ ] IDT setup
   - [ ] TSS setup
   - [ ] SMP init
