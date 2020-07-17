@@ -1,0 +1,11 @@
+*.h     linguist-language=c
+*.c     linguist-language=c
+
+*.md    text
+
+*.o     binary
+*.so    binary
+*.a     binary
+*.out   binary
+*.bin   binary
+*.iso   binary

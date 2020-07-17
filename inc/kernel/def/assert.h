@@ -13,7 +13,7 @@
 # include <kernel/def/status.h>
 
 # include <stdarg.h>
-static inline panic(char const *s, ...) {}
+static inline void panic(char const *s, ...) {}
 
 # define assert(expr)                                           \
     if (unlikely(!(expr))) {                                    \
