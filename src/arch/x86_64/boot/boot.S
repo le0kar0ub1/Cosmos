@@ -22,17 +22,17 @@ _start:
 
     pushl %ebx # phys multiboot structure
 
-    call multioot_sanity
+    call multiboot_sanity
     call cpuid_detect
     call ia32e_detect
 
-    // call setup_paging
+    call setup_paging
 
-    // LV2P $gdtptr_phys, %eax
-    // lgdt (%eax)
+    mov V2P(gdtptr_phys), %eax
+    lgdt (%eax)
 
-    // popl %ebx
-    // ljmp $KERNEL_CODE_SELECTOR, $(ia32_start - __KERNEL_ADDR_TRNS)
+    popl %ebx
+    ljmp $KERNEL_CODE_SELECTOR, $(ia32_start - __KERNEL_ADDR_TRNS)
 
     /* 
     ** in case of return, deadloop

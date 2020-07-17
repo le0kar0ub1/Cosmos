@@ -9,5 +9,5 @@
 
 local := $(CALLED_LOCAL_DIRECTORY)
 
-sinclude $(local)/boot/Makefile
-sinclude $(local)/descriptors/Makefile
+sinclude $(local)/boot/Makefile	\
+		 $(local)/descriptors/Makefile

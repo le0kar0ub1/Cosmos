@@ -23,9 +23,9 @@
 /*
 ** multiboot checkup
 */
-.global multioot_sanity
-.type multioot_sanity, @function
-multioot_sanity:
+.global multiboot_sanity
+.type multiboot_sanity, @function
+multiboot_sanity:
     mov V2P(_err_multiboot), %esi
     cmp $0x36d76289, %eax
     jne boot_crash
