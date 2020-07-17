@@ -14,6 +14,10 @@
 # include <stddef.h>
 # include <stdbool.h>
 
+/*
+** types shortcuts
+*/
+
 typedef unsigned char       uchar;
 typedef unsigned short      ushort;
 typedef unsigned int        uint;
@@ -51,6 +55,10 @@ typedef uintptr *       archp_t;
 
 typedef struct { volatile int counter; } atomic_t;
 
+/*
+** c11 keyword shortcuts
+*/
+
 # define restrict        __restrict
 # define __pure          __attribute__((pure))
 # define __const         __attribute__((const))
@@ -67,8 +75,14 @@ typedef struct { volatile int counter; } atomic_t;
 # define __unexpected(x) __builtin_expect((x), 0)
 # define __optimize(x)   __attribute__((optimize(x)))
 
+/*
+** align and keep given type 
+*/
 # define ALIGN(x, y)     ((typeof(x))(((uintptr)(x) + ((y) - 1)) & ~((y) - 1)))
 
-# define __bootsec(x)    __section("."##x".boot")
+/*
+** Generate code in boot section 
+*/
+# define __bootsec(x)    __section(".boot."##x)
 
 #endif /* _COSMOS_DEF_H_ */

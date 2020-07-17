@@ -50,5 +50,6 @@ static inline u64_t CLEAR_QUAD(u64_t val, u8_t bit)
 static inline u64_t SET_QUAD(u64_t val, u8_t bit)
 {
     return (val | (1 << bit));
+}
 
 #endif /* _BITFIELD_H_ */

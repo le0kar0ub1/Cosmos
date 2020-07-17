@@ -17,7 +17,7 @@
 
 /*
 ** init ia32e
-** reaload values
+** reload values
 ** jump into kernel main
 */
 .global ia32_start

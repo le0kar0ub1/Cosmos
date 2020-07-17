@@ -10,6 +10,9 @@
 #ifndef _STATUS_H_
 # define _STATUS_H_
 
+/*
+** Cosmos kernel status
+*/
 enum status {
     OK = 0,
 

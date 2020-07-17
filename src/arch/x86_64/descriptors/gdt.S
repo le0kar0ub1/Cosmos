@@ -31,7 +31,7 @@ gdtptr_phys:
 .global gdt
 gdt:
 gdt_start:
-    # NUll Selector
+    # NULL Selector
     .4byte 0
     .4byte 0
 
@@ -71,6 +71,7 @@ gdt_start:
     # Space for TSS
      #
 
+    # NULL selector
     .4byte 0
     .4byte 0
 gdt_end:

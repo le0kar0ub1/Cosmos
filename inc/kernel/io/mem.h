@@ -13,6 +13,9 @@
 # include <kernel/def/def.h>
 # include <kernel/def/access.h>
 
+/*
+** A memory area
+*/
 struct memory_area {
     char const    *name;
     physaddr_t    start;
@@ -25,8 +28,8 @@ struct memory_area {
         .name  = name,                            \
         .start = start,                           \
         .end   = end,                             \
-        .flag  = flag,                            \ 
-    }
+        .flag  = flag                             \
+    };
 
 static inline u8_t read8(virtaddr_t addr)
 {

@@ -12,6 +12,9 @@
 
 # include <kernel/def/def.h>
 
+/*
+** A defined port
+*/
 struct io_port {
     char const *name;
     ushort port;
