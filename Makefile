@@ -42,8 +42,8 @@ else
     QEMUOPT = -serial stdio 
 endif
 .PHONY: run
-run:	iso
+run: iso
 	qemu-system-x86_64 -cdrom $(TARGET_BASE_PATH)/debug/$(TARGET_ISOKRN) 	\
 						$(QEMUOPT)											\
 						-m 4G												\
-						#-enable-kvm										\
+						-enable-kvm											\

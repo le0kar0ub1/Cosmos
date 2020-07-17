@@ -26,7 +26,7 @@
 .global multiboot_sanity
 .type multiboot_sanity, @function
 multiboot_sanity:
-    mov V2P(_err_multiboot), %esi
+    mov $V2P(_err_multiboot), %esi
     cmp $0x36d76289, %eax
     jne boot_crash
     ret
@@ -53,7 +53,7 @@ cpuid_detect:
     cmp %ecx, %eax
     jne cpuid_detected
 
-    mov V2P(_err_cpuid), %esi
+    mov $V2P(_err_cpuid), %esi
     call boot_crash
 cpuid_detected:
     ret
@@ -76,7 +76,7 @@ ia32e_detect:
     jz noLongMode
     ret
     noLongMode:
-        mov V2P(_err_nolm), %esi
+        mov $V2P(_err_nolm), %esi
         call boot_crash
 
 /*

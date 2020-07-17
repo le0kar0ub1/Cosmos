@@ -21,28 +21,28 @@
 .type setup_paging, @function
 setup_paging:
     /* 
-    ** dafuck recursive mapping hosted in index 510 PML4
+    ** new-meta recursive mapping hosted in index 510 PML4
+    ** idk if the idea is relevant but no solution to host the kernel in higher half
     */
-    mov V2P(kernel_pml4), %eax
+    mov $V2P(kernel_pml4), %eax
     orl $(MMU_PRESENT | MMU_WRITABLE), %eax
-    mov V2P(kernel_pml4), %edi
+    mov $V2P(kernel_pml4), %edi
     movl %eax, (__RECURSIVE_MAPPING_IDX * 8)(%edi)
 
-    mov V2P(kernel_page_directory_pointer), %eax
+    mov $V2P(kernel_page_directory_pointer), %eax
     orl $(MMU_PRESENT | MMU_WRITABLE), %eax
     mov %eax, V2P(.kernel_plm4_kernel_entry)
-    mov %eax,V2P(kernel_pml4)
+    mov %eax, V2P(kernel_pml4)
 
-    hlt
-    mov V2P(kernel_page_directory), %eax
+    mov $V2P(kernel_page_directory), %eax
     orl $(MMU_PRESENT | MMU_WRITABLE), %eax
-    mov V2P(kernel_page_directory_pointer), %edi
+    mov $V2P(kernel_page_directory_pointer), %edi
     movl %eax, (KERNEL_PDP_INDEX_START * 8)(%edi)
     movl %eax, (%edi)
 
-    mov V2P(kernel_page_table), %eax
+    mov $V2P(kernel_page_table), %eax
     orl $(MMU_PRESENT | MMU_WRITABLE), %eax
-    mov V2P(kernel_page_directory), %edi
+    mov $V2P(kernel_page_directory), %edi
     movl %eax, (%edi)
     addl $(KERNEL_PD_INDEX_START * 8), %edi
     movl $40, %ecx
@@ -51,7 +51,7 @@ setup_paging:
         addl $PAGE_TOTAL_SZ, %eax
         addl $0x8, %edi
         loop .loop_pd
-    mov V2P(kernel_page_table), %edi
+    mov $V2P(kernel_page_table), %edi
     xorl %edx, %edx
     movl $(40 * PAGE_ENTRY_NBR), %ecx
     .loop_page:
@@ -62,7 +62,7 @@ setup_paging:
         addl $8, %edi
         loop .loop_page
 
-    mov V2P(kernel_pml4), %eax
+    mov $V2P(kernel_pml4), %eax
     movl %eax, %cr3
 
     # PAE & GP

@@ -46,4 +46,4 @@ ia32_start:
     // movq $multiboot_virtaddr, %rax
     movq %rbx, (%rax) # in our multiboot parser file
 
-    // jmp kernelmain
+    jmp kmain

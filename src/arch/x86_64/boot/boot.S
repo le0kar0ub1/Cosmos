@@ -18,7 +18,7 @@
 _start:
     cli
     cld
-    movl V2P(bootstrap_stack_top), %esp
+    mov $V2P(bootstrap_stack_top), %esp
 
     pushl %ebx # phys multiboot structure
 
@@ -26,9 +26,10 @@ _start:
     call cpuid_detect
     call ia32e_detect
 
+
     call setup_paging
 
-    mov V2P(gdtptr_phys), %eax
+    mov $V2P(gdtptr_phys), %eax
     lgdt (%eax)
 
     popl %ebx
