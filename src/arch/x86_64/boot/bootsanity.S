@@ -23,9 +23,9 @@
 /*
 ** multiboot checkup
 */
-.global sanity_multiboot
-.type sanity_multiboot, @function
-sanity_multiboot:
+.global multioot_sanity
+.type multioot_sanity, @function
+multioot_sanity:
     mov V2P(_err_multiboot), %esi
     cmp $0x36d76289, %eax
     jne boot_crash
@@ -62,9 +62,9 @@ cpuid_detected:
 ** Check if long mode is supported
 ** fatal feature
 */
-.global lm_ckeckup
-.type lm_ckeckup, @function
-lm_ckeckup:
+.global ia32e_detect
+.type ia32e_detect, @function
+ia32e_detect:
     mov $0x80000000, %eax
     cpuid
     cmp $0x80000001, %eax
@@ -85,6 +85,6 @@ lm_ckeckup:
 
 .section .rodata
 
-_err_multiboot: .asciz "Invalid multiboot"
-_err_cpuid:     .asciz "CPUID not detected"
+_err_multiboot: .asciz "Non multiboot-compliance"
+_err_cpuid:     .asciz "CPUID feature not detected"
 _err_nolm:      .asciz "long mode not supported"

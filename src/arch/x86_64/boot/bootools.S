@@ -24,13 +24,13 @@ boot_vgaputs:
     .vgaputs_loop:
         movb (%esi), %al
         cmp $0x0, %al
-        je end_vgaputs
+        je .end_vgaputs
         movb $0x4F, 1(%edi)
         movb %al, (%edi)
-        inc %esi
-        add $0x2, %edi
+        incl %esi
+        addl $0x2, %edi
         jmp .vgaputs_loop
-    end_vgaputs:
+    .end_vgaputs:
 
     pop %eax
     pop %edi
@@ -41,3 +41,4 @@ boot_vgaputs:
 boot_crash:
     call boot_vgaputs
     hlt
+    jmp .

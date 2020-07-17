@@ -7,7 +7,8 @@
 ##
 ###############################################################################
 
-local := $(CALLED_LOCAL_DIRECTORY)
+local = $(CALLED_LOCAL_DIRECTORY)
 
-sinclude $(local)/boot/Makefile
-sinclude $(local)/descriptors/Makefile
+TARGET_OBJECTS	+= $(addprefix $(local),	\
+						gdt.o				\
+					)
