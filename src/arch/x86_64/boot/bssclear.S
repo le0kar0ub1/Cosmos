@@ -9,7 +9,7 @@
 
 .code32
 
-#include <arch/x86_64/boot/boot.h>
+# include <arch/x86_64/boot/boot.h>
 
 .extern __PHYS_BSS_START
 .extern __PHYS_BSS_END

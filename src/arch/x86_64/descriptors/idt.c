@@ -12,6 +12,11 @@
 
 static struct x86_64_idt idt = {0};
 
+static struct x86_64_idt_ptr idtptr = {
+    .size   = (16 * 256) - 1,
+    .offset = &idt,
+};
+
 void idt_init(void)
 {
     for (u32_t i = 0; i < 256; i++) {
