@@ -17,8 +17,8 @@
 ** Prepare dispatcher
 */
 .extern interrupt_dispatch
-.global interrupt_handler
-interrupt_handler:
+.global x86_64_interrupt_handler
+x86_64_interrupt_handler:
     pushq %rbp
     pushq %rdi
     pushq %rsi
