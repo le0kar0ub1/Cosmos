@@ -21,6 +21,7 @@
 setup_paging:
     /* 
     ** new-meta recursive mapping hosted in index 510 PML4
+    ** Eh ?
     */
     mov $V2P(kernel_pml4), %eax
     orl $(MMU_PRESENT | MMU_WRITABLE), %eax
@@ -95,7 +96,7 @@ setup_paging:
     orl $((1 << 31) | (1 << 16) | (1 << 0)), %eax
     movl %eax, %cr0
 
-    # flush TLB
+    # flush TLB, not really needed
     movl %cr3, %eax
     movl %eax, %cr3
 
@@ -103,6 +104,7 @@ setup_paging:
 
 /*
 ** Early Kernel paging data
+** names are explicit
 */
 
 .section .data

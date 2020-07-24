@@ -54,8 +54,6 @@ mkdir -p $PREFIX || exit 1
 download "$GNU_MIRROR/binutils/binutils-$BIN_VERSION.tar.xz"
 download "$GNU_MIRROR/gcc/gcc-$GCC_VERSION/gcc-$GCC_VERSION.tar.xz"
 
-# TODO: Checksums
-
 run "Extract binutils-$BIN_VERSION.tar.xz" tar xf binutils-$BIN_VERSION.tar.xz &> build.log
 run "Extract gcc-$GCC_VERSION.tar.xz" tar xf gcc-$GCC_VERSION.tar.xz &> build.log
 

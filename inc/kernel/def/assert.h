@@ -12,6 +12,12 @@
 
 # include <kernel/def/status.h>
 
+# define static_assert(expr)                             \
+    _Static_assert(                                      \
+        expr,                                            \
+        "assert(" #expr ") failed (file: " __FILE__ ")"  \
+    )
+
 # include <stdarg.h>
 static inline void panic(char const *s, ...) {}
 

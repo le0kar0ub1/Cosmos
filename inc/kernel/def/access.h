@@ -14,7 +14,8 @@
 ** Access privilege flags, usable everywhere
 */
 
-enum access_flag {
+enum access_flag
+{
     A   = 0b1000,
     R   = 0b0100,
     W   = 0b0010,
