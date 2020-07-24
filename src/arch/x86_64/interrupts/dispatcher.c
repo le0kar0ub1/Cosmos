@@ -1,5 +1,5 @@
-/********************************************************************************
-** 
+/******************************************************************************\
+**
 **  This file is part of the Cosmos project, and is made available under
 **  the terms of the GNU General Public License version 3.
 **
@@ -7,10 +7,9 @@
 **
 \******************************************************************************/
 
-# include <cosmos.h>
+# include <arch/x86_64/interrupts/interrupts.h>
 
-void kmain(void);
-void kmain(void)
+void interrupt_dispatch(void)
 {
-    while (1);
+    
 }

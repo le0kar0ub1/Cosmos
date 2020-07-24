@@ -17,7 +17,6 @@
 /*
 ** types shortcuts
 */
-
 typedef unsigned char       uchar;
 typedef unsigned short      ushort;
 typedef unsigned int        uint;
@@ -58,7 +57,6 @@ typedef struct { volatile int counter; } atomic_t;
 /*
 ** c11 keyword shortcuts
 */
-
 # define restrict        __restrict
 # define __pure          __attribute__((pure))
 # define __const         __attribute__((const))
@@ -68,8 +66,8 @@ typedef struct { volatile int counter; } atomic_t;
 # define __unused        __attribute__((unused))
 # define __packed        __attribute__((packed))
 # define __weak          __attribute__((weak))
-# define __aligned(x)    __attribute__((aligned (x)))
-# define __section(s)    __attribute__((section (s)))
+# define __aligned(x)    __attribute__((aligned(x)))
+# define __section(s)    __attribute__((section(s)))
 # define __noreturn      __attribute__((noreturn))
 # define __expected(x)   __builtin_expect((x), 1)
 # define __unexpected(x) __builtin_expect((x), 0)
@@ -83,6 +81,6 @@ typedef struct { volatile int counter; } atomic_t;
 /*
 ** Generate code in boot section 
 */
-# define __bootsec(x)    __section(".boot."##x)
+# define __bootsection(x)    __section(".boot."#x)
 
 #endif /* _COSMOS_DEF_H_ */

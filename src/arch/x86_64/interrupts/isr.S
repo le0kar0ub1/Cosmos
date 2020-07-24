@@ -53,7 +53,7 @@ x86_64_interrupt_handler:
 
     mov %rsp, %rdi
 
-    // call interrupt_dispatch
+    call interrupt_dispatch
 
     popq %rax
     mov %ax, %gs
