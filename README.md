@@ -6,6 +6,8 @@ Another birth of a x86_64 kernel named COSmOS (yeah, word count double).
 
   * `make` (dev under v4.3)
   * `grub-mkrescue` (dev under v2.04)
+  * `mtools` (GNU mtools) (dev under 4.0.24)
+  * `libisoburn`
 
 ## Install
 
