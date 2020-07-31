@@ -57,7 +57,7 @@ export CCFLAGS	=	-isystem $(PROJECT_PATH)/inc		\
 					-Wwrite-strings						\
 					-Wparentheses						\
 					-Wunreachable-code					\
-					-Wunused							\
+					-Wno-unused							\
 					-Wmissing-field-initializers		\
 					-Wswitch-enum						\
 					-Wshadow				 			\

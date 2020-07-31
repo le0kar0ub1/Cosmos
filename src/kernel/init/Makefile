@@ -9,6 +9,7 @@
 
 local = $(CALLED_LOCAL_DIRECTORY)
 
-sinclude $(local)/core/Makefile				\
-		 $(local)/drivers/Makefile			\
-		 $(local)/init/Makefile				\
+TARGET_OBJECTS	+= $(addprefix $(local),	\
+						initcalls.o			\
+						inithooks.o			\
+					)

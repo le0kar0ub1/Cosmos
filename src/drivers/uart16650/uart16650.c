@@ -11,7 +11,10 @@
 # include <kernel/init/initcalls.h>
 # include <kernel/drivers/drivers.h>
 
-REGISTER_IO_PORT(uart16650_com1, 0x3f8);
+REGISTER_IO_PORT(uart16650_com1, 0x3F8);
+REGISTER_IO_PORT(uart16650_com2, 0x2F8);
+REGISTER_IO_PORT(uart16650_com3, 0x3E8);
+REGISTER_IO_PORT(uart16650_com4, 0x2E8);
 
 /*
 ** check if we can receive char from COM
@@ -24,7 +27,7 @@ static uchar uart16650_received(void)
 /*
 ** read a char on the COM port
 */
-static char read_uart16650(void)
+static uchar uart16650_read(void)
 {
     while (uart16650_received() == 0);
     return inb(&uart16650_com1, 0);
@@ -33,7 +36,7 @@ static char read_uart16650(void)
 /*
 ** chech if the COM is empty
 */
-static uchar is_transmit_empty(void)
+static uchar uart16650_is_transmit_empty(void)
 {
     return inb(&uart16650_com1, 5) & 0x20;
 }
@@ -43,7 +46,7 @@ static uchar is_transmit_empty(void)
 */
 static void write_uart16650(char val)
 {
-    while (is_transmit_empty() == 0);
+    while (uart16650_is_transmit_empty() == 0);
     outb(&uart16650_com1, 0, val);
 }
 
