@@ -12,13 +12,13 @@
 /*
 ** Get the given driver name
 */
-char const * driver_name(const struct driver *driver)
+char const *driver_name(const struct driver *driver)
 {
     return (driver->name);
 }
 
 /*
-** probe the given probe
+** probe the given driver
 */
 void driver_probe(const struct driver *driver)
 {
@@ -26,7 +26,7 @@ void driver_probe(const struct driver *driver)
 }
 
 /*
-** remove the given remove
+** remove the given driver
 */
 void driver_remove(const struct driver *driver)
 {
@@ -34,7 +34,7 @@ void driver_remove(const struct driver *driver)
 }
 
 /*
-** suspend the given suspend
+** suspend the given driver
 */
 void driver_suspend(const struct driver *driver)
 {
@@ -42,7 +42,7 @@ void driver_suspend(const struct driver *driver)
 }
 
 /*
-** resume the given resume
+** resume the given driver
 */
 void driver_resume(const struct driver *driver)
 {

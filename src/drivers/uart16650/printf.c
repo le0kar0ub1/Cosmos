@@ -7,15 +7,17 @@
 **
 \******************************************************************************/
 
-#ifndef _DRIVER__UART1650_H_
-# define _DRIVER__UART1650_H_
+# include <drivers/uart16650.h>
 
-# include <cosmos.h>
+void uart16650_printf(char const *fmt, ...)
+{
+    __builtin_va_list ap;
+    __builtin_va_start(ap, fmt);
+    generic_vprintf(uart16650_szputs, NULL, fmt, ap);
+    __builtin_va_end(ap);
+}
 
-void uart1650_printf(char const *fmt, ...);
-void uart1650_vprintf(char const *fmt, __builtin_va_list ap);
-
-void uart1650_szputs(char const *s, size_t sz);
-void uart1650_puts(char const *s);
-
-#endif /* _DRIVER__UART1650_H_ */
+void uart16650_vprintf(char const *fmt, __builtin_va_list ap)
+{
+    generic_vprintf(uart16650_szputs, NULL, fmt, ap);
+}

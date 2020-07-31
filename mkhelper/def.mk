@@ -44,7 +44,6 @@ export GRUB_CONFIG		:=	src/arch/$(ARCH)/grub.cfg
 export CCFLAGS	=	-isystem $(PROJECT_PATH)/inc		\
 					-Wall								\
 					-MD									\
-					-pipe 								\
 					-Wcast-align					    \
 					-Wextra				 				\
 					-Wnested-externs					\
@@ -68,11 +67,16 @@ export CCFLAGS	=	-isystem $(PROJECT_PATH)/inc		\
 					-Wmissing-prototypes				\
 					-Wstrict-prototypes					\
 					-Wpointer-arith						\
-					-static 							\
 					-fms-extensions 					\
 					-fno-omit-frame-pointer 			\
+					-mno-red-zone						\
+					-fno-builtin						\
 					-m64 								\
 					-mgeneral-regs-only 				\
+					-march=x86-64						\
+					-static 							\
+					-O2									\
+	  	  			#-mcmodel=large 					\
 
 # Some macros
 CCFLAGS			+=	-D PROJECT=$(PROJECT)							\

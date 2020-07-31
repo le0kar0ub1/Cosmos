@@ -28,10 +28,10 @@ struct driver
         .resume  = vresume,                                          \
     };
 
-char const *driver_name(const struct driver *driver);
-void driver_probe(const struct driver *driver);
-void driver_remove(const struct driver *driver);
-void driver_suspend(const struct driver *driver);
-void driver_resume(const struct driver *driver);
+char const *driver_name(const struct driver *);
+void driver_probe(const struct driver *);
+void driver_remove(const struct driver *);
+void driver_suspend(const struct driver *);
+void driver_resume(const struct driver *);
 
 #endif /* _DRIVERS_H_ */

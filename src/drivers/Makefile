@@ -10,4 +10,4 @@
 local = $(CALLED_LOCAL_DIRECTORY)
 
 sinclude $(local)/vga/Makefile				\
-		 $(local)/uart1650/Makefile			\
+		 $(local)/uart16650/Makefile			\

@@ -1,3 +1,4 @@
+OUTPUT_FORMAT(elf64-x86-64);
 ENTRY(_start)
 
 PROVIDE(__KERNEL_ADDR_TRNS = 0xFFFFFFFF80000000);
@@ -13,7 +14,7 @@ SECTIONS
     */
     .multiboot ALIGN(0x1000) : AT(ADDR(.multiboot) - __KERNEL_ADDR_TRNS)
     {
-        *(.multiboot)
+        KEEP(*(.multiboot))
     }
 
     /*
@@ -120,6 +121,26 @@ SECTIONS
         PROVIDE(__pmm_reserved_area_start = .);
         KEEP(*(.pmm_reserved_area));
         PROVIDE(__pmm_reserved_area_end = .);
+    }
+
+    /*
+    ** register used io port
+    */
+    .cosmos_io_port ALIGN(0x8) : AT(ADDR(.cosmos_io_port) - __KERNEL_ADDR_TRNS)
+    {
+        PROVIDE(__cosmos_io_port_start = .);
+        KEEP(*(.cosmos_io_port));
+        PROVIDE(__cosmos_io_port_end = .);
+    }
+
+    /*
+    ** mark physical memory areas as system-reserved
+    */
+    .cosmos_io_mem ALIGN(0x8) : AT(ADDR(.cosmos_io_mem) - __KERNEL_ADDR_TRNS)
+    {
+        PROVIDE(__cosmos_io_mem_start = .);
+        KEEP(*(.cosmos_io_mem));
+        PROVIDE(__cosmos_io_mem_end = .);
     }
 
     .rodata ALIGN(0x1000) : AT(ADDR(.rodata) - __KERNEL_ADDR_TRNS)

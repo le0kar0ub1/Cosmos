@@ -9,7 +9,7 @@
 
 .code32
 
-.section .multiboot, "awdx"
+.section ".multiboot", "awdx"
 
 /*
 ** The multiboot header, the bootloader need to found it at the very beginning.

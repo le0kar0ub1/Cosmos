@@ -20,12 +20,12 @@ struct pmm_reserved_area
     physaddr_t end;
 };
 
-# define REGISTER_PMM_RESERVED_AREA(name, start, end)                                            \
-    static const struct pmm_reserved_area const _pmm_reserved_area_##n                           \
-    __attribute__((__used__, __aligned__(sizeof(void *)), __section__("pmm_reserved_area")))  {  \
-        .name = name,                                                                            \
-        .start = start,                                                                          \
-        .end = end,                                                                              \
+# define REGISTER_PMM_RESERVED_AREA(mname, mstart, mend)                                      \
+    __attribute__((__used__, __aligned__(sizeof(void *)), __section__("pmm_reserved_area")))  \
+    static const struct pmm_reserved_area const _pmm_reserved_area_##mname = {                \
+        .name = mname,                                                                        \
+        .start = mstart,                                                                      \
+        .end = mend,                                                                          \
     }
 
 # define P2V(x) ((uintptr)x + (uintptr)&__KERNEL_ADDR_TRNS)

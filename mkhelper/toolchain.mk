@@ -7,7 +7,7 @@
 ##
 ###############################################################################
 
-export TOOLCHAIN_GNUBASE := # $(PROJECT_PATH)/mktoolchain/toolchain/bin/x86_64-elf-
+export TOOLCHAIN_GNUBASE := $(PROJECT_PATH)/mktoolchain/toolchain/bin/x86_64-elf-
 
 export CC		:=	$(TOOLCHAIN_GNUBASE)gcc
 export AS		:=	$(TOOLCHAIN_GNUBASE)as

@@ -20,17 +20,19 @@ struct io_port {
     ushort port;
 };
 
-# define REGISTER_IO_PORT(pname, vport)     \
-    static const struct io_port pname = {   \
-        .name = #pname,                     \
-        .port = vport,                      \
-    };                                      \
+# define REGISTER_IO_PORT(pname, vport)                          \
+    __aligned(sizeof(void *)) __used __section("cosmos_io_port") \
+    static const struct io_port const pname = {                  \
+        .name = #pname,                                          \
+        .port = vport                                            \
+    }
 
 /* read port (byte) */
 static inline uchar inb(const struct io_port *port, ushort offset)
 {
     uchar ret;
-    asm volatile("inb %1, %0" : "=a"(ret) : "d"(port->port + offset));
+    ushort read = port->port + offset;
+    asm volatile("inb %1, %0" : "=a"(ret) : "d"(read));
     return (ret);
 }
 
@@ -53,7 +55,8 @@ static inline uint ind(const struct io_port *port, ushort offset)
 /* write port (byte) */
 static inline void outb(const struct io_port *port, ushort offset, uchar data)
 {
-    asm volatile("outb %0, %1" :: "a"(data), "d"(port->port + offset));
+    ushort read = port->port + offset;
+    asm volatile("outb %0, %1" :: "a"(data), "d"(read));
 }
 
 /* write port (word) */

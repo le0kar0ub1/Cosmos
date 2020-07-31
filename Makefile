@@ -44,6 +44,6 @@ endif
 .PHONY: run
 run: iso
 	qemu-system-x86_64 -cdrom $(TARGET_BASE_PATH)/debug/$(TARGET_ISOKRN) 	\
-						-enable-kvm											\
 						-m 4G												\
 						$(QEMUOPT)											\
+						-enable-kvm											\
