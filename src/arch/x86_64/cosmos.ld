@@ -138,13 +138,23 @@ SECTIONS
     }
 
     /*
-    ** mark physical memory areas as system-reserved
+    ** mark and flag a memory area
     */
     .cosmos_io_mem ALIGN(0x8) : AT(ADDR(.cosmos_io_mem) - __KERNEL_ADDR_TRNS)
     {
         PROVIDE(__cosmos_io_mem_start = .);
         KEEP(*(.cosmos_io_mem));
         PROVIDE(__cosmos_io_mem_end = .);
+    }
+
+    /*
+    ** Cosmos specific datas
+    */
+    .cosmos ALIGN(0x8) : AT(ADDR(.cosmos) - __KERNEL_ADDR_TRNS)
+    {
+        PROVIDE(__cosmos_start = .);
+        KEEP(*(.cosmos));
+        PROVIDE(__cosmos_end = .);
     }
 
     .rodata ALIGN(0x1000) : AT(ADDR(.rodata) - __KERNEL_ADDR_TRNS)

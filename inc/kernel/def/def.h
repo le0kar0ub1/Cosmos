@@ -77,8 +77,27 @@ typedef uintptr *       archp_t;
 # define ALIGN(x, y)     ((typeof(x))(((uintptr)(x) + ((y) - 1)) & ~((y) - 1)))
 
 /*
-** Generate code in boot section 
+** Generate the following data in boot section 
 */
-# define __bootsection(x)    __section(".boot."#x)
+# define __boot_section(x)    __section(".boot."#x)
+
+/*
+** Generate the following data in cosmos section 
+*/
+struct cosmos_data {
+    u32_t blksize;
+    u32_t datasize;
+    void *data;
+    char const *name;
+} __packed;
+
+# define REGISTER_COSMOS_DATA(xname, xdata, xdatasize)          \
+    __section(".cosmos") __used                                 \
+    static const struct cosmos_data const xname = {             \
+        .blksize = sizeof(#xname) + sizeof(void *) + xdatasize, \
+        .datasize = xdatasize,                                  \
+        .data = xdata,                                          \
+        .name = #xname                                          \
+    }
 
 #endif /* _COSMOS_DEF_H_ */

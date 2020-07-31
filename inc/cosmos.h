@@ -22,6 +22,4 @@
 # include <kernel/drivers/drivers.h>
 # include <kconfig.h>
 
-# define COSMOS_SIGNATURE 0xC05A05
-
 #endif /* _COSMOS_H_ */

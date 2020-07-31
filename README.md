@@ -51,7 +51,7 @@ let's go again.
 
 - [X] Kernel loaded higher-half
 - [ ] Boot
-  - [ ] Multiboot 2
+  - [X] Multiboot 2
   - [X] Paging setup
   - [X] GDT setup
   - [ ] IDT setup
