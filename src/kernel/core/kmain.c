@@ -9,10 +9,14 @@
 
 # include <cosmos.h>
 # include <arch/x86_64/descriptors/idt.h>
+# include <kernel/init/inithooks.h>
+# include <kernel/init/initcalls.h>
 
 void kmain(void);
 
 void kmain(void)
 {
+    run_boot_initcalls();
+    uart16650_puts("hello world");
     while (1);
 }

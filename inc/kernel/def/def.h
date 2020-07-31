@@ -52,8 +52,6 @@ typedef uintptr_t       physaddr_t;
 typedef uintptr         archv_t;
 typedef uintptr *       archp_t;
 
-typedef struct { volatile int counter; } atomic_t;
-
 /*
 ** c11 keyword shortcuts
 */

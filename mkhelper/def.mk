@@ -71,12 +71,14 @@ export CCFLAGS	=	-isystem $(PROJECT_PATH)/inc		\
 					-fno-omit-frame-pointer 			\
 					-mno-red-zone						\
 					-fno-builtin						\
-					-m64 								\
-					-mgeneral-regs-only 				\
 					-march=x86-64						\
 					-static 							\
 					-O2									\
-	  	  			#-mcmodel=large 					\
+					-fno-tree-loop-vectorize 			\
+					-fno-tree-slp-vectorize				\
+					-m64 								\
+					-mgeneral-regs-only 				\
+	  	  			-mcmodel=large 						\
 
 # Some macros
 CCFLAGS			+=	-D PROJECT=$(PROJECT)							\
