@@ -12,20 +12,26 @@
 
 struct driver
 {
-    char *name;
+    char const *name;
     void (*probe)(void);
     void (*remove)(void);
     void (*suspend)(void);
     void (*resume)(void);
 };
 
-# define REGISTER_DRIVER(name, probe, remove, suspend, resume)  \
-    static const struct driver name = {                         \
-        .name    = name,                                        \
-        .probe   = probe,                                       \
-        .remove  = remove,                                      \
-        .suspend = suspend,                                     \
-        .resume  = resume,                                      \
+# define REGISTER_DRIVER(vname, vprobe, vremove, vsuspend, vresume)  \
+    static const struct driver name = {                              \
+        .name    = vname,                                            \
+        .probe   = vprobe,                                           \
+        .remove  = vremove,                                          \
+        .suspend = vsuspend,                                         \
+        .resume  = vresume,                                          \
     };
+
+char const *driver_name(const struct driver *driver);
+void driver_probe(const struct driver *driver);
+void driver_remove(const struct driver *driver);
+void driver_suspend(const struct driver *driver);
+void driver_resume(const struct driver *driver);
 
 #endif /* _DRIVERS_H_ */

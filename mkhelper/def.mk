@@ -63,8 +63,6 @@ export CCFLAGS	=	-isystem $(PROJECT_PATH)/inc		\
 					-Wswitch-enum						\
 					-Wshadow				 			\
 					-fno-stack-protector				\
-					-m64 								\
-					-mgeneral-regs-only 				\
 					-Wuninitialized				 		\
 					-Wmissing-declarations				\
 					-Wmissing-prototypes				\
@@ -73,6 +71,8 @@ export CCFLAGS	=	-isystem $(PROJECT_PATH)/inc		\
 					-static 							\
 					-fms-extensions 					\
 					-fno-omit-frame-pointer 			\
+					-m64 								\
+					-mgeneral-regs-only 				\
 
 # Some macros
 CCFLAGS			+=	-D PROJECT=$(PROJECT)							\
@@ -81,8 +81,8 @@ CCFLAGS			+=	-D PROJECT=$(PROJECT)							\
 					-D ARCH=$(ARCH)									\
 
 export LDFLAGS	=   -nostdlib							\
-					-lgcc								\
 					-z max-page-size=0x1000				\
+					-lgcc								\
 
 # Output color
 export Red			:= \e[0;31m

@@ -20,10 +20,52 @@ struct io_port {
     ushort port;
 };
 
-# define REGISTER_IO_PORT(name, port)       \
-    static const struct io_port name = {    \
-        .name = name,                       \
-        .port = port,                       \
+# define REGISTER_IO_PORT(pname, vport)     \
+    static const struct io_port pname = {   \
+        .name = #pname,                     \
+        .port = vport,                      \
     };                                      \
+
+/* read port (byte) */
+static inline uchar inb(const struct io_port *port, ushort offset)
+{
+    uchar ret;
+    asm volatile("inb %1, %0" : "=a"(ret) : "d"(port->port + offset));
+    return (ret);
+}
+
+/* read port (word) */
+static inline ushort inw(const struct io_port *port, ushort offset)
+{
+    ushort ret;
+    asm volatile("inw %1, %0" : "=a"(ret) : "d"(port->port + offset));
+    return (ret);
+}
+
+/* read port (double) */
+static inline uint ind(const struct io_port *port, ushort offset)
+{
+    uint ret;
+    asm volatile("inl %1, %0" : "=a"(ret) : "d"(port->port + offset));
+    return (ret);
+}
+
+/* write port (byte) */
+static inline void outb(const struct io_port *port, ushort offset, uchar data)
+{
+    asm volatile("outb %0, %1" :: "a"(data), "d"(port->port + offset));
+}
+
+/* write port (word) */
+static inline void outw(const struct io_port *port, ushort offset, ushort data)
+{
+    asm volatile("outw %0, %1" :: "a"(data), "d"(port->port + offset));
+}
+
+/* write port (double) */
+static inline void outd(const struct io_port *port, ushort offset, uint data)
+{
+    asm volatile("outl %0, %1" :: "a"(data), "d"(port->port + offset));
+}
 
 #endif /* _PORT_H_ */

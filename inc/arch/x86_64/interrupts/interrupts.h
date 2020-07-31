@@ -65,7 +65,7 @@ enum interruptsNumber
     MAX_INT                 = 0x100,
 };
 
-struct intframe
+struct interrupt_frame
 {
     uintptr_t gs;
     uintptr_t fs;
@@ -99,6 +99,6 @@ struct intframe
     uintptr_t ss;
 };
 
-void interrupt_dispatch(void);
+void interrupt_dispatch(struct interrupt_frame *);
 
 #endif /* _ARCH_x86_64_INTERRUPTS_H_ */

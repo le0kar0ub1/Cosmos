@@ -8,9 +8,14 @@
 \******************************************************************************/
 
 # include <cosmos.h>
+# include <arch/x86_64/descriptors/idt.h>
 
 void kmain(void);
+
 void kmain(void)
 {
+    int a = 0;
+    a = a / a;
+    // idt_init();
     while (1);
 }

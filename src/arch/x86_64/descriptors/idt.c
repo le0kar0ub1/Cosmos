@@ -30,6 +30,7 @@ struct x86_64_idt_ptr const idtptr = {
 
 /*
 ** Fill in all gates with the ISR handler & setup types
+** load the idtptr
 */
 void idt_init(void)
 {

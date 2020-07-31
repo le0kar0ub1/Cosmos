@@ -9,7 +9,7 @@
 
 # include <arch/x86_64/interrupts/interrupts.h>
 
-void interrupt_dispatch(void)
+void interrupt_dispatch(struct interrupt_frame *frame __unused)
 {
-    
+    while(1);
 }

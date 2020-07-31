@@ -9,5 +9,5 @@
 
 local = $(CALLED_LOCAL_DIRECTORY)
 
-sinclude $(local)/vga/Makefile				\
-		 $(local)/uart1650/Makefile			\
+TARGET_OBJECTS	+= $(addprefix $(local),	\
+					)

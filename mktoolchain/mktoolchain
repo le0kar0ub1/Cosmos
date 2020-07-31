@@ -2,8 +2,8 @@
 
 ### Environment ################################################################
 GNU_MIRROR="https://ftp.gnu.org/gnu"
-GCC_VERSION="9.2.0"
-BIN_VERSION="2.32"
+GCC_VERSION="10.1.0"
+BIN_VERSION="2.35"
 
 SOURCE=$(dirname $(dirname $(realpath $0)))
 printf "[\e[36;1mTOOL\e[0m] Toolchain Builder\n"

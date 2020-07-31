@@ -9,6 +9,5 @@
 
 local = $(CALLED_LOCAL_DIRECTORY)
 
-TARGET_OBJECTS	+= $(addprefix $(local),	\
-						kmain.o				\
-					)
+sinclude $(local)/core/Makefile				\
+		 $(local)/drivers/Makefile			\
