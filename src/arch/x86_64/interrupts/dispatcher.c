@@ -14,6 +14,10 @@
 */
 void interrupt_dispatch(struct interrupt_frame *frame __unused)
 {
-    uart16650_puts("interrupted");
-    while(1);
+    void (*handler)(struct interrupt_frame *) = interrupt_get_handler_from_index(frame->int_num);
+
+    if (handler)
+        handler(frame);
+    else
+        exceptions_handler(frame);
 }

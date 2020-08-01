@@ -12,13 +12,12 @@
 # include <kernel/init/inithooks.h>
 # include <kernel/init/initcalls.h>
 
+# include <arch/x86_64/asm.h>
+
 /*
 ** Kernel main setup
 */
 void kmain(void);
-
-# include <arch/x86_64/asm.h>
-
 void kmain(void)
 {
     run_boot_initcalls();
