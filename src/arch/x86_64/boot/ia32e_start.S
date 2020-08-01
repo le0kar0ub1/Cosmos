@@ -12,6 +12,7 @@
 .code64
 
 .extern bootstrap_stack_bot
+.extern idt_init
 
 .section .text
 
@@ -51,5 +52,8 @@ ia32_start:
     pushq %rbx
     // movq $multiboot_virtaddr, %rax
     movq %rbx, (%rax) # in our multiboot parser file
+
+    # initialize IDT
+    callq idt_init
 
     jmp kmain

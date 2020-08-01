@@ -14,9 +14,13 @@
 
 void kmain(void);
 
+# include <arch/x86_64/asm.h>
+
 void kmain(void)
 {
     run_boot_initcalls();
     uart16650_puts("hello world");
+    // sti();
+    asm volatile("int $0x0");
     while (1);
 }

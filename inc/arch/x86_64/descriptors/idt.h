@@ -17,11 +17,11 @@
 
 struct x86_64_idt_gate
 {
-   u16_t offset_1  : 16;  // offset bits 0..15
-   u16_t selector  : 16;  // a code segment selector in GDT or LDT
-   u8_t  ist       : 3;   // holds Interrupt Stack Table offset.
-   u8_t  _zero1    : 5;
-   union {
+    u16_t offset_1  : 16;  // offset bits 0..15
+    u16_t selector  : 16;  // a code segment selector in GDT or LDT
+    u8_t  ist       : 3;   // holds Interrupt Stack Table offset.
+    u8_t  _zero1    : 5;
+    union {
         struct {
             u8_t GateType  : 4;
             u8_t Zero      : 1;
@@ -30,9 +30,9 @@ struct x86_64_idt_gate
         };
         u8_t attribs : 8;
     };
-   u16_t offset_2  : 16;  // offset bits 16..31
-   u32_t offset_3  : 32;  // offset bits 32..63
-   u32_t _zero2    : 32;
+    u16_t offset_2  : 16;  // offset bits 16..31
+    u32_t offset_3  : 32;  // offset bits 32..63
+    u32_t _zero2    : 32;
 } __packed;
 
 static_assert(sizeof(struct x86_64_idt_gate) == 16ul);

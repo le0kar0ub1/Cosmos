@@ -11,5 +11,6 @@
 
 void interrupt_dispatch(struct interrupt_frame *frame __unused)
 {
+    uart16650_puts("interrupted");
     while(1);
 }

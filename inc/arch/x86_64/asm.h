@@ -59,6 +59,14 @@ static inline unsigned short xchg_16(void *ptr, unsigned short x)
     return x;
 }
 
+static inline uint xchg(uint volatile *addr, uint newval)
+{
+    uint res;
+
+    asm volatile("lock xchgl %0, %1;" : "+m"(*addr), "=a"(res) : "1"(newval) : "cc");
+    return (res);
+}
+
 /* Test and set a bit */
 static inline char atomic_bitsetandtest(void *ptr, int x)
 {
@@ -253,14 +261,6 @@ static inline void pause(void)
 static inline void interrupt(uchar vector)
 {
     asm volatile("int %0" :: "i"(vector));
-}
-
-static inline uint xchg(uint volatile *addr, uint newval)
-{
-    uint res;
-
-    asm volatile("lock xchgl %0, %1;" : "+m"(*addr), "=a"(res) : "1"(newval) : "cc");
-    return (res);
 }
 
 static inline uint64 read_rflags(void)
