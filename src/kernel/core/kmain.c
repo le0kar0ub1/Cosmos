@@ -19,8 +19,6 @@ void kmain(void);
 void kmain(void)
 {
     run_boot_initcalls();
-    uart16650_puts("hello world");
-    // sti();
-    asm volatile("int $0x0");
+    uart16650_puts("hello world\n");
     while (1);
 }

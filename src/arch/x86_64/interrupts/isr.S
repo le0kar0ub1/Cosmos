@@ -13,14 +13,42 @@
 
 .section .text
 
+.align 16
+.global x86_64_isr
+.type x86_64_isr, @function
+x86_64_isr:
+.set i, 0
+.rept 256
+    .align 16
+    .if (i == 8 || (i >= 10 && i <= 14) || i == 17)
+        nop
+        nop
+        .byte 0x68      // `push imm` opcode
+        .byte i
+        .byte 0
+        .byte 0
+        .byte 0
+        jmp x86_64_interrupt_wrp_common
+    .else
+        pushq $0        // Fake error code
+        .byte 0x68      // `push imm` opcode
+        .byte i
+        .byte 0
+        .byte 0
+        .byte 0
+        jmp x86_64_interrupt_wrp_common
+    .endif
+    .set i, i + 1
+.endr
+
 /*
 ** Prepare dispatcher
 */
 .extern interrupt_dispatch
-.global x86_64_isr
-.type x86_64_isr, @function
-x86_64_isr:
-    hlt
+
+.global x86_64_interrupt_wrp_common
+.type x86_64_interrupt_wrp_common, @function
+x86_64_interrupt_wrp_common:
     pushq %rbp
     pushq %rdi
     pushq %rsi

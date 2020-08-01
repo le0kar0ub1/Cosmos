@@ -18,20 +18,21 @@ extern void x86_64_isr(void);
 */
 __aligned(16)
 struct x86_64_idt_gate idt[MAX_INT] = {
-     {
-         0,
-         KERNEL_CODE_SELECTOR,
-         0,
-         0,
+    {
+        0,
+        KERNEL_CODE_SELECTOR,
+        0,
+        0,
             DESCRIPTORS_INTERRUPT_GATE_64,
             0,
             DPL_LEVEL_KERNEL,
             true,
-         0,
-         0,
-         0
+        0,
+        0,
+        0
     }
 };
+
 
 static_assert(sizeof(idt) == (MAX_INT * sizeof(struct x86_64_idt_gate)));
 
@@ -50,14 +51,20 @@ struct x86_64_idt_ptr const idtptr = {
 */
 void idt_init(void)
 {
+    uintptr_t handler = (uintptr_t)x86_64_isr;
     for (u32_t i = 0; i < MAX_INT; i++)
     {
-        idt[i].offset_1 = (u16_t)(((uintptr_t)x86_64_isr >> 00ul) & 
-            ((1ul << 16ul) - 1ul));        
-        idt[i].offset_2 = (u16_t)(((uintptr_t)x86_64_isr >> 16ul) &
+        idt[i].offset_1 = (u16_t)((handler >> 00ul) & 
             ((1ul << 16ul) - 1ul));
-        idt[i].offset_3 = (u32_t)(((uintptr_t)x86_64_isr >> 32ul) &
+        idt[i].selector = KERNEL_CODE_SELECTOR;
+            idt[i].GateType = DESCRIPTORS_INTERRUPT_GATE_64;
+            idt[i].DPL      = DPL_LEVEL_KERNEL;
+            idt[i].Present  = true;
+        idt[i].offset_2 = (u16_t)((handler >> 16ul) &
+            ((1ul << 16ul) - 1ul));
+        idt[i].offset_3 = (u32_t)((handler >> 32ul) &
             ((1ul << 32ul) - 1ul));
+        handler += 0x10;
     }
     asm volatile (
         "lidt idtptr"
