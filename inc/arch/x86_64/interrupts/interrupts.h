@@ -101,4 +101,10 @@ struct interrupt_frame
 
 void interrupt_dispatch(struct interrupt_frame *);
 
+void interrupt_register_handler(uint, void (*)(struct interrupt_frame *));
+void interrupt_unregister_handler(uint);
+void *interrupt_get_handler_from_index(uint);
+
+void exceptions_handler(struct interrupt_frame *);
+
 #endif /* _ARCH_x86_64_INTERRUPTS_H_ */

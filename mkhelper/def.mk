@@ -78,6 +78,7 @@ export CCFLAGS	=	-isystem $(PROJECT_PATH)/inc		\
 					-fno-tree-slp-vectorize				\
 					-m64 								\
 					-mgeneral-regs-only 				\
+					-Wno-override-init					\
 	  	  			-mcmodel=large 						\
 
 # Some macros

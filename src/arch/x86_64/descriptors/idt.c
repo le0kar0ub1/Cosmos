@@ -11,8 +11,6 @@
 # include <arch/x86_64/descriptors/descriptors.h>
 # include <arch/x86_64/interrupts/interrupts.h>
 
-extern void x86_64_isr(void);
-
 /*
 ** Entire x86_64 IDT
 */
@@ -33,7 +31,6 @@ struct x86_64_idt_gate idt[MAX_INT] = {
     }
 };
 
-
 static_assert(sizeof(idt) == (MAX_INT * sizeof(struct x86_64_idt_gate)));
 
 /*
@@ -45,6 +42,8 @@ struct x86_64_idt_ptr const idtptr = {
     .offset = &(*idt),
 };
 
+extern void x86_64_isr(void);
+
 /*
 ** Fill in all gates with the ISR handler & setup types
 ** load the idtptr
@@ -52,20 +51,21 @@ struct x86_64_idt_ptr const idtptr = {
 void idt_init(void)
 {
     uintptr_t handler = (uintptr_t)x86_64_isr;
-    for (u32_t i = 0; i < MAX_INT; i++)
+    u32_t gate = 0x0;
+
+    while (gate < MAX_INT)
     {
-        idt[i].offset_1 = (u16_t)((handler >> 00ul) & 
-            ((1ul << 16ul) - 1ul));
-        idt[i].selector = KERNEL_CODE_SELECTOR;
-            idt[i].GateType = DESCRIPTORS_INTERRUPT_GATE_64;
-            idt[i].DPL      = DPL_LEVEL_KERNEL;
-            idt[i].Present  = true;
-        idt[i].offset_2 = (u16_t)((handler >> 16ul) &
-            ((1ul << 16ul) - 1ul));
-        idt[i].offset_3 = (u32_t)((handler >> 32ul) &
-            ((1ul << 32ul) - 1ul));
+        idt[gate].offset_1 = (u16_t)((handler >> 00ul) & ((1ul << 16ul) - 1ul));
+        idt[gate].selector = KERNEL_CODE_SELECTOR;
+            idt[gate].GateType = DESCRIPTORS_INTERRUPT_GATE_64;
+            idt[gate].DPL      = DPL_LEVEL_KERNEL;
+            idt[gate].Present  = true;
+        idt[gate].offset_2 = (u16_t)((handler >> 16ul) & ((1ul << 16ul) - 1ul));
+        idt[gate].offset_3 = (u32_t)((handler >> 32ul) & ((1ul << 32ul) - 1ul));
         handler += 0x10;
+        gate += 0x1;
     }
+
     asm volatile (
         "lidt idtptr"
     );

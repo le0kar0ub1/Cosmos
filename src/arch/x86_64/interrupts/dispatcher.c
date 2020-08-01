@@ -9,6 +9,9 @@
 
 # include <arch/x86_64/interrupts/interrupts.h>
 
+/*
+** Dispatch interrupt, come from common ISR
+*/
 void interrupt_dispatch(struct interrupt_frame *frame __unused)
 {
     uart16650_puts("interrupted");

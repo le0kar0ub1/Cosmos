@@ -12,4 +12,6 @@ local = $(CALLED_LOCAL_DIRECTORY)
 TARGET_OBJECTS	+= $(addprefix $(local),	\
 						isr.o				\
 						dispatcher.o		\
+						specific-handlers.o	\
+						exceptions.o		\
 					)
