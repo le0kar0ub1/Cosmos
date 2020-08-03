@@ -118,16 +118,6 @@ SECTIONS
     }
 
     /*
-    ** mark physical memory areas as system-reserved
-    */
-    .pmm_reserved_area ALIGN(0x8) : AT(ADDR(.pmm_reserved_area) - __KERNEL_ADDR_TRNS)
-    {
-        PROVIDE(__pmm_reserved_area_start = .);
-        KEEP(*(.pmm_reserved_area));
-        PROVIDE(__pmm_reserved_area_end = .);
-    }
-
-    /*
     ** register used io port
     */
     .cosmos_io_port ALIGN(0x8) : AT(ADDR(.cosmos_io_port) - __KERNEL_ADDR_TRNS)

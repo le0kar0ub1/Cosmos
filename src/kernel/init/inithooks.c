@@ -23,7 +23,7 @@ extern inithook_t __inithook7[];
 extern inithook_t __inithook8[];
 extern inithook_t __inithook9[];
 
-#define INITHOOK_LEVEL(x)                      \
+# define INITHOOK_LEVEL(x)                      \
     hook = &(*__get_hooklevel(inithook, x));   \
     (*hook)();
 

@@ -13,21 +13,6 @@
 # include <kernel/def/def.h>
 # include <kconfig.h>
 
-struct pmm_reserved_area
-{
-    char const *name;
-    physaddr_t start;
-    physaddr_t end;
-};
-
-# define REGISTER_PMM_RESERVED_AREA(mname, mstart, mend)                                      \
-    __attribute__((__used__, __aligned__(sizeof(void *)), __section__("pmm_reserved_area")))  \
-    static const struct pmm_reserved_area const _pmm_reserved_area_##mname = {                \
-        .name = mname,                                                                        \
-        .start = mstart,                                                                      \
-        .end = mend,                                                                          \
-    }
-
 # define P2V(x) ((uintptr)x + (uintptr)&__KERNEL_ADDR_TRNS)
 # define V2P(x) ((uintptr)x - (uintptr)&__KERNEL_ADDR_TRNS)
 
