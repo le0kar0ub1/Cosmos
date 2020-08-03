@@ -22,6 +22,7 @@ TARGET_OBJECTS :=
 sinclude $(PROJECT_PATH)/src/arch/$(ARCH)/Makefile
 sinclude $(PROJECT_PATH)/src/drivers/Makefile
 sinclude $(PROJECT_PATH)/src/kernel/Makefile
+sinclude $(PROJECT_PATH)/src/lib/Makefile
 
 TARGET_OBJECTS	:=	$(patsubst $(PROJECT_PATH)%, $(TARGET_PATH)%, $(TARGET_OBJECTS))
 TARGET_DEPS		:= 	$(TARGET_OBJECTS:.o=.d)

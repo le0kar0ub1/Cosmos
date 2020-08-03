@@ -14,12 +14,12 @@
 # include <arch/x86_64/asm.h>
 
 /*
-** x86 architecture implementation
+** x86 architecture spinlock implementation
 */
 
 typedef u32_t spinlock_t;
 
-#define SPINLOCK_INIT() 0x0
+# define SPINLOCK_INIT() 0x0
 
 static inline void spinlock_lock(spinlock_t *spinlock)
 {

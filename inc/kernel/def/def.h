@@ -100,4 +100,8 @@ struct cosmos_data {
         .name = #xname                                          \
     }
 
+extern uintptr_t __KERNEL_ADDR_TRNS;
+extern uintptr_t __KERNEL_VIRT_LINK;
+extern uintptr_t __KERNEL_PHYS_LINK;
+
 #endif /* _COSMOS_DEF_H_ */

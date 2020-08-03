@@ -14,7 +14,7 @@ u32_t cosmos_signature_hex = 0xC05A05;
 REGISTER_COSMOS_DATA(
     signature_hex,
     &cosmos_signature_hex,
-    sizeof(u32_t)
+    sizeof(cosmos_signature_hex)
 );
 
 char const *cosmos_signature_char = "Cosmos";
