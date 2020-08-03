@@ -7,8 +7,8 @@
 **
 \******************************************************************************/
 
-#ifndef _DRIVER__VGA_H_
-# define _DRIVER__VGA_H_
+#ifndef _DRIVER_VGA_H_
+# define _DRIVER_VGA_H_
 
 # include <cosmos.h>
 
@@ -56,4 +56,4 @@ void vga_cursor_enable(uint8, uint8);
 void vga_cursor_disable(void);
 uint16 vga_cursor_get_position(void);
 
-#endif /* _DRIVER__VGA_H_ */
+#endif /* _DRIVER_VGA_H_ */

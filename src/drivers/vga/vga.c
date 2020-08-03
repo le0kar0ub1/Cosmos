@@ -12,6 +12,7 @@
 # include <kernel/io/mem.h>
 # include <kernel/io/port.h>
 # include <kernel/mem/memory.h>
+# include <lib/string.h>
 
 REGISTER_IO_PMM(
     vga_buffer,
@@ -106,7 +107,7 @@ static void vga_scroll(void)
 
     if(vga.posy < VGA_HEIGHT - 0x1)
         return;
-    memcpy(vga_buffer.start, start, size);
+    memcpy((void *)vga_buffer.start, start, size);
     start = (void *)(vga_buffer.start + size);
     memsetw(start, vga.attrib | 0x20, VGA_WIDTH);
 }
