@@ -7,8 +7,8 @@
 **
 \******************************************************************************/
 
-#ifndef _LIB_STDIO_H_
-# define _LIB_STDIO_H_
+#ifndef _LIB_STRING_H_
+# define _LIB_STRING_H_
 
 # include <kernel/def/def.h>
 
@@ -24,4 +24,4 @@ bool strcmp(char const *, char const *);
 bool strncmp(char const *, char const *, size_t);
 u32_t strlen(char const *);
 
-#endif /* _LIB_STDIO_H_ */
+#endif /* _LIB_STRING_H_ */

@@ -10,4 +10,5 @@
 local = $(CALLED_LOCAL_DIRECTORY)
 
 TARGET_OBJECTS	+= $(addprefix $(local),		\
+						generic_printf.o		\
 					)

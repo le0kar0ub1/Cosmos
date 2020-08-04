@@ -12,8 +12,14 @@
 # include <kernel/io/mem.h>
 # include <kernel/io/port.h>
 # include <kernel/mem/memory.h>
+# include <kernel/init/initcalls.h>
+# include <kernel/drivers/drivers.h>
 # include <lib/string.h>
 
+/*
+** VGA buffer size below isn't correct
+** in fact we declare here the size used
+*/
 REGISTER_IO_PMM(
     vga_buffer,
     0xB8000,
@@ -31,6 +37,16 @@ static struct vga vga =
     .posx = 0x0,
     .posy = 0x0,
 };
+
+REGISTER_IO_PORT(
+    map_mask_reg,
+    0x3C4
+);
+
+REGISTER_IO_PORT(
+    graphic_mode_reg,
+    0x3CE
+);
 
 REGISTER_IO_PORT(
     crtc_index,
@@ -186,3 +202,22 @@ void vga_puts(char const *s)
     }
     vga_cursor_update();
 }
+
+/*
+** Clear the screen & set the color 
+*/
+static void vga_init(void)
+{
+    vga_set_color(VGA_BLACK, VGA_WHITE);
+    vga_clear();
+}
+
+REGISTER_BOOT_INITCALL(vga_init);
+
+REGISTER_DRIVER(
+    "vga",
+    vga_init,
+    NULL,
+    NULL,
+    NULL
+);

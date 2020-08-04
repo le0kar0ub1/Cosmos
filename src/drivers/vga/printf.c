@@ -7,18 +7,18 @@
 **
 \******************************************************************************/
 
-# include <drivers/uart16650.h>
+# include <drivers/vga.h>
 # include <lib/stdio.h>
 
-void uart16650_printf(char const *fmt, ...)
+void vga_printf(char const *fmt, ...)
 {
     __builtin_va_list ap;
     __builtin_va_start(ap, fmt);
-    generic_vprintf(uart16650_szputs, fmt, ap);
+    generic_vprintf(vga_szputs, fmt, ap);
     __builtin_va_end(ap);
 }
 
-void uart16650_vprintf(char const *fmt, __builtin_va_list ap)
+void vga_vprintf(char const *fmt, __builtin_va_list ap)
 {
-    generic_vprintf(uart16650_szputs, fmt, ap);
+    generic_vprintf(vga_szputs, fmt, ap);
 }

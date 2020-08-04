@@ -8,13 +8,29 @@
 \******************************************************************************/
 
 # include <drivers/uart16650.h>
+# include <arch/x86_64/spinlock.h>
 # include <kernel/init/initcalls.h>
 # include <kernel/drivers/drivers.h>
 
-REGISTER_IO_PORT(uart16650_com1, 0x3F8);
-REGISTER_IO_PORT(uart16650_com2, 0x2F8);
-REGISTER_IO_PORT(uart16650_com3, 0x3E8);
-REGISTER_IO_PORT(uart16650_com4, 0x2E8);
+REGISTER_IO_PORT(
+    uart16650_com1,
+    0x3F8
+);
+
+REGISTER_IO_PORT(
+    uart16650_com2,
+    0x2F8
+);
+
+REGISTER_IO_PORT(
+    uart16650_com3,
+    0x3E8
+);
+
+REGISTER_IO_PORT(
+    uart16650_com4,
+    0x2E8
+);
 
 /*
 ** check if we can receive char from COM
@@ -50,18 +66,18 @@ static void write_uart16650(char val)
     outb(&uart16650_com1, 0, val);
 }
 
-// static spinlock_t lock = SPINLOCK_INIT();
+static spinlock_t lock = SPINLOCK_INIT();
 
-// /*
-// ** the printf callable function 
-// */
-// void uart16650_szputs(char const *s, size_t sz)
-// {
-//     spinlock_lock(&lock);
-//     for (u32_t i = 0x0; s[i] && i < sz; i++)
-//         write_uart16650(s[i]);
-//     spinlock_unlock(&lock);
-// }
+/*
+** the printf callable function 
+*/
+void uart16650_szputs(char const *s, size_t sz)
+{
+    spinlock_lock(&lock);
+    for (u32_t i = 0x0; s[i] && i < sz; i++)
+        write_uart16650(s[i]);
+    spinlock_unlock(&lock);
+}
 
 /*
 ** Must Not Be Used
