@@ -296,4 +296,9 @@ static inline void preempt_dec(void)
     asm volatile("lock decl %%gs:0x18" :: );
 }
 
+static inline void io_delay(void)
+{
+    asm volatile("outb %%al, $0x80" : : "a"(0));
+}
+
 #endif /* _ARCH_x86_64_ASM_H_ */
