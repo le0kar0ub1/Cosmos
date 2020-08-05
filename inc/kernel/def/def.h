@@ -70,6 +70,8 @@ typedef uintptr *       archp_t;
 # define __expected(x)   __builtin_expect((x), 1)
 # define __unexpected(x) __builtin_expect((x), 0)
 # define __optimize(x)   __attribute__((optimize(x)))
+# define likely(x)          __builtin_expect((x), 1)
+# define unlikely(x)        __builtin_expect((x), 0)
 
 /*
 ** align and keep given type 

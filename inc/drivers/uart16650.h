@@ -7,8 +7,8 @@
 **
 \******************************************************************************/
 
-#ifndef _DRIVER__UART16650_H_
-# define _DRIVER__UART16650_H_
+#ifndef _DRIVER_UART16650_H_
+# define _DRIVER_UART16650_H_
 
 # include <cosmos.h>
 

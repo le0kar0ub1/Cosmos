@@ -32,7 +32,6 @@ static void helloFromCosmos(void)
 /*
 ** Kernel main setup
 */
-void kmain(void);
 void kmain(void)
 {
     run_boot_initcalls();

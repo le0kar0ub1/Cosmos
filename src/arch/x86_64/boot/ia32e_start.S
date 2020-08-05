@@ -12,6 +12,7 @@
 .code64
 
 .extern bootstrap_stack_bot
+.extern multiboot_virtaddr
 .extern idt_init
 
 .section .text
@@ -50,7 +51,7 @@ ia32_start:
 
     addq $__KERNEL_ADDR_TRNS, %rbx # mb2 address
     pushq %rbx
-    // movq $multiboot_virtaddr, %rax
+    movq $multiboot_virtaddr, %rax
     movq %rbx, (%rax) # in our multiboot parser file
 
     # initialize IDT

@@ -38,28 +38,28 @@ REGISTER_IO_PORT(
 /*
 ** outb & let a delay
 */
-static void pic_outb(const struct io_port *port, ushort offset, uint8 data)
+static void pic_outb(const struct io_port *port, ushort offset, u8_t data)
 {
     outb(port, offset, data);
     io_delay();
 }
 
-static inline void pic_eoi(uint8 irq)
+static inline void pic_eoi(u8_t irq)
 {
     if(irq > 0x8)
         outb(&pic_slave_command, 0x0, PIC_EOI);
     outb(&pic_master_command, 0x0, PIC_EOI);
 }
 
-static inline void pic_mask(uint8 irq)
+static inline void pic_mask(u8_t irq)
 {
-    uint8 curmask_master = inb(&pic_slave_data, 0x0);
+    u8_t curmask_master = inb(&pic_slave_data, 0x0);
     outb(&pic_master_data, 0x0, curmask_master | (1 << irq));
 }
 
-static inline void pic_unmask(uint8 irq)
+static inline void pic_unmask(u8_t irq)
 {
-    uint8 curmask_master = inb(&pic_master_data, 0x0);
+    u8_t curmask_master = inb(&pic_master_data, 0x0);
     outb(&pic_master_data, 0x0, curmask_master & ~(1 << irq));
 }
 

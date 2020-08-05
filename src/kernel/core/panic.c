@@ -7,15 +7,16 @@
 **
 \******************************************************************************/
 
-#ifndef _KCONFIG_H_
-# define _KCONFIG_H_
+# include <kernel/def/def.h>
+# include <drivers/vga.h>
 
-# define KCONFIG_MMU_PAGESIZE 0x1000
-
-# define KCONFIG_MAXCPUS      0x1
-
-# define KCONFIG_MAXTHREADS   0x20
-
-# define KCONFIG_INITLEVEL    0x9
-
-#endif /* _KCONFIG_H_ */
+__noreturn
+void  panic(char const *fmt, ...)
+{
+    vga_printf("Kernel panicked:\n    ");
+    __builtin_va_list ap;
+    __builtin_va_start(ap, fmt);
+    vga_vprintf(fmt, ap);
+    __builtin_va_end(ap);
+    while (1);
+}

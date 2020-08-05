@@ -22,4 +22,7 @@
 # include <kernel/drivers/drivers.h>
 # include <kconfig.h>
 
+void panic(char const *fmt, ...);
+void kmain(void);
+
 #endif /* _COSMOS_H_ */

@@ -10,16 +10,13 @@
 #ifndef _ASSERT_H_
 # define _ASSERT_H_
 
-# include <kernel/def/status.h>
+# include <cosmos.h>
 
 # define static_assert(expr)                             \
     _Static_assert(                                      \
         expr,                                            \
         "assert(" #expr ") failed (file: " __FILE__ ")"  \
     )
-
-# include <stdarg.h>
-static inline void panic(char const *s, ...) {}
 
 # define assert(expr)                                           \
     if (unlikely(!(expr))) {                                    \

@@ -17,4 +17,5 @@ TARGET_OBJECTS	+= $(addprefix $(local),	\
 						bssclear.o			\
 						ia32e_start.o		\
 						map.o				\
+						multiboot2.o		\
 					)
