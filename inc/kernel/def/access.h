@@ -7,8 +7,8 @@
 **
 \******************************************************************************/
 
-#ifndef _ACCESS_H_
-# define _ACCESS_H_
+#ifndef _KERNEL_DEF_ACCESS_H_
+# define _KERNEL_DEF_ACCESS_H_
 
 /*
 ** Access privilege flags, usable everywhere
@@ -16,6 +16,7 @@
 
 enum access_flag
 {
+    Nop = 0b0000,
     A   = 0b1000,
     R   = 0b0100,
     W   = 0b0010,
@@ -31,4 +32,4 @@ typedef enum access_flag access_flag_t;
 # define IS_WRITABLE(x)   (x & W)
 # define IS_EXECUTABLE(x) (x & X)
 
-#endif /* _ACCESS_H_ */
+#endif /* _KERNEL_DEF_ACCESS_H_ */

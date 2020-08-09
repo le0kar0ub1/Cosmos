@@ -7,8 +7,8 @@
 **
 \******************************************************************************/
 
-#ifndef _INITHOOKS_H_
-# define _INITHOOKS_H_
+#ifndef _KERNEL_INIT_INITHOOKS_H_
+# define _KERNEL_INIT_INITHOOKS_H_
 
 typedef void (*inithook_t)(void);
 
@@ -34,4 +34,4 @@ typedef void (*inithook_t)(void);
 void run_inithooks(void);
 void run_inithooks_bylevel(void);
 
-#endif /* _INITHOOKS_H_ */
+#endif /* _KERNEL_INIT_INITHOOKS_H_ */

@@ -7,8 +7,8 @@
 **
 \******************************************************************************/
 
-#ifndef _STATUS_H_
-# define _STATUS_H_
+#ifndef _KERNEL_DEF_STATUS_H_
+# define _KERNEL_DEF_STATUS_H_
 
 /*
 ** Cosmos kernel status
@@ -21,4 +21,4 @@ enum status {
 
 typedef enum status status_t;
 
-#endif /* _STATUS_H_ */
+#endif /* _KERNEL_DEF_STATUS_H_ */

@@ -24,5 +24,6 @@
 
 void panic(char const *fmt, ...);
 void kmain(void);
+void boot_hook(void);
 
 #endif /* _COSMOS_H_ */

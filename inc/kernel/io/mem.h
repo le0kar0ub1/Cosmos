@@ -7,8 +7,8 @@
 **
 \******************************************************************************/
 
-#ifndef _IOMEM_H_
-# define _IOMEM_H_
+#ifndef _KERNEL_IO_MEM_H_
+# define _KERNEL_IO_MEM_H_
 
 # include <kernel/def/def.h>
 # include <kernel/def/access.h>
@@ -72,4 +72,4 @@ static inline void write64(virtaddr_t addr, u64_t value)
     *((volatile u64_t *)(addr)) = value;
 }
 
-#endif /* _IOMEM_H_ */
+#endif /* _KERNEL_IO_MEM_H_ */

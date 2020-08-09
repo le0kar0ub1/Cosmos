@@ -7,8 +7,8 @@
 **
 \******************************************************************************/
 
-#ifndef _INITCALLS_H_
-# define _INITCALLS_H_
+#ifndef _KERNEL_INIT_INITCALLS_H_
+# define _KERNEL_INIT_INITCALLS_H_
 
 # include <kernel/def/def.h>
 
@@ -47,4 +47,4 @@ void run_initcall_level(u8_t);
 # define run_gui_initcalls()        run_initcall_level(8)
 # define run_last_initcalls()       run_initcall_level(9)
 
-#endif /* _INITCALLS_H_ */
+#endif /* _KERNEL_INIT_INITCALLS_H_ */

@@ -7,8 +7,8 @@
 **
 \******************************************************************************/
 
-#ifndef _KSYMTAB_H_
-# define _KSYMTAB_H_
+#ifndef _KERNEL_DEF_KSYMTAB_H_
+# define _KERNEL_DEF_KSYMTAB_H_
 
 # include <kernel/def/def.h>
 
@@ -30,4 +30,4 @@ struct symbol_t
 char const *__symbol_get_name(void *);
 void *__symbol_get_addr(const char *);
 
-#endif /* _KSYMTAB_H_ */
+#endif /* _KERNEL_DEF_KSYMTAB_H_ */

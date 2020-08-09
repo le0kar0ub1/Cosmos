@@ -1,5 +1,5 @@
 /********************************************************************************
-** 
+**
 **  This file is part of the Cosmos project, and is made available under
 **  the terms of the GNU General Public License version 3.
 **
@@ -7,19 +7,25 @@
 **
 \******************************************************************************/
 
-# include <cosmos.h>
-# include <arch/x86_64/descriptors/idt.h>
 # include <kernel/init/inithooks.h>
 # include <kernel/init/initcalls.h>
-# include <drivers/uart16650.h>
-# include <arch/x86_64/asm.h>
+# include <drivers/vga.h>
+
+extern char const *cosmos_signature_asciiart;
 
 /*
-** Kernel main setup
+** Cosmos signature & acquired start
 */
-void kmain(void)
+static void helloFromCosmos(void)
 {
-    boot_hook();
-    uart16650_puts("hello world\n");
-    while (1);
+    vga_set_color(VGA_BLACK, VGA_LIGHT_BLUE);
+    vga_puts(cosmos_signature_asciiart);
+    vga_set_color(VGA_BLACK, VGA_WHITE);
+    vga_puts("\nkernel init routine...");
+}
+
+void boot_hook(void)
+{
+    run_boot_initcalls();
+    helloFromCosmos();
 }

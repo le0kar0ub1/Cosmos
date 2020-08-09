@@ -10,8 +10,5 @@
 local = $(CALLED_LOCAL_DIRECTORY)
 
 TARGET_OBJECTS	+= $(addprefix $(local),	\
-						kmain.o				\
-						panic.o				\
+						boothook.o			\
 					)
-
-sinclude $(local)/hooks/Makefile

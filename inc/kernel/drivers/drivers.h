@@ -7,8 +7,8 @@
 **
 \******************************************************************************/
 
-#ifndef _DRIVERS_H_
-# define _DRIVERS_H_
+#ifndef _KERNEL_DRIVERS_H_
+# define _KERNEL_DRIVERS_H_
 
 struct driver
 {
@@ -34,4 +34,4 @@ void driver_remove(const struct driver *);
 void driver_suspend(const struct driver *);
 void driver_resume(const struct driver *);
 
-#endif /* _DRIVERS_H_ */
+#endif /* _KERNEL_DRIVERS_H_ */

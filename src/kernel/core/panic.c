@@ -11,7 +11,7 @@
 # include <drivers/vga.h>
 
 __noreturn
-void  panic(char const *fmt, ...)
+void panic(char const *fmt, ...)
 {
     vga_printf("Kernel panicked:\n    ");
     __builtin_va_list ap;

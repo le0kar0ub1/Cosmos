@@ -17,7 +17,7 @@
 ** x86 architecture spinlock implementation
 */
 
-typedef u32_t spinlock_t;
+typedef volatile u32_t spinlock_t;
 
 # define SPINLOCK_INIT() 0x0
 

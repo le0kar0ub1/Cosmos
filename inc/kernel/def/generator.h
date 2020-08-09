@@ -7,8 +7,8 @@
 **
 \******************************************************************************/
 
-#ifndef _GENERATOR_H_
-# define _GENERATOR_H_
+#ifndef _KERNEL_DEF_GENERATOR_H_
+# define _KERNEL_DEF_GENERATOR_H_
 
 # include <kernel/def/def.h>
 
@@ -22,4 +22,4 @@
 
 # define ARCH_FUNCTION_ALIASING(x) __alias(STRINGIFY(ARCH_FUNCTION_MAPPING(x)))
 
-#endif /* _GENERATOR_H_ */
+#endif /* _KERNEL_DEF_GENERATOR_H_ */
