@@ -87,7 +87,7 @@ physaddr_t pmm_alloc_frame(void)
         idx++;
     }
     spinlock_unlock(&lock);
-    panic("Running out of physical memory");
+    cosmos_panic(ERR_PMM_OUT_OF_MEMORY);
     return ((physaddr_t)0x0);
 }
 

@@ -16,10 +16,12 @@
 
 /*
 ** Kernel main setup
+** In fact, due to the kernel architecture,
+** we just run preprocessors inithooks -> initcalls by level
 */
 void kmain(void)
 {
-    boot_hook();
+    run_inithooks();
     uart16650_puts("hello world\n");
     while (1);
 }

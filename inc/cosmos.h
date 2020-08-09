@@ -22,8 +22,9 @@
 # include <kernel/drivers/drivers.h>
 # include <kconfig.h>
 
-void panic(char const *fmt, ...);
 void kmain(void);
-void boot_hook(void);
+void panic(char const *fmt, ...);
+
+# define cosmos_panic(x) panic(STRINGIFY(x))
 
 #endif /* _COSMOS_H_ */

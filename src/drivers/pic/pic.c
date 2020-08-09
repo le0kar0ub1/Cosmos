@@ -13,7 +13,7 @@
 # include <arch/x86_64/interrupts/interrupts.h>
 # include <arch/x86_64/asm.h>
 
-#define PIC_EOI 0x20
+# define PIC_EOI 0x20
 
 REGISTER_IO_PORT(
     pic_master_command,

@@ -16,6 +16,9 @@
 enum status {
     OK = 0,
 
+    ERR_PMM_OUT_OF_MEMORY,
+    ERR_VMM_ALREADY_MAPPED,
+
     ERR_FATAL,
 };
 

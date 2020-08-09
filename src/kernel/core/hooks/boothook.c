@@ -24,8 +24,13 @@ static void helloFromCosmos(void)
     vga_puts("\nkernel init routine...");
 }
 
-void boot_hook(void)
+static void boot_hook(void)
 {
     run_boot_initcalls();
     helloFromCosmos();
+    /*
+    ** The following initializations depend of the first above
+    */
 }
+
+REGISTER_BOOT_INITHOOK(boot_hook);
