@@ -50,22 +50,24 @@ A configured *QEMU* run is provided.
 let's go again.
 
 - [X] Kernel loaded higher-half
-- [ ] Boot
+- [ ] Kernel architecture
+- [ ] Boot(strap)
   - [X] Multiboot 2
   - [X] Paging setup
   - [X] GDT setup
-  - [ ] IDT setup
+  - [X] IDT setup
+  - [X] Interrupts
   - [ ] TSS setup
   - [ ] SMP init
 - [ ] Early drivers
-  - [ ] VGA
-  - [ ] UART
+  - [X] VGA
+  - [X] UART
   - [ ] Timer
 - [ ] Memory
-  - [ ] Physical Memory Management
+  - [X] Physical Memory Management
   - [ ] Virtual Memory Management
+  - [ ] kernel allocator
   - [ ] Memory Abstractor
-  - [ ] Kernel heap
 - [ ] ELF Loader
 - [ ] Syscall interface and userspace
 - [ ] Middle driver

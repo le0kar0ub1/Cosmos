@@ -14,7 +14,10 @@
 # include <arch/x86_64/boot/multiboot2.h>
 # include <lib/string.h>
 
-/* Map the totality of the memory */
+/* 
+** static memory map
+** (hope) will be a pmm bootstrap 
+*/
 static u8_t bitmap[PMM_BITMAP_SIZE];
 
 static spinlock_t lock = SPINLOCK_INIT();
@@ -63,15 +66,14 @@ void pmm_mark_range_frame_as_free(physaddr_t start, physaddr_t end)
 /*
 ** Alloc ONE frame and return his address
 */
-physaddr_t pmm_alloc_frame(void)
+result_t pmm_alloc_frame(void)
 {
     /*
     ** Begin the research at the address 0x10000
     ** If a block of 8 is non totaly used, then we have found
     */
-    uintptr idx = 0x2;
+    uintptr_t idx = 0x2;
     u8_t  sub;
-
     spinlock_lock(&lock);
     while (idx < PMM_BITMAP_SIZE)
     {
@@ -82,13 +84,22 @@ physaddr_t pmm_alloc_frame(void)
                 sub++;
             bitmap[idx] |= 1 << sub;
             spinlock_unlock(&lock);
-            return ((idx * 8 + sub) * KCONFIG_MMU_PAGESIZE);
+            return (
+                (result_t) {
+                    RESULT_OK,
+                    (idx * 8 + sub) * KCONFIG_MMU_PAGESIZE
+                }
+            );
         }
         idx++;
     }
     spinlock_unlock(&lock);
-    cosmos_panic(ERR_PMM_OUT_OF_MEMORY);
-    return ((physaddr_t)0x0);
+    return (
+        (result_t) {
+            RESULT_ERR,
+            ERR_PMM_OUT_OF_MEMORY
+        }
+    );
 }
 
 /*
@@ -102,8 +113,8 @@ void pmm_free_frame(physaddr_t frame)
     spinlock_unlock(&lock);
 }
 
-extern uintptr __KERNEL_PHYS_END;
-extern uintptr __KERNEL_PHYS_LINK;
+extern uintptr_t __KERNEL_PHYS_END;
+extern uintptr_t __KERNEL_PHYS_LINK;
 
 static void pmm_init(void)
 {
@@ -125,7 +136,7 @@ static void pmm_init(void)
                 ALIGN(mmap->addr + mmap->len, KCONFIG_MMU_PAGESIZE)
             );
         }
-        mmap = (struct multiboot_mmap_entry const *)((uintptr)mmap + multiboot.mmap_entry_size);
+        mmap = (struct multiboot_mmap_entry const *)((uintptr_t)mmap + multiboot.mmap_entry_size);
     }
     /*
     ** We will so mark it as reserved and all between 0x0000000 and 0x000FFFFF
