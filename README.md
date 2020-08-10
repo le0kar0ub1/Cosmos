@@ -11,7 +11,7 @@ Another birth of a x86_64 kernel named COSmOS (yeah, word count double).
 
 ## Install
 
-Cosmos use his own cross-compiler, build it by executing the following command-line.
+Cosmos use his own cross-compiler with freezed version, build it by executing the following command-line.
 The dependencies are also checked-up.
 
 `./mktoolchain/mktoolchain`
@@ -26,6 +26,8 @@ The only arch-target of Cosmos is x64, then the keyword `TARGET` is used here to
 | release    | build kernel release   |
 
 Inspired from cargo (and others) philosophy.
+
+Defaulting to *debug*.
 
 ### Kernel build
 

@@ -10,6 +10,7 @@
 # include <cosmos.h>
 # include <kernel/mem/pmm.h>
 # include <kernel/init/initcalls.h>
+# include <kernel/io/mem.h>
 # include <arch/x86_64/spinlock.h>
 # include <arch/x86_64/boot/multiboot2.h>
 # include <lib/string.h>
@@ -64,7 +65,7 @@ void pmm_mark_range_frame_as_free(physaddr_t start, physaddr_t end)
 }
 
 /*
-** Alloc ONE frame and return his address
+** Alloc ONE frame and return the address
 */
 result_t pmm_alloc_frame(void)
 {
@@ -86,7 +87,7 @@ result_t pmm_alloc_frame(void)
             spinlock_unlock(&lock);
             return (
                 (result_t) {
-                    RESULT_OK,
+                    OK,
                     (idx * 8 + sub) * KCONFIG_MMU_PAGESIZE
                 }
             );
@@ -96,7 +97,7 @@ result_t pmm_alloc_frame(void)
     spinlock_unlock(&lock);
     return (
         (result_t) {
-            RESULT_ERR,
+            ERR_PMM_OUT_OF_MEMORY,
             ERR_PMM_OUT_OF_MEMORY
         }
     );
@@ -115,6 +116,8 @@ void pmm_free_frame(physaddr_t frame)
 
 extern uintptr_t __KERNEL_PHYS_END;
 extern uintptr_t __KERNEL_PHYS_LINK;
+extern uintptr_t __cosmos_io_mem_start;
+extern uintptr_t __cosmos_io_mem_end;
 
 static void pmm_init(void)
 {
@@ -138,15 +141,33 @@ static void pmm_init(void)
         }
         mmap = (struct multiboot_mmap_entry const *)((uintptr_t)mmap + multiboot.mmap_entry_size);
     }
+
     /*
-    ** We will so mark it as reserved and all between 0x0000000 and 0x000FFFFF
-    ** just to be preserved of using BIOS area memory
+    ** We will mark it as reserved and all between 0x0000000 and 0x000FFFFF
+    ** just to be preserved of using BIOS memory area
     */
     pmm_mark_range_frame_as_allocated(
         0x0u,
         0x100000u
     );
     assert(pmm_is_frame_allocated(0xA0000));
+
+    /*
+    ** All system registered memory area must be marked as allocated
+    */
+    struct memory_area *area = (struct memory_area *)&__cosmos_io_mem_start;
+    while ((uintptr_t)area <= __cosmos_io_mem_end)
+    {
+        if (area->flag == Nop)
+        {
+            pmm_mark_range_frame_as_allocated(
+                ROUND_DOWN(area->start, KCONFIG_MMU_PAGESIZE),
+                ALIGN(area->end, KCONFIG_MMU_PAGESIZE)
+            );
+        }
+        area++;
+    }
+
     /*
     ** Legitimately our kernel is in an available memory segment
     ** We must mark it as allocated

@@ -10,6 +10,10 @@
 # include <kernel/def/def.h>
 # include <drivers/vga.h>
 
+/*
+** Back to basics, kernel panicked.
+*/
+
 __noreturn
 void panic(char const *fmt, ...)
 {

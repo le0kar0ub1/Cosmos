@@ -18,6 +18,7 @@
 ** Kernel main setup
 ** In fact, due to the kernel architecture,
 ** we just run preprocessors inithooks -> initcalls by level
+** So the init code is in src/kernel/core/hooks
 */
 void kmain(void)
 {

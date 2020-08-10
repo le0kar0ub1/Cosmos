@@ -9,10 +9,11 @@
 
 # include <arch/x86_64/interrupts/interrupts.h>
 # include <arch/x86_64/asm.h>
+# include <drivers/uart16650.h>
 
 static char const *exceptions[] =
 {
-    [0x0 ... MAX_INT] = "Unknow interrupt",
+    [0x0 ... MAX_INT] = NULL,
     [0x0]  = "Division By Zero",
     [0x1]  = "Debug",
     [0x2]  = "Non Maskable Interrupt",
@@ -37,6 +38,8 @@ static char const *exceptions[] =
     [0x1E] = "Security exception",
 };
 
+static char const *exceptions_default = "Unknow interrupt";
+
 /*
 ** Print if an exception occured
 ** Then halt the system
@@ -48,7 +51,10 @@ void exceptions_handler(struct interrupt_frame *frame)
     switch (frame->int_num)
     {
     default:
-        // uart16650_printf("Exceptions occured: %s\n", exceptions[frame->int_num]);
+        uart16650_printf(
+            "Exceptions occured: %s\n", 
+            exceptions[frame->int_num] == NULL ? exceptions_default : exceptions[frame->int_num]
+        );
         break;
     }
     hlt();
