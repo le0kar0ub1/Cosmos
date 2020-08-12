@@ -34,21 +34,56 @@ typedef struct result
 } __packed result_t;
 
 /*
-** A set of macro for a simple life
+** Is the result an ERR
 */
 # define RESULT_IS_ERR(x)       (x.status != OK)
+
+/*
+** Is the result an OK
+*/
 # define RESULT_IS_OK(x)        !(STATUS_IS_ERR(x))
 
+/*
+** Unwrap the result
+*/
 # define UNWRAP(res, type)           \
             (type)(res.result)
 
+/*
+** Propagate if ERR
+*/
 # define RAISE_IF(tgt, res, type)    \
             if (RESULT_IS_ERR(res))  \
                 return (res)
 
+/*
+** Unwrap if OK or propagate if ERR
+*/
 # define UNWRAP_OR_RAISE(tgt, res, type)    \
             if (RESULT_IS_ERR(res))         \
                 return (res);               \
             type tgt = UNWRAP(res, type);
+
+/*
+** Return OK as a result
+*/
+# define OK_PROPAGATION(res)            \
+            return (                    \
+                (result_t) {            \
+                    OK,                 \
+                    res                 \
+                }                       \
+            )
+
+/*
+** Return the given ERR as a result 
+*/
+# define ERR_PROPAGATION(err)           \
+            return (                    \
+                (result_t) {            \
+                    err,                \
+                    err                 \
+                }                       \
+            )
 
 #endif /* _KERNEL_DEF_STATUS_H_ */

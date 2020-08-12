@@ -13,9 +13,10 @@
 # include <kernel/init/initcalls.h>
 # include <drivers/uart16650.h>
 # include <arch/x86_64/asm.h>
+# include <lib/krn.h>
 
 /*
-** Kernel main setup
+** Kernel main setup.
 ** In fact, due to the kernel architecture,
 ** we just run preprocessors inithooks -> initcalls by level
 ** So the init code is in src/kernel/core/hooks
@@ -23,6 +24,6 @@
 void kmain(void)
 {
     run_inithooks();
-    uart16650_puts("hello world\n");
+    uart16650_puts("Cosmos initialization done.\n");
     while (1);
 }

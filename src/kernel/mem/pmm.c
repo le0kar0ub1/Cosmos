@@ -74,7 +74,7 @@ result_t pmm_alloc_frame(void)
     ** If a block of 8 is non totaly used, then we have found
     */
     uintptr_t idx = 0x2;
-    u8_t  sub;
+    u8_t sub;
     spinlock_lock(&lock);
     while (idx < PMM_BITMAP_SIZE)
     {
@@ -85,22 +85,12 @@ result_t pmm_alloc_frame(void)
                 sub++;
             bitmap[idx] |= 1 << sub;
             spinlock_unlock(&lock);
-            return (
-                (result_t) {
-                    OK,
-                    (idx * 8 + sub) * KCONFIG_MMU_PAGESIZE
-                }
-            );
+            OK_PROPAGATION(((idx * 8) + sub) * KCONFIG_MMU_PAGESIZE);
         }
         idx++;
     }
     spinlock_unlock(&lock);
-    return (
-        (result_t) {
-            ERR_PMM_OUT_OF_MEMORY,
-            ERR_PMM_OUT_OF_MEMORY
-        }
-    );
+    ERR_PROPAGATION(ERR_PMM_OUT_OF_MEMORY);
 }
 
 /*
@@ -144,7 +134,7 @@ static void pmm_init(void)
 
     /*
     ** We will mark it as reserved and all between 0x0000000 and 0x000FFFFF
-    ** just to be preserved of using BIOS memory area
+    ** just to ensure that the BIOS memory area is preserved
     */
     pmm_mark_range_frame_as_allocated(
         0x0u,
@@ -158,13 +148,10 @@ static void pmm_init(void)
     struct memory_area *area = (struct memory_area *)&__cosmos_io_mem_start;
     while ((uintptr_t)area <= __cosmos_io_mem_end)
     {
-        if (area->flag == Nop)
-        {
-            pmm_mark_range_frame_as_allocated(
-                ROUND_DOWN(area->start, KCONFIG_MMU_PAGESIZE),
-                ALIGN(area->end, KCONFIG_MMU_PAGESIZE)
-            );
-        }
+        pmm_mark_range_frame_as_allocated(
+            ROUND_DOWN(area->start, KCONFIG_MMU_PAGESIZE),
+            ALIGN(area->end, KCONFIG_MMU_PAGESIZE)
+        );
         area++;
     }
 

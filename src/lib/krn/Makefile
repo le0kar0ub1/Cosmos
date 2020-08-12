@@ -9,7 +9,6 @@
 
 local = $(CALLED_LOCAL_DIRECTORY)
 
-sinclude $(local)/stdio/Makefile		\
-		 $(local)/stdlib/Makefile		\
-		 $(local)/string/Makefile		\
-		 $(local)/krn/Makefile			\
+TARGET_OBJECTS	+= $(addprefix $(local),		\
+						xklog.o					\
+					)

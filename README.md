@@ -52,7 +52,7 @@ A configured *QEMU* run is provided.
 let's go again.
 
 - [X] Kernel loaded higher-half
-- [ ] Kernel architecture
+- [X] Kernel architecture
 - [ ] Boot(strap)
   - [X] Multiboot 2
   - [X] Paging setup

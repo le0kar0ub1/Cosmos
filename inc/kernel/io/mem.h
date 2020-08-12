@@ -23,13 +23,13 @@ struct memory_area {
     access_flag_t flag;
 };
 
-# define REGISTER_IO_PMM(mname, mstart, mend, mflag)             \
-    __aligned(sizeof(void *)) __used __section(".cosmos_io_mem") \
-    static const struct memory_area mname = {                    \
-        .name  = #mname,                                         \
-        .start = mstart,                                         \
-        .end   = mend,                                           \
-        .flag  = mflag                                           \
+# define REGISTER_IO_PMM(mname, mstart, mend, mflag)                \
+    __aligned(sizeof(void *)) __used __section(".cosmos_io_mem")    \
+    static const struct memory_area mname = {                       \
+        .name  = #mname,                                            \
+        .start = mstart,                                            \
+        .end   = mend,                                              \
+        .flag  = mflag                                              \
     };
 
 static inline u8_t read8(virtaddr_t addr)
