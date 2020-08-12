@@ -13,6 +13,8 @@
 # include <kernel/def/def.h>
 # include <drivers/vga.h>
 
+void hexdump(void *area, u32_t sz);
+
 void xklog(char const *what, enum vga_color color, char const *fmt, ...);
 
 /*

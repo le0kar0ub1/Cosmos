@@ -18,4 +18,6 @@
 
 # define KCONFIG_INITLEVEL    0x9
 
+# define KDEBUG_PRINTF        vga_printf
+
 #endif /* _KCONFIG_H_ */
