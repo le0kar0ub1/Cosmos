@@ -15,7 +15,7 @@
 ** Entire x86_64 gdt
 */
 __aligned(16)
-struct x86_64_gdt_segment_descriptor gdt[6] = {
+struct x86_64_gdt_segment_descriptor gdt[] = {
     /*
     ** NULL selector
     */
@@ -30,7 +30,18 @@ struct x86_64_gdt_segment_descriptor gdt[6] = {
             .limit_low = 0xFFFF,
             .base_low = 0x0,
             .base_mid = 0x0,
-            .flags = 0b1010111110011010,
+                .accessed        = false,
+                .readable        = true,
+                .conforming      = false,
+                ._reserved0      = 1,
+                ._reserved1      = 1,
+                .dpl             = DPL_LEVEL_KERNEL,
+                .present         = true,
+                .limit_high      = 0b1111,
+                .avl             = false,
+                .long_mode       = 1,
+                .default_op_size = 0,
+                .granularity     = 1,
             .base_high = 0x0
         }
     },
@@ -42,44 +53,93 @@ struct x86_64_gdt_segment_descriptor gdt[6] = {
             .limit_low = 0xFFFF,
             .base_low = 0x0,
             .base_mid = 0x0,
-            .flags = 0b0000000010010010,
+                .accessed        = false,
+                .writable        = true,
+                .direction       = false,
+                ._reserved0      = 0,
+                ._reserved1      = 1,
+                .dpl             = DPL_LEVEL_KERNEL,
+                .present         = true,
+                .limit_high      = 0b1111,
+                .avl             = false,
+                .long_mode       = 1,
+                .big             = 0,
+                .granularity     = 1,
             .base_high = 0x0
         }
     },
     /*
-    ** User code selector
+    ** Kernel code selector
     */
     {
         .code = {
             .limit_low = 0xFFFF,
             .base_low = 0x0,
             .base_mid = 0x0,
-            .flags = 0b1100111111111010,
+                .accessed        = false,
+                .readable        = true,
+                .conforming      = false,
+                ._reserved0      = 1,
+                ._reserved1      = 1,
+                .dpl             = DPL_LEVEL_USER,
+                .present         = true,
+                .limit_high      = 0b1111,
+                .avl             = false,
+                .long_mode       = 1,
+                .default_op_size = 0,
+                .granularity     = 1,
             .base_high = 0x0
         }
     },
     /*
-    ** User data selector
+    ** Kernel data selector
     */
     {
         .data = {
             .limit_low = 0xFFFF,
             .base_low = 0x0,
             .base_mid = 0x0,
-            .flags = 0b1100111111110010,
+                .accessed        = false,
+                .writable        = true,
+                .direction       = false,
+                ._reserved0      = 0,
+                ._reserved1      = 1,
+                .dpl             = DPL_LEVEL_USER,
+                .present         = true,
+                .limit_high      = 0b1111,
+                .avl             = false,
+                .long_mode       = 1,
+                .big             = 0,
+                .granularity     = 1,
+            .base_high = 0x0
+        }
+    },
+    /*
+    ** One TSS, at time only one cpu is running
+    */
+   {
+        .system = {
+            .limit_low = 0xFFFF,
+            .base_low = 0x0,
+            .base_mid = 0x0,
+                .type            = DESCRIPTORS_TSS_AVAILABLE_64,
+                ._reserved0      = 0,
+                .dpl             = DPL_LEVEL_USER,
+                .present         = true,
+                .limit_high      = 0b1111,
+                ._reserved1      = 0,
+                .granularity     = 1,
             .base_high = 0x0
         }
     }
 };
-
-static_assert(sizeof(gdt) == (6 * sizeof(struct x86_64_gdt_segment_descriptor)));
 
 /*
 ** Fat gdt ptr
 */
 __aligned(16)
 struct x86_64_gdt_ptr const gdtptr = {
-    .size   = (sizeof(struct x86_64_gdt_segment_descriptor) * 6) - 1,
+    .size   = sizeof(gdt) - 1,
     .offset = &(*gdt),
 };
 
