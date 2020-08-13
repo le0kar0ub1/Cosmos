@@ -19,7 +19,7 @@
 # define KCONFIG_INITLEVEL    0x9
 
 
-# define KDEBUG_PRINTF(...)  vga_printf(__VA_ARGS__)
-# define KDEBUG_QEMU(...)    uart16650_printf(__VA_ARGS__)
+# define KDEBUG_PRINTF(...)       vga_printf(__VA_ARGS__)
+# define KDEBUG_QEMU_PRINTF(...)  uart16650_printf(__VA_ARGS__)
 
 #endif /* _KCONFIG_H_ */

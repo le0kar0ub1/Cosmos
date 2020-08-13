@@ -24,7 +24,7 @@
 void kmain(void)
 {
     run_inithooks();
-    cpudump();
     uart16650_puts("Cosmos initialization done.\n");
+    cpudump();
     while (1);
 }

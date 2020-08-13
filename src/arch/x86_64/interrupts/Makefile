@@ -12,7 +12,7 @@ local = $(CALLED_LOCAL_DIRECTORY)
 TARGET_OBJECTS	+= $(addprefix $(local),	\
 						isr.o				\
 						dispatcher.o		\
-						specific-handlers.o	\
+						register-handlers.o	\
 						exceptions.o		\
 					)
 
