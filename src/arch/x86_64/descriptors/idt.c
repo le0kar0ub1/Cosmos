@@ -17,17 +17,17 @@
 __aligned(16)
 struct x86_64_idt_gate idt[MAX_INT] = {
     {
-        0,
-        KERNEL_CODE_SELECTOR,
-        0,
-        0,
-            DESCRIPTORS_INTERRUPT_GATE_64,
-            0,
-            DPL_LEVEL_KERNEL,
-            true,
-        0,
-        0,
-        0
+        .offset_1 = 0,
+        .selector = GDT_KERNEL_CODE_SELECTOR,
+        .ist      = 0,
+        ._zero1   = 0,
+            .GateType = DESCRIPTORS_INTERRUPT_GATE_64,
+            .Zero     = 0,
+            .DPL      = DPL_LEVEL_KERNEL,
+            .Present  = true,
+        .offset_2 = 0,
+        .offset_3 = 0,
+        ._zero2   = 0
     }
 };
 
@@ -56,7 +56,7 @@ void idt_init(void)
     while (gate < MAX_INT)
     {
         idt[gate].offset_1 = (u16_t)((handler >> 00ul) & ((1ul << 16ul) - 1ul));
-        idt[gate].selector = KERNEL_CODE_SELECTOR;
+        idt[gate].selector = GDT_KERNEL_CODE_SELECTOR;
             idt[gate].GateType = DESCRIPTORS_INTERRUPT_GATE_64;
             idt[gate].DPL      = DPL_LEVEL_KERNEL;
             idt[gate].Present  = true;

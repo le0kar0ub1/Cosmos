@@ -46,7 +46,7 @@ static char const *exceptions_default = "Unknow interrupt";
 */
 void exceptions_handler(struct interrupt_frame *frame)
 {
-    /* in case we change the gate type later */
+    /* in case we change the gate type later, welcome cli */
     cli();
     switch (frame->int_num)
     {

@@ -68,3 +68,11 @@ _start:
 bootstrap_stack_bot:
 .fill 0x1000, 0x8, 0x0
 bootstrap_stack_top:
+
+.section .rodata
+
+.align 16
+.global gdtptr_phys
+gdtptr_phys:
+    .2byte 24 - 1
+    .4byte gdt - __KERNEL_ADDR_TRNS

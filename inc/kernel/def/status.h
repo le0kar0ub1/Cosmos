@@ -10,6 +10,8 @@
 #ifndef _KERNEL_DEF_STATUS_H_
 # define _KERNEL_DEF_STATUS_H_
 
+# include <kernel/def/assert.h>
+
 /*
 ** Cosmos kernel status
 */
