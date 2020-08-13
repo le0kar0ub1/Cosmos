@@ -15,3 +15,5 @@ TARGET_OBJECTS	+= $(addprefix $(local),	\
 						specific-handlers.o	\
 						exceptions.o		\
 					)
+
+sinclude $(local)/handlers/Makefile

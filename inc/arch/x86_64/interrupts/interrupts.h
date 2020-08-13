@@ -58,6 +58,10 @@ enum interruptsNumber
     INT_APIC_TIMER          = 0x32,
     INT_APIC_ERROR          = 0x33,
 
+    /*
+    ** Kernel interrupt debug handler
+    */
+    INT_HANDMADE_DEBUG      = 0x40,
     INT_SYSCALL             = 0x80,
 
     INT_APIC_SPURIOUS       = 0xFF,
@@ -106,5 +110,7 @@ void interrupt_unregister_handler(uint);
 void *interrupt_get_handler_from_index(uint);
 
 void exceptions_handler(struct interrupt_frame *);
+
+void handmade_debug(struct interrupt_frame *);
 
 #endif /* _ARCH_x86_64_INTERRUPTS_H_ */

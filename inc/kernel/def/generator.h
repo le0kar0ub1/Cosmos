@@ -18,7 +18,10 @@
 # define _STRINGIFY(a)  #a
 # define STRINGIFY(a)   _STRINGIFY(a)
 
-# define ARCH_FUNCTION_MAPPING(x) CONCAT(ARCH, CONCAT(_, x))
+
+# define ARCH_HEADER(x)  <arch/ARCH/x.h>
+
+# define ARCH_FUNCTION_MAPPING(x)  CONCAT(ARCH, CONCAT(_, x))
 
 # define ARCH_FUNCTION_ALIASING(x) __alias(STRINGIFY(ARCH_FUNCTION_MAPPING(x)))
 

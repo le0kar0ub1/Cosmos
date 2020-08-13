@@ -1,5 +1,5 @@
 /********************************************************************************
-**
+** 
 **  This file is part of the Cosmos project, and is made available under
 **  the terms of the GNU General Public License version 3.
 **
@@ -7,19 +7,14 @@
 **
 \******************************************************************************/
 
-#ifndef _KCONFIG_H_
-# define _KCONFIG_H_
+# include <cosmos.h>
+# include <lib/krn.h>
+# include <drivers/vga.h>
+# include <arch/x86_64/asm.h>
+# include <lib/krn.h>
+# include <arch/x86_64/interrupts/interrupts.h>
 
-# define KCONFIG_MMU_PAGESIZE 0x1000
-
-# define KCONFIG_MAXCPUS      0x1
-
-# define KCONFIG_MAXTHREADS   0x20
-
-# define KCONFIG_INITLEVEL    0x9
-
-
-# define KDEBUG_PRINTF(...)  vga_printf(__VA_ARGS__)
-# define KDEBUG_QEMU(...)    uart16650_printf(__VA_ARGS__)
-
-#endif /* _KCONFIG_H_ */
+void x86_64_cpudump(void)
+{
+    asm volatile("int $0x40");
+}

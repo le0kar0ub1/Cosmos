@@ -10,8 +10,12 @@
 #ifndef _LIB_KRN_H_
 # define _LIB_KRN_H_
 
+# include <cosmos.h>
 # include <kernel/def/def.h>
 # include <drivers/vga.h>
+
+void ARCH_FUNCTION_MAPPING(cpudump)(void);
+void cpudump(void);
 
 void hexdump(void *area, u32_t sz);
 

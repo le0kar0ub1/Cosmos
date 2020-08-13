@@ -12,12 +12,14 @@
 /*
 ** Dispatch interrupt, come from common ISR
 */
-void interrupt_dispatch(struct interrupt_frame *frame __unused)
+void interrupt_dispatch(struct interrupt_frame *frame)
 {
     void (*handler)(struct interrupt_frame *) = interrupt_get_handler_from_index(frame->int_num);
 
     if (handler)
         handler(frame);
+    else if (frame->int_num == INT_HANDMADE_DEBUG)
+        handmade_debug(frame);
     else
         exceptions_handler(frame);
 }

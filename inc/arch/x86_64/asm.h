@@ -17,19 +17,35 @@ typedef volatile uint64 atomic64_t;
 
 typedef atomic32_t kref_t;
 
-#define atomic_xadd(P, V)      __sync_fetch_and_add((P), (V))
-#define cmpxchg(P, O, N)       __sync_val_compare_and_swap((P), (O), (N))
-#define atomic_inc(P)          __sync_add_and_fetch((P), 1)
-#define atomic_dec(P)          __sync_add_and_fetch((P), -1) 
-#define atomic_add(P, V)       __sync_add_and_fetch((P), (V))
-#define atomic_set_bit(P, V)   __sync_or_and_fetch((P), 1 << (V))
-#define atomic_clear_bit(P, V) __sync_and_and_fetch((P), ~( 1<< (V)))
+# define atomic_xadd(P, V)      __sync_fetch_and_add((P), (V))
+# define cmpxchg(P, O, N)       __sync_val_compare_and_swap((P), (O), (N))
+# define atomic_inc(P)          __sync_add_and_fetch((P), 1)
+# define atomic_dec(P)          __sync_add_and_fetch((P), -1) 
+# define atomic_add(P, V)       __sync_add_and_fetch((P), (V))
+# define atomic_set_bit(P, V)   __sync_or_and_fetch((P), 1 << (V))
+# define atomic_clear_bit(P, V) __sync_and_and_fetch((P), ~( 1<< (V)))
 
 /* Compile read-write barrier */
-#define barrier() asm volatile("": : :"memory")
+# define barrier() asm volatile("": : :"memory")
 
 /* Pause instruction to prevent excess processor bus usage */ 
-#define cpu_relax() asm volatile("pause\n": : :"memory")
+# define cpu_relax() asm volatile("pause\n": : :"memory")
+
+/*
+** Read a register
+*/
+# define read_xreg(reg, into)                      \
+            asm volatile(                          \
+                "mov %%"#reg",%0" : "=r"(into)     \
+            );
+
+/*
+** Write a register
+*/
+# define write_xreg(reg, from)                     \
+            asm volatile(                          \
+                "mov %0, %%"#reg : "=r"(from)      \
+            );
 
 /* Atomic exchange (of various sizes) */
 static inline void *xchg_64(void *ptr, void *x)
