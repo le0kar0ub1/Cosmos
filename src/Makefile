@@ -39,7 +39,7 @@ $(TARGET_BINKRN):	$(TARGET_OBJECTS)
 
 $(TARGET_ISOKRN):	$(TARGET_BINKRN)
 	mkdir -p $(TARGET_PATH)/isobld/boot/grub
-	cp $(TARGET_PATH)/$(TARGET_BINKRN) $(TARGET_PATH)/isobld/boot/kernel.bin
+	cp $(TARGET_PATH)/$(TARGET_BINKRN) $(TARGET_PATH)/isobld/boot/cosmos.bin
 	cp $(PROJECT_PATH)/$(GRUB_CONFIG) $(TARGET_PATH)/isobld/boot/grub
 	grub-mkrescue -o $(TARGET_PATH)/$(TARGET_ISOKRN) $(TARGET_PATH)/isobld 2> /dev/null
 	rm -r $(TARGET_PATH)/isobld

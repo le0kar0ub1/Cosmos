@@ -7,6 +7,7 @@
 **
 \******************************************************************************/
 
+# include <arch/x86_64/boot/multiboot2.h>
 # include <kernel/init/inithooks.h>
 # include <kernel/init/initcalls.h>
 # include <drivers/vga.h>
@@ -26,6 +27,7 @@ static void helloFromCosmos(void)
 
 static void boot_hook(void)
 {
+    multiboot_parse_tags();
     run_boot_initcalls();
     helloFromCosmos();
     /*

@@ -46,6 +46,13 @@ typedef struct result
 # define RESULT_IS_OK(x)        !(STATUS_IS_ERR(x))
 
 /*
+** Get the result
+*/
+
+# define RESULT_ERR(x)  \
+            (x.status)
+
+/*
 ** Unwrap the result
 */
 # define UNWRAP(res, type)           \
@@ -54,17 +61,17 @@ typedef struct result
 /*
 ** Propagate if ERR
 */
-# define RAISE_IF(tgt, res, type)    \
+# define RAISE_IF(tgt, res)          \
             if (RESULT_IS_ERR(res))  \
                 return (res)
 
 /*
 ** Unwrap if OK or propagate if ERR
 */
-# define UNWRAP_OR_RAISE(tgt, res, type)    \
+# define UNWRAP_OR_RAISE(tgt, res)          \
             if (RESULT_IS_ERR(res))         \
                 return (res);               \
-            type tgt = UNWRAP(res, type);
+            tgt = UNWRAP(res, typeof(tgt));
 
 /*
 ** Return OK as a result

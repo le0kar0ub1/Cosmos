@@ -13,3 +13,4 @@ sinclude $(local)/boot/Makefile				\
 		 $(local)/descriptors/Makefile		\
 		 $(local)/interrupts/Makefile		\
 		 $(local)/klib/Makefile				\
+		 $(local)/mem/Makefile				\

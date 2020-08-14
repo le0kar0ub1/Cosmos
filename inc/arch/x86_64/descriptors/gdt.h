@@ -106,7 +106,6 @@ struct x86_64_gdt_segment_descriptor
 
 static_assert(sizeof(struct x86_64_gdt_segment_descriptor) == 8);
 
-
 struct x86_64_gdt_ptr
 {
     u16_t                                size;

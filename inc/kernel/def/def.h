@@ -104,6 +104,11 @@ struct cosmos_data {
 
 extern uintptr_t __KERNEL_ADDR_TRNS;
 extern uintptr_t __KERNEL_VIRT_LINK;
+extern uintptr_t __KERNEL_VIRT_END;
 extern uintptr_t __KERNEL_PHYS_LINK;
+extern uintptr_t __KERNEL_PHYS_END;
+
+# define ADD_TO_PTR(x, y) ((typeof(x))((uintptr_t)x + (uintptr_t)y))
+# define SUB_TO_PTR(x, y) ((typeof(x))((uintptr_t)x - (uintptr_t)y))
 
 #endif /* _COSMOS_DEF_H_ */
