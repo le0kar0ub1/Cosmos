@@ -66,7 +66,7 @@ static void write_uart16650(char val)
     outb(&uart16650_com1, 0, val);
 }
 
-static spinlock_t lock = SPINLOCK_INIT();
+static spinlock_t lock = SPINLOCK_UNLOCKED();
 
 /*
 ** the printf callable function 

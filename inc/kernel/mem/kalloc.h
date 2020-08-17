@@ -7,19 +7,16 @@
 **
 \******************************************************************************/
 
-# include <kernel/def/def.h>
-# include <drivers/vga.h>
+#ifndef _KERNEL_MEM_KALLOC_H_
+# define _KERNEL_MEM_KALLOC_H_
 
-/*
-** Back to basics, kernel panicked.
-*/
-__noreturn
-void panic(char const *fmt, ...)
-{
-    vga_printf("Kernel panicked:\n    ");
-    __builtin_va_list ap;
-    __builtin_va_start(ap, fmt);
-    vga_vprintf(fmt, ap);
-    __builtin_va_end(ap);
-    while (1);
-}
+# include <cosmos.h>
+# include <kernel/mem/memory.h>
+# include <kernel/mem/vmm.h>
+
+virtaddr_t kalloc(size_t size);
+virtaddr_t kalloc_aligned(size_t size, size_t alignement);
+void kalloc_init(void);
+void kalloc_dump(void);
+
+#endif /* _KERNEL_MEM_KALLOC_H_ */

@@ -19,16 +19,18 @@
 
 typedef volatile u32_t spinlock_t;
 
-# define SPINLOCK_INIT() 0x0
+# define SPINLOCK_UNLOCKED() 0x1
+# define SPINLOCK_LOCKED()   0x0
 
 static inline void spinlock_lock(spinlock_t *spinlock)
 {
-    while (atomic_exchange(spinlock, 1) != 0);
+    while (!__sync_bool_compare_and_swap(spinlock, SPINLOCK_UNLOCKED(), SPINLOCK_LOCKED()));
 }
 
 static inline void spinlock_unlock(spinlock_t *spinlock)
 {
-    atomic_exchange(spinlock, 0);
+    barrier();
+    *spinlock = SPINLOCK_UNLOCKED();
 }
 
 #endif /* _ARCH_x86_64_SPINLOCK_H_ */

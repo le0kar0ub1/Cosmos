@@ -13,25 +13,29 @@
 # include <cosmos.h>
 # include <kernel/mem/memory.h>
 
-# define MMAP_DEFAULT   0b00000000 /* Kernel space, read only, no exec */
-# define MMAP_USER      0b00000001 /* Page belongs to user space */
-# define MMAP_WRITE     0b00000010 /* Page is writtable */
-# define MMAP_EXEC      0b00000100 /* Page is executable */
-# define MMAP_REMAP     0b00001000 /* Remap if va is already taken */
+enum _def_mmap_attribs {
+    MMAP_DEFAULT = 1 << 0, /* Kernel space, read only, no exec */
+    MMAP_USER    = 1 << 1, /* Page belongs to user space */
+    MMAP_WRITE   = 1 << 2, /* Page is writtable */
+    MMAP_EXEC    = 1 << 3, /* Page is executable */
+    MMAP_REMAP   = 1 << 4, /* Remap if virt addr is already taken */
+};
 
-# define MASK_MMAP_DEFAULT(x)   ((bool)(x & 0b00000000))
-# define MASK_MMAP_USER(x)      ((bool)(x & 0b00000001))
-# define MASK_MMAP_WRITE(x)     ((bool)(x & 0b00000010))
-# define MASK_MMAP_EXEC(x)      ((bool)(x & 0b00000100))
-# define MASK_MMAP_REMAP(x)     ((bool)(x & 0b00001000))
+# define MASK_MMAP_DEFAULT(x)   ((bool)(x & MMAP_DEFAULT))
+# define MASK_MMAP_USER(x)      ((bool)(x & MMAP_USER))
+# define MASK_MMAP_WRITE(x)     ((bool)(x & MMAP_WRITE))
+# define MASK_MMAP_EXEC(x)      ((bool)(x & MMAP_EXEC))
+# define MASK_MMAP_REMAP(x)     ((bool)(x & MMAP_REMAP))
 
 typedef uint mmap_attrib_t;
 
-# define MUNMAP_DEFAULT     0b00000000  /* Free frames */
-# define MUNMAP_DONTFREE    0b00000001  /* Do not free the corresponding frames */
+enum _def_munmap_attribs {
+    MUNMAP_DEFAULT  = 1 << 0,  /* Free frames */
+    MUNMAP_DONTFREE = 1 << 1,  /* Do not free the corresponding frames */
+};
 
-# define MASK_MUNMAP_DEFAULT(x)     ((bool)(x & 0b00000000))
-# define MASK_MUNMAP_DONTFREE(x)    ((bool)(x & 0b00000001))
+# define MASK_MUNMAP_DEFAULT(x)     ((bool)(x & MUNMAP_DEFAULT))
+# define MASK_MUNMAP_DONTFREE(x)    ((bool)(x & MUNMAP_DONTFREE))
 
 typedef uint munmap_attrib_t;
 

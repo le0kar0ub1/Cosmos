@@ -10,8 +10,12 @@
 # include <cosmos.h>
 # include <kernel/mem/pmm.h>
 # include <kernel/mem/vmm.h>
-# include <arch/x86_64/asm.h>
+# include <kernel/mem/kalloc.h>
+# include ARCH_HEADER(asm.h)
+# include ARCH_HEADER(spinlock.h)
 # include <lib/string.h>
+
+static spinlock_t lock = SPINLOCK_UNLOCKED();
 
 /*
 ** Call the arch-dependant mmap to map X page
@@ -23,17 +27,21 @@ virtaddr_t vmm_mmap(virtaddr_t virt, size_t sz, mmap_attrib_t attrib)
     assert(IS_PAGE_ALIGNED(virt));
     assert(IS_PAGE_ALIGNED(sz));
 
+    spinlock_lock(&lock);
     while ((uintptr)virt < (uintptr)ADD_TO_PTR(keep, sz))
     {
-        if (RESULT_IS_ERR(ARCH_FUNCTION_MAPPING(vmm_map_virt)(virt, attrib)))
+        if (RESULT_IS_ERR(ARCH_FUNCTION_MAPPING(vmm_map_virt)(virt, attrib))) {
+            spinlock_unlock(&lock);
             return (NULL);
+        }
         virt = ADD_TO_PTR(virt, KCONFIG_MMU_PAGESIZE);
     }
+    spinlock_unlock(&lock);
     return (keep);
 }
 
 /*
-** Call the arch-dependant mmap to unmap X page
+** Call the arch-dependant unmap to unmap X page
 */
 void vmm_unmap(virtaddr_t virt, size_t sz, mmap_attrib_t attrib)
 {
@@ -42,11 +50,13 @@ void vmm_unmap(virtaddr_t virt, size_t sz, mmap_attrib_t attrib)
     assert(IS_PAGE_ALIGNED(virt));
     assert(IS_PAGE_ALIGNED(sz));
 
+    spinlock_lock(&lock);
     while ((uintptr)virt < (uintptr)ADD_TO_PTR(keep, sz))
     {
         ARCH_FUNCTION_MAPPING(vmm_unmap)(virt, attrib);
         virt = ADD_TO_PTR(virt, KCONFIG_MMU_PAGESIZE);
     }
+    spinlock_unlock(&lock);
 }
 
 /*
@@ -63,6 +73,7 @@ virtaddr_t vmm_mmap_dev(virtaddr_t virt, physaddr_t phys, size_t size, mmap_attr
 
     if (!virt || !phys)
         return (NULL);
+    spinlock_lock(&lock);
     while ((uintptr)virt < (uintptr)ADD_TO_PTR(keep, size))
     {
         status = ARCH_FUNCTION_MAPPING(vmm_map_phys)(virt, phys, attrib);
@@ -70,11 +81,13 @@ virtaddr_t vmm_mmap_dev(virtaddr_t virt, physaddr_t phys, size_t size, mmap_attr
         {
             if (RESULT_ERR(status) == ERR_VMM_ALREADY_MAPPED)
                 ARCH_FUNCTION_MAPPING(vmm_unmap)(virt, MUNMAP_DEFAULT);
+            spinlock_unlock(&lock);
             return (NULL);
         }
         phys = (uintptr)ADD_TO_PTR(phys, KCONFIG_MMU_PAGESIZE);
         virt = (virtaddr_t)ADD_TO_PTR(virt, KCONFIG_MMU_PAGESIZE);
     }
+    spinlock_unlock(&lock);
     return (keep);
 }
 
@@ -85,7 +98,7 @@ bool vmm_is_mapped(virtaddr_t virt)
 
 void vmm_init(void)
 {
-    // kalloc_init();
+    kalloc_init();
 }
 
 /*

@@ -19,7 +19,10 @@ typedef enum status {
     OK = 0,
 
     ERR_PMM_OUT_OF_MEMORY,
+    ERR_PMM_FATAL,
+
     ERR_VMM_ALREADY_MAPPED,
+    ERR_VMM_FATAL,
 
     ERR_FATAL,
 } status_t;
@@ -38,12 +41,14 @@ typedef struct result
 /*
 ** Is the result an ERR
 */
-# define RESULT_IS_ERR(x)       (x.status != OK)
+# define RESULT_IS_ERR(x)       \
+            (x.status != OK)
 
 /*
 ** Is the result an OK
 */
-# define RESULT_IS_OK(x)        !(STATUS_IS_ERR(x))
+# define RESULT_IS_OK(x)        \
+            !(STATUS_IS_ERR(x))
 
 /*
 ** Get the result
@@ -55,7 +60,7 @@ typedef struct result
 /*
 ** Unwrap the result
 */
-# define UNWRAP(res, type)           \
+# define RESULT_OK(res, type)   \
             (type)(res.result)
 
 /*
@@ -68,10 +73,10 @@ typedef struct result
 /*
 ** Unwrap if OK or propagate if ERR
 */
-# define UNWRAP_OR_RAISE(tgt, res)          \
-            if (RESULT_IS_ERR(res))         \
-                return (res);               \
-            tgt = UNWRAP(res, typeof(tgt));
+# define UNWRAP_OR_RAISE(tgt, res)              \
+            if (RESULT_IS_ERR(res))             \
+                return (res);                   \
+            tgt = RESULT_OK(res, typeof(tgt));
 
 /*
 ** Return OK as a result

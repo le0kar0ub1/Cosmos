@@ -10,7 +10,9 @@
 # include <arch/x86_64/boot/multiboot2.h>
 # include <kernel/init/inithooks.h>
 # include <kernel/init/initcalls.h>
+# include <kernel/def/def.h>
 # include <drivers/vga.h>
+# include ARCH_HEADER(mem/vmm.h)
 
 extern char const *cosmos_signature_asciiart;
 
@@ -33,6 +35,7 @@ static void boot_hook(void)
     /*
     ** The following initializations depend of the first above
     */
+    ARCH_FUNCTION_MAPPING(vmm_init)();
 }
 
 REGISTER_BOOT_INITHOOK(boot_hook);

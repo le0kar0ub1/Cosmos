@@ -9,7 +9,6 @@
 
 # include <cosmos.h>
 # include <arch/x86_64/descriptors/gdt.h>
-# include <arch/x86_64/boot/boot.h>
 
 /*
 ** Entire x86_64 gdt
@@ -117,7 +116,7 @@ struct x86_64_gdt_segment_descriptor gdt[] = {
     /*
     ** One TSS, at time only one cpu is running
     */
-   {
+    {
         .system = {
             .limit_low = 0xFFFF,
             .base_low = 0x0,

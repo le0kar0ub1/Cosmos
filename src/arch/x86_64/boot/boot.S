@@ -37,6 +37,11 @@ _start:
     call ia32e_detect
 
     /*
+    ** clear the bss
+    */
+    call clear_bss
+
+    /*
     ** Bootstrap paging setup
     */
     call setup_paging

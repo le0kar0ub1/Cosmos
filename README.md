@@ -51,27 +51,28 @@ A configured *QEMU* run is provided.
 
 let's go again.
 
-- [X] Kernel loaded higher-half
 - [X] Kernel architecture
+- [X] Kernel loaded higher-half
 - [ ] Boot(strap)
   - [X] Multiboot 2
   - [X] Paging setup
   - [X] GDT setup
   - [X] IDT setup
-  - [X] Interrupts
+  - [X] Interrupts handling
   - [ ] TSS setup
   - [ ] SMP init
 - [ ] Early drivers
   - [X] VGA
   - [X] UART
+  - [X] PIC (DISABLED)
+  - [ ] ACPI
+  - [ ] APIC
   - [ ] Timer
 - [ ] Memory
   - [X] Physical Memory Management
   - [ ] Virtual Memory Management
   - [ ] kernel allocator
   - [ ] Memory Abstractor
-- [ ] ELF Loader
-- [ ] Syscall interface and userspace
 - [ ] Middle driver
   - [ ] RTC
   - [ ] PS/2 Keyboard
@@ -83,6 +84,8 @@ let's go again.
     - [ ] Processes
   - [ ] Physical
     - [ ] Handling ?
+- [ ] ELF Loader
+- [ ] Syscall interface and userspace
 - [ ] Initrd
 - [ ] Filesystem
   - [ ] ...

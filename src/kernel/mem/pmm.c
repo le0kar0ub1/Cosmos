@@ -21,7 +21,7 @@
 */
 static u8_t bitmap[PMM_BITMAP_SIZE];
 
-static spinlock_t lock = SPINLOCK_INIT();
+static spinlock_t lock = SPINLOCK_UNLOCKED();
 
 /*
 ** is the given frame allocated ?

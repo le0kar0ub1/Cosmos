@@ -70,8 +70,8 @@ typedef uintptr *       archp_t;
 # define __expected(x)   __builtin_expect((x), 1)
 # define __unexpected(x) __builtin_expect((x), 0)
 # define __optimize(x)   __attribute__((optimize(x)))
-# define likely(x)          __builtin_expect((x), 1)
-# define unlikely(x)        __builtin_expect((x), 0)
+# define likely(x)       __builtin_expect((x), 1)
+# define unlikely(x)     __builtin_expect((x), 0)
 
 /*
 ** align and keep given type 
@@ -110,5 +110,7 @@ extern uintptr_t __KERNEL_PHYS_END;
 
 # define ADD_TO_PTR(x, y) ((typeof(x))((uintptr_t)x + (uintptr_t)y))
 # define SUB_TO_PTR(x, y) ((typeof(x))((uintptr_t)x - (uintptr_t)y))
+
+# define ABS(x) (x < 0 ? x * -1 : x)
 
 #endif /* _COSMOS_DEF_H_ */

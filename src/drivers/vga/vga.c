@@ -177,7 +177,7 @@ static void vga_putchar(int c)
     }
 }
 
-static spinlock_t lock = SPINLOCK_INIT();
+static spinlock_t lock = SPINLOCK_UNLOCKED();
 
 /*
 ** The printf callable function

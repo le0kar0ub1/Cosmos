@@ -17,8 +17,12 @@
 ** If there is no recursive mapping all these functions will fucked up.
 ** Assuming that's not the case.
 ** This functions are usable only in this file.
+** The recursive mapping is on the index 510 of the pml4, yes, weird.
 */
 
+/*
+** Get physical pml4 address
+*/
 static inline struct pml4_t *get_pml4(void)
 {
     return (
@@ -26,6 +30,9 @@ static inline struct pml4_t *get_pml4(void)
     );
 }
 
+/*
+** Get physical pdp address
+*/
 static inline struct pdp_t *get_pdp(u32_t pml4idx)
 {
     return (
@@ -34,6 +41,9 @@ static inline struct pdp_t *get_pdp(u32_t pml4idx)
     ));
 }
 
+/*
+** Get physical pd address
+*/
 static inline struct pd_t *get_pd(u32_t pml4idx, u32_t pdpidx)
 {
     return (
@@ -43,6 +53,9 @@ static inline struct pd_t *get_pd(u32_t pml4idx, u32_t pdpidx)
     ));
 }
 
+/*
+** Get physical pt address
+*/
 static inline struct pt_t *get_pt(u32_t pml4idx, u32_t pdpidx, u32_t pdidx)
 {
     return (
@@ -87,7 +100,7 @@ static inline virtaddr_t idx2addr(u32_t pml4idx, u32_t pdpidx, u32_t pdidx, u32_
 }
 
 /*
-** x86_64 particular vmm functions management
+** is the given page mapped ?
 */
 bool x86_64_vmm_is_mapped(virtaddr_t virt)
 {
@@ -103,6 +116,9 @@ bool x86_64_vmm_is_mapped(virtaddr_t virt)
     );
 }
 
+/*
+** get the mapped frame from the given page
+*/
 physaddr_t x86_64_vmm_get_mapped_frame(virtaddr_t virt)
 {
     assert(IS_PAGE_ALIGNED(virt));
@@ -117,6 +133,9 @@ physaddr_t x86_64_vmm_get_mapped_frame(virtaddr_t virt)
     );
 }
 
+/*
+** map a page on a frame
+*/
 result_t x86_64_vmm_map_phys(virtaddr_t virt, physaddr_t phys, mmap_attrib_t attrib)
 {
     struct pml4_entry_t *pml4e;
@@ -192,6 +211,9 @@ result_t x86_64_vmm_map_phys(virtaddr_t virt, physaddr_t phys, mmap_attrib_t att
     OK_PROPAGATION(OK);
 }
 
+/*
+** map a page on any frame
+*/
 result_t x86_64_vmm_map_virt(virtaddr_t virt, mmap_attrib_t attrib)
 {
     assert(IS_PAGE_ALIGNED(virt));
@@ -209,6 +231,9 @@ result_t x86_64_vmm_map_virt(virtaddr_t virt, mmap_attrib_t attrib)
     return (status);
 }
 
+/*
+** Unmap the given page
+*/
 void x86_64_vmm_unmap(virtaddr_t virt, munmap_attrib_t attrib)
 {
     assert(IS_PAGE_ALIGNED(virt));
@@ -252,6 +277,7 @@ void x86_64_vmm_init(void)
     /*
     ** Allocate all the kernel pml4 entries 
     */
+    # pragma message "allocate my pml4 boy"
 }
 
 /*
