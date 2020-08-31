@@ -54,4 +54,4 @@ void xklog(char const *what, enum vga_color color, char const *fmt, ...);
                 __VA_ARGS__         \  
             )
 
-#endif /* _LIB_KRN_H_ */s
+#endif /* !_LIB_KRN_H_ */s

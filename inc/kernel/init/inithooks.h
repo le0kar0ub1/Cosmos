@@ -34,4 +34,4 @@ typedef void (*inithook_t)(void);
 void run_inithooks(void);
 void run_inithooks_bylevel(void);
 
-#endif /* _KERNEL_INIT_INITHOOKS_H_ */
+#endif /* !_KERNEL_INIT_INITHOOKS_H_ */

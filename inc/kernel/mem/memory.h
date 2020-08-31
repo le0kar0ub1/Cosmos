@@ -22,4 +22,4 @@
 # define ALIGN_PAGE(x)      (ALIGN(x, KCONFIG_MMU_PAGESIZE))
 # define ROUND_DOWN(x, y)   (((uintptr)x) & ~(((uintptr)y) - 1))
 
-#endif /* _KERNEL_MEM_MEMORY_H_ */
+#endif /* !_KERNEL_MEM_MEMORY_H_ */

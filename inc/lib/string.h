@@ -24,4 +24,4 @@ bool strcmp(char const *, char const *);
 bool strncmp(char const *, char const *, size_t);
 u32_t strlen(char const *);
 
-#endif /* _LIB_STRING_H_ */
+#endif /* !_LIB_STRING_H_ */

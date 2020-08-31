@@ -113,4 +113,4 @@ void exceptions_handler(struct interrupt_frame *);
 
 void handmade_debug(struct interrupt_frame *);
 
-#endif /* _ARCH_x86_64_INTERRUPTS_H_ */
+#endif /* !_ARCH_x86_64_INTERRUPTS_H_ */

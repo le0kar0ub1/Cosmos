@@ -414,6 +414,6 @@ struct multiboot_tag_load_base_addr
   multiboot_uint32_t load_base_addr;
 };
 
-#endif /* ! ASM_FILE */
+#endif /* !! ASM_FILE */
 
-#endif /* _MULTIBOOT2_H_ */
+#endif /* !_MULTIBOOT2_H_ */

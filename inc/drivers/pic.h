@@ -31,4 +31,4 @@
 
 void pic_init(void);
 
-#endif /* _DRIVER_PIC_H_ */
+#endif /* !_DRIVER_PIC_H_ */

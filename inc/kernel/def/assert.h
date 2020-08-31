@@ -30,4 +30,4 @@
 
 # define assert_isok(expr) assert((status_t)expr == OK)
 
-#endif /* _KERNEL_DEF_ASSERT_H_ */
+#endif /* !_KERNEL_DEF_ASSERT_H_ */

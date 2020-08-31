@@ -32,4 +32,4 @@ typedef enum access_flag access_flag_t;
 # define IS_WRITABLE(x)   (x & W)
 # define IS_EXECUTABLE(x) (x & X)
 
-#endif /* _KERNEL_DEF_ACCESS_H_ */
+#endif /* !_KERNEL_DEF_ACCESS_H_ */

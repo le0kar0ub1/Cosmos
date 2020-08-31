@@ -52,4 +52,4 @@ static inline u64_t SET_QUAD(u64_t val, u8_t bit)
     return (val | (1 << bit));
 }
 
-#endif /* _KERNEL_DEF_BITFIELD_H_ */
+#endif /* !_KERNEL_DEF_BITFIELD_H_ */

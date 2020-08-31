@@ -18,4 +18,4 @@ void uart16650_vprintf(char const *fmt, __builtin_va_list ap);
 void uart16650_szputs(char const *s, size_t sz);
 void uart16650_puts(char const *s);
 
-#endif /* _DRIVER__UART16650_H_ */
+#endif /* !_DRIVER__UART16650_H_ */

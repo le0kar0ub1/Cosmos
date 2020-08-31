@@ -56,4 +56,4 @@ result_t x86_64_vmm_map_virt(virtaddr_t virt, mmap_attrib_t attrib);
 void x86_64_vmm_unmap(virtaddr_t virt, munmap_attrib_t attrib);
 void x86_64_vmm_init(void);
 
-#endif /* _KERNEL_MEM_VMM_H_ */
+#endif /* !_KERNEL_MEM_VMM_H_ */

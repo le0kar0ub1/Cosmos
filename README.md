@@ -61,42 +61,32 @@ let's go again.
   - [X] Interrupts handling
   - [ ] TSS setup
   - [ ] SMP init
-- [ ] Early drivers
+- [ ] Boot hook
   - [X] VGA
   - [X] UART
   - [X] PIC (DISABLED)
   - [ ] ACPI
   - [ ] APIC
-  - [ ] Timer
-- [ ] Memory
   - [X] Physical Memory Management
   - [ ] Virtual Memory Management
   - [ ] kernel allocator
   - [ ] Memory Abstractor
-- [ ] Middle driver
-  - [ ] RTC
+- [ ] Pure hook
+  - [ ] Threads
+  - [ ] Basic Scheduling
+  - [ ] Timer
+  - [ ] ELF Loader
+  - [ ] Syscall interface
   - [ ] PS/2 Keyboard
-- [ ] Multi-threads
-  - [ ] Virtual
-    - [ ] Basic Scheduling
-    - [ ] User Threads
-    - [ ] Kernel threads
-    - [ ] Processes
-  - [ ] Physical
-    - [ ] Handling ?
-- [ ] ELF Loader
-- [ ] Syscall interface and userspace
-- [ ] Initrd
-- [ ] Filesystem
-  - [ ] ...
-- [ ] TTY
-  - [ ] ...
+  - [ ] RTC
+  - [ ] Initrd
+  - [ ] Filesystem
+  - [ ] TTY
 
 Not in the current scope:
 
 - [ ] GUI
-- [ ] late driver
-  - [ ] PS/2 Mouse
+- [ ] PS/2 Mouse
 
 ## Epilogue
 

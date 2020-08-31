@@ -116,4 +116,4 @@ static_assert(sizeof(struct x86_64_gdt_ptr) == 10ul);
 
 void gdt_init(void);
 
-#endif /* _ARCH_x86_64_GDT_H_ */
+#endif /* !_ARCH_x86_64_GDT_H_ */

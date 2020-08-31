@@ -28,13 +28,13 @@ virtaddr_t vmm_mmap(virtaddr_t virt, size_t sz, mmap_attrib_t attrib)
     assert(IS_PAGE_ALIGNED(sz));
 
     spinlock_lock(&lock);
-    while ((uintptr)virt < (uintptr)ADD_TO_PTR(keep, sz))
+    while ((uintptr)virt < (uintptr)ADD_PTR(keep, sz))
     {
         if (RESULT_IS_ERR(ARCH_FUNCTION_MAPPING(vmm_map_virt)(virt, attrib))) {
             spinlock_unlock(&lock);
             return (NULL);
         }
-        virt = ADD_TO_PTR(virt, KCONFIG_MMU_PAGESIZE);
+        virt = ADD_PTR(virt, KCONFIG_MMU_PAGESIZE);
     }
     spinlock_unlock(&lock);
     return (keep);
@@ -51,10 +51,10 @@ void vmm_unmap(virtaddr_t virt, size_t sz, mmap_attrib_t attrib)
     assert(IS_PAGE_ALIGNED(sz));
 
     spinlock_lock(&lock);
-    while ((uintptr)virt < (uintptr)ADD_TO_PTR(keep, sz))
+    while ((uintptr)virt < (uintptr)ADD_PTR(keep, sz))
     {
         ARCH_FUNCTION_MAPPING(vmm_unmap)(virt, attrib);
-        virt = ADD_TO_PTR(virt, KCONFIG_MMU_PAGESIZE);
+        virt = ADD_PTR(virt, KCONFIG_MMU_PAGESIZE);
     }
     spinlock_unlock(&lock);
 }
@@ -74,7 +74,7 @@ virtaddr_t vmm_mmap_dev(virtaddr_t virt, physaddr_t phys, size_t size, mmap_attr
     if (!virt || !phys)
         return (NULL);
     spinlock_lock(&lock);
-    while ((uintptr)virt < (uintptr)ADD_TO_PTR(keep, size))
+    while ((uintptr)virt < (uintptr)ADD_PTR(keep, size))
     {
         status = ARCH_FUNCTION_MAPPING(vmm_map_phys)(virt, phys, attrib);
         if (RESULT_IS_ERR(status))
@@ -84,8 +84,8 @@ virtaddr_t vmm_mmap_dev(virtaddr_t virt, physaddr_t phys, size_t size, mmap_attr
             spinlock_unlock(&lock);
             return (NULL);
         }
-        phys = (uintptr)ADD_TO_PTR(phys, KCONFIG_MMU_PAGESIZE);
-        virt = (virtaddr_t)ADD_TO_PTR(virt, KCONFIG_MMU_PAGESIZE);
+        phys = (uintptr)ADD_PTR(phys, KCONFIG_MMU_PAGESIZE);
+        virt = (virtaddr_t)ADD_PTR(virt, KCONFIG_MMU_PAGESIZE);
     }
     spinlock_unlock(&lock);
     return (keep);

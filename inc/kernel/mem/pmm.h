@@ -27,4 +27,4 @@ void pmm_mark_range_frame_as_free(physaddr_t srt, physaddr_t end);
 result_t pmm_alloc_frame(void);
 void pmm_free_frame(physaddr_t frame);
 
-#endif /* _KERNEL_MEM_PMM_H_ */
+#endif /* !_KERNEL_MEM_PMM_H_ */

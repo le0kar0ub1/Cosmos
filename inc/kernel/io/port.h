@@ -71,4 +71,4 @@ static inline void outd(const struct io_port *port, ushort offset, uint data)
     asm volatile("outl %0, %1" :: "a"(data), "d"(port->port + offset));
 }
 
-#endif /* _KERNEL_IO_PORT_H_ */
+#endif /* !_KERNEL_IO_PORT_H_ */

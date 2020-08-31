@@ -27,4 +27,4 @@ void panic(char const *fmt, ...);
 
 # define cosmos_panic(x) panic(STRINGIFY(x))
 
-#endif /* _COSMOS_H_ */
+#endif /* !_COSMOS_H_ */

@@ -266,7 +266,7 @@ void x86_64_vmm_init(void)
     ** For the kheap consistancy we must unmap all page behind the kernel
     */
     vmm_unmap(
-        ADD_TO_PTR(&__KERNEL_VIRT_END, KCONFIG_MMU_PAGESIZE),
+        ADD_PTR(&__KERNEL_VIRT_END, KCONFIG_MMU_PAGESIZE),
         (512 - virt2ptIdx(&__KERNEL_VIRT_END) - 1) * KCONFIG_MMU_PAGESIZE,
         MUNMAP_DONTFREE
     );

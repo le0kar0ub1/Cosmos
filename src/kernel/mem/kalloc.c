@@ -19,7 +19,8 @@ static spinlock_t lock = SPINLOCK_UNLOCKED();
 
 /*
 ** An allocator control block
-** handle the size and the usage state with the sign
+** handle the size and the usage state with the sign.
+** Because we want a 64 bits aligned structure, we are using a long instead of int.
 */
 typedef struct heapblock
 {
@@ -53,12 +54,12 @@ void kalloc_dump(void)
     while ((uintptr_t)block <= (uintptr_t)kheap_end)
     {
         KDEBUG_QEMU_PRINTF(
-            "Block %s at %#X sizeof %#X\n",
+            "    Block %s at %#X sizeof %#X\n",
             block->attrib > 0 ? "used  " : "unused",
             (uintptr_t)block,
             ABS(block->attrib)
         );
-        block = ADD_TO_PTR(block, sizeof(block_t) + ABS(block->attrib));
+        block = ADD_PTR(block, sizeof(block_t) + ABS(block->attrib));
     }
 }
 
@@ -68,7 +69,7 @@ void kalloc_dump(void)
 static status_t extend_heap(size_t size)
 {
     if (vmm_mmap(
-        ADD_TO_PTR(kheap_start, kheap_mapped_size),
+        ADD_PTR(kheap_start, kheap_mapped_size),
         ALIGN_PAGE(size),
         MMAP_WRITE
     ) == NULL)
@@ -91,7 +92,7 @@ static block_t *is_a_block_free(size_t size, size_t alignement)
            block->attrib *= -1;
            return (block);     
         }
-        block = ADD_TO_PTR(block, sizeof(block_t) + ABS(block->attrib));
+        block = ADD_PTR(block, sizeof(block_t) + ABS(block->attrib));
     }
     return (NULL);
 }
@@ -101,24 +102,24 @@ static block_t *is_a_block_free(size_t size, size_t alignement)
 */
 static block_t *allocate_new_block(size_t size, size_t alignement)
 {
-    block_t *block = kheap_end;
-    size_t remaining = (size_t)SUB_TO_PTR(
-                                    ADD_TO_PTR(
-                                        kheap_end,
-                                        sizeof(block_t) + ABS(((block_t*)kheap_end)->attrib)),
-                                    kheap_start
-                                );
-    if (remaining < kheap_mapped_size + sizeof(block_t) + size)
-        if (extend_heap(size) != OK)
-            return (NULL);
-    size += (size_t)SUB_TO_PTR(
-            ALIGN(ADD_TO_PTR(block, sizeof(block_t)), alignement),
-            ADD_TO_PTR(block, sizeof(block_t))
+    block_t *oldblk = (block_t *)kheap_end;
+    block_t *newblk = ADD_PTR(
+            kheap_end,
+            sizeof(block_t) + ABS(((block_t*)kheap_end)->attrib)
         );
-    block->attrib = size;
-    block->back   = (block_t *)kheap_end;
-    kheap_end = (virtaddr_t)block;
-    return (block);
+    if (!IS_ALIGNED(ADD_PTR(newblk, sizeof(block_t)), alignement)) {
+	    newblk = (block_t *)SUB_PTR(ALIGN(ADD_PTR(newblk, sizeof(block_t)), alignement), sizeof(block_t));
+	    oldblk->attrib = oldblk->attrib > 0 ?
+	        +(long)SUB_PTR(newblk, oldblk) - sizeof(block_t):
+	        -(long)SUB_PTR(newblk, oldblk) - sizeof(block_t); 
+    }
+    if ((uintptr_t)ADD_PTR(newblk, size + sizeof(block_t)) > (uintptr_t)ADD_PTR(kheap_start, kheap_mapped_size))
+	    if (extend_heap((size_t)SUB_PTR(ADD_PTR(newblk, size + sizeof(block_t)), kheap_start)) != OK)
+		    return (NULL);
+    newblk->attrib = size;
+    newblk->back   = oldblk;
+    kheap_end = (virtaddr_t)newblk;
+    return (newblk);
 }
 
 /*
@@ -133,10 +134,10 @@ static virtaddr_t _kalloc(size_t size, size_t alignement)
     size = ALIGN(size, KHEAP_DEFAULT_ALIGNEMENT);
     block = is_a_block_free(size, alignement);
     if (block)
-        return ((virtaddr_t)ADD_TO_PTR(block, sizeof(block_t)));
+        return ((virtaddr_t)ADD_PTR(block, sizeof(block_t)));
     block = allocate_new_block(size, alignement);
     if (block)
-        return ((virtaddr_t)ADD_TO_PTR(block, sizeof(block_t)));
+        return ((virtaddr_t)ADD_PTR(block, sizeof(block_t)));
     return (NULL);
 }
 

@@ -40,4 +40,4 @@
 # define KERNEL_PD_INDEX_START   ((__KERNEL_ADDR_TRNS >> 21) & ((1 << 9) - 1))
 # define KERNEL_PT_INDEX_START   ((__KERNEL_ADDR_TRNS >> 12) & ((1 << 9) - 1))
 
-#endif /* _BOOT_H_ */
+#endif /* !_BOOT_H_ */

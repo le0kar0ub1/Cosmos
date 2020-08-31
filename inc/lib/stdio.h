@@ -17,4 +17,4 @@ char const *fmt, __builtin_va_list ap);
 void generic_printf(void (*szputs)(char const *, size_t), 
 char const *fmt, ...);
 
-#endif /* _LIB_STDIO_H_ */
+#endif /* !_LIB_STDIO_H_ */

@@ -1,4 +1,4 @@
-/********************************************************************************
+/*******************************************************************************
 **
 **  This file is part of the Cosmos project, and is made available under
 **  the terms of the GNU General Public License version 3.
@@ -19,4 +19,4 @@ virtaddr_t kalloc_aligned(size_t size, size_t alignement);
 void kalloc_init(void);
 void kalloc_dump(void);
 
-#endif /* _KERNEL_MEM_KALLOC_H_ */
+#endif /* !_KERNEL_MEM_KALLOC_H_ */

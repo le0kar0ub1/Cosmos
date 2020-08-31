@@ -100,4 +100,4 @@ typedef struct result
                 }                       \
             )
 
-#endif /* _KERNEL_DEF_STATUS_H_ */
+#endif /* !_KERNEL_DEF_STATUS_H_ */

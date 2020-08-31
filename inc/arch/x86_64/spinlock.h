@@ -33,4 +33,4 @@ static inline void spinlock_unlock(spinlock_t *spinlock)
     *spinlock = SPINLOCK_UNLOCKED();
 }
 
-#endif /* _ARCH_x86_64_SPINLOCK_H_ */
+#endif /* !_ARCH_x86_64_SPINLOCK_H_ */

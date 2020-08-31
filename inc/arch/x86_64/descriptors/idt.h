@@ -47,4 +47,4 @@ static_assert(sizeof(struct x86_64_idt_ptr) == 10ul);
 
 void idt_init(void);
 
-#endif /* _ARCH_x86_64_IDT_H_ */
+#endif /* !_ARCH_x86_64_IDT_H_ */

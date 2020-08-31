@@ -34,4 +34,4 @@ void driver_remove(const struct driver *);
 void driver_suspend(const struct driver *);
 void driver_resume(const struct driver *);
 
-#endif /* _KERNEL_DRIVERS_H_ */
+#endif /* !_KERNEL_DRIVERS_H_ */

@@ -72,4 +72,4 @@ static inline void write64(virtaddr_t addr, u64_t value)
     *((volatile u64_t *)(addr)) = value;
 }
 
-#endif /* _KERNEL_IO_MEM_H_ */
+#endif /* !_KERNEL_IO_MEM_H_ */
