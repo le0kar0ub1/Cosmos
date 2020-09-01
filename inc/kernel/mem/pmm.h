@@ -12,7 +12,7 @@
 
 # include <kernel/mem/memory.h>
 
-# define PMM_TOTAL_FRAME ((1ul << 20ul) / KCONFIG_MMU_PAGESIZE)
+# define PMM_TOTAL_FRAME ((1ul << 32ul) / KCONFIG_MMU_PAGESIZE)
 
 # define PMM_BITMAP_SIZE (PMM_TOTAL_FRAME / 8)
 

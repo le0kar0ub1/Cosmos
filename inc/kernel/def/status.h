@@ -24,6 +24,10 @@ typedef enum status {
     ERR_VMM_ALREADY_MAPPED,
     ERR_VMM_FATAL,
 
+    ERR_UNALIGNED_ADDRESS,
+    ERR_KHEAP_DOUBLE_FREE,
+    ERR_KHEAP_OUT_OF_HEAP,
+
     ERR_FATAL,
 } status_t;
 

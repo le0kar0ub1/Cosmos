@@ -64,6 +64,65 @@ void kalloc_dump(void)
 }
 
 /*
+** Divide a block and return the new with the given size
+*/
+static block_t *divide_block(block_t *block, size_t szwanted)
+{
+	block_t *right = ADD_PTR(block, ABS(block->attrib) + sizeof(block_t));
+
+    if (
+	    ABS(block->attrib) < szwanted + sizeof(block_t) + 0x10 ||
+    	!IS_ALIGNED(right, KHEAP_DEFAULT_ALIGNEMENT)
+    )
+	    return (block);
+    right = (block_t *)(ABS(block->attrib) - szwanted);
+    right->back = block;
+    block->attrib = szwanted;
+    return (block);
+}
+
+/*
+** Chain merge free blocks and return the start of the unified one
+*/
+static block_t *chain_back_merge_free_blocks(block_t *block)
+{
+	block_t *newstart = block;
+
+	while (newstart->attrib < 0 && (uintptr_t)newstart >= (uintptr_t)kheap_start)
+	{
+		newstart = newstart->back;
+	}
+	while (block->attrib < 0 && (uintptr_t)block <= (uintptr_t)kheap_end)
+	{
+		block = ADD_PTR(block, ABS(block->attrib) + sizeof(block_t));
+	}
+	newstart = SUB_PTR(SUB_PTR(block, newstart), sizeof(block_t));
+	return (newstart);
+}
+
+/*
+** Verify if the block exist based on the given address
+*/
+static block_t *find_block_from_addr(virtaddr_t virt)
+{
+	block_t *block = (block_t *)SUB_PTR(virt, sizeof(block_t));
+	block_t *start = (block_t *)kheap_start;
+
+	if (
+		(uintptr_t)block < (uintptr_t)kheap_start || 
+	    (uintptr_t)block > (uintptr_t)kheap_end
+	)
+		return (NULL);
+	while ((uintptr_t)start <= (uintptr_t)kheap_end)
+	{
+		if ((uintptr_t)ADD_PTR(start, sizeof(block_t)) == (uintptr_t)virt)
+			return (start);
+		start = ADD_PTR(start, ABS(start->attrib) + sizeof(block_t));
+	}
+	return (NULL);
+}
+
+/*
 ** map new memory pages
 */
 static status_t extend_heap(size_t size)
@@ -73,7 +132,7 @@ static status_t extend_heap(size_t size)
         ALIGN_PAGE(size),
         MMAP_WRITE
     ) == NULL)
-        return (ERR_VMM_FATAL);
+		return (ERR_VMM_FATAL);
     kheap_mapped_size += ALIGN_PAGE(size);
     return (OK);
 }
@@ -157,6 +216,23 @@ virtaddr_t kalloc_aligned(size_t size, size_t alignement)
     if (!IS_ALIGNED(size, KHEAP_DEFAULT_ALIGNEMENT))
         return (NULL);
     return (_kalloc(size, alignement));
+}
+
+/*
+** Free the given block & merge the near free ones
+*/
+void kfree(virtaddr_t virt)
+{
+	block_t *block = find_block_from_addr(virt);
+
+    if (block == NULL)
+	    cosmos_panic(ERR_KHEAP_OUT_OF_HEAP);
+	if (!IS_ALIGNED(virt, KHEAP_DEFAULT_ALIGNEMENT))
+		cosmos_panic(ERR_UNALIGNED_ADDRESS);
+	if (block->attrib < 0)
+		cosmos_panic(ERR_KHEAP_DOUBLE_FREE);
+	block->attrib = - block->attrib;
+	chain_back_merge_free_blocks(block);
 }
 
 /*

@@ -30,7 +30,10 @@ void kmain(void)
 
     char *test = kalloc(0x10);
     // uart16650_printf("this %#X\n", kalloc(0x10));
-    kalloc(0x10);
+    kfree(test);
+    char *test2 = kalloc(0x20);
+    uart16650_printf("%#X", test2);
+    
     kalloc_dump();
     hlt();
     for (int a = 0; a < 0X10; a++)

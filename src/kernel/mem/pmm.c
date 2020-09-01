@@ -73,7 +73,7 @@ result_t pmm_alloc_frame(void)
     ** Begin the research at the address 0x10000
     ** If a block of 8 is non totaly used, then we have found
     */
-    uintptr_t idx = 0x2;
+    uintptr_t idx = 0x0;
     u8_t sub;
     spinlock_lock(&lock);
     while (idx < PMM_BITMAP_SIZE)

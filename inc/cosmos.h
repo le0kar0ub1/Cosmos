@@ -26,5 +26,6 @@ void kmain(void);
 void panic(char const *fmt, ...);
 
 # define cosmos_panic(x) panic(STRINGIFY(x))
+# define cosmos_verbose_panic(x, y) panic("%s %s", STRINGIFY(x), y)
 
 #endif /* !_COSMOS_H_ */
