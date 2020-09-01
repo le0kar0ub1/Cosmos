@@ -242,6 +242,39 @@ void kfree(virtaddr_t virt)
 }
 
 /*
+** Kalloc equivalent to mmap with known physical address
+*/
+virtaddr_t kalloc_dev(physaddr_t phys, size_t sz)
+{
+	 virtaddr_t virt;
+
+	 assert(IS_PAGE_ALIGNED(phys));
+	 assert(IS_PAGE_ALIGNED(sz));
+	 virt = kalloc_aligned(sz, KCONFIG_MMU_PAGESIZE);
+	 if (virt)
+		virt = vmm_mmap_dev(virt, phys, sz, MMAP_WRITE | MMAP_REMAP);
+	 return (virt);
+}
+
+/*
+** classical realloc() function
+*/
+virtaddr_t krealloc(virtaddr_t oldptr, size_t size)
+{
+	virtaddr_t newptr;
+	block_t *oldblk;
+
+    if (!oldptr)
+		return (NULL);
+	newptr = kalloc(size);
+	oldblk = ADD_PTR(oldptr, sizeof(block_t));
+	memcpy(newptr, oldptr, ABS(oldblk->attrib) > size ? size : ABS(oldblk->attrib));
+	kfree(oldptr);
+	return (newptr);
+ }
+
+
+/*
 ** map the first page
 ** init global variables
 ** create the first control block

@@ -16,9 +16,10 @@
 
 virtaddr_t kalloc(size_t size);
 virtaddr_t kalloc_aligned(size_t size, size_t alignement);
+virtaddr_t krealloc(virtaddr_t virt, size_t size);
+virtaddr_t kalloc_dev(physaddr_t phys, size_t size);
 void kalloc_init(void);
 void kalloc_dump(void);
 void kfree(virtaddr_t virt);
-void krealloc(virtaddr_t virt, size_t size);
 
 #endif /* !_KERNEL_MEM_KALLOC_H_ */
