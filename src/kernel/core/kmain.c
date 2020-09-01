@@ -24,23 +24,7 @@
 void kmain(void)
 {
     run_inithooks();
-    
-    kalloc_dump();
-    // hlt();
 
-    char *test = kalloc(0x10);
-    // uart16650_printf("this %#X\n", kalloc(0x10));
-    kfree(test);
-    char *test2 = kalloc(0x20);
-    uart16650_printf("%#X", test2);
-    
-    kalloc_dump();
-    hlt();
-    for (int a = 0; a < 0X10; a++)
-        test[a] = a + 0x41;
-    test[0xE] = 0X0;
-    uart16650_printf("%s\n", test);
-    
     uart16650_puts("Cosmos initialization done.\n");
     // cpudump();
     while (1);

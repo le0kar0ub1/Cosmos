@@ -68,35 +68,40 @@ void kalloc_dump(void)
 */
 static block_t *divide_block(block_t *block, size_t szwanted)
 {
-	block_t *right = ADD_PTR(block, ABS(block->attrib) + sizeof(block_t));
+	block_t *right = ADD_PTR(block, szwanted + sizeof(block_t));
 
     if (
 	    ABS(block->attrib) < szwanted + sizeof(block_t) + 0x10 ||
     	!IS_ALIGNED(right, KHEAP_DEFAULT_ALIGNEMENT)
     )
 	    return (block);
-    right = (block_t *)(ABS(block->attrib) - szwanted);
+    right->attrib = -(ABS(block->attrib) - szwanted - sizeof(block_t));
     right->back = block;
-    block->attrib = szwanted;
+    block->attrib = block->attrib > 0 ? szwanted : -szwanted;
+    if ((uintptr_t)right > (uintptr_t)kheap_end)
+	    kheap_end = (virtaddr_t)right;
     return (block);
 }
 
 /*
 ** Chain merge free blocks and return the start of the unified one
 */
-static block_t *chain_back_merge_free_blocks(block_t *block)
+static block_t *chain_merge_free_blocks(block_t *block)
 {
 	block_t *newstart = block;
 
-	while (newstart->attrib < 0 && (uintptr_t)newstart >= (uintptr_t)kheap_start)
+	while ((uintptr_t)newstart >= (uintptr_t)kheap_start
+	&& newstart->back != NULL && newstart->attrib < 0)
 	{
 		newstart = newstart->back;
 	}
 	while (block->attrib < 0 && (uintptr_t)block <= (uintptr_t)kheap_end)
 	{
+		if ((uintptr_t)block == (uintptr_t)kheap_end)
+			kheap_end = (virtaddr_t)newstart;
 		block = ADD_PTR(block, ABS(block->attrib) + sizeof(block_t));
 	}
-	newstart = SUB_PTR(SUB_PTR(block, newstart), sizeof(block_t));
+	newstart->attrib = (long)SUB_PTR(SUB_PTR(block, newstart), sizeof(block_t));
 	return (newstart);
 }
 
@@ -148,6 +153,7 @@ static block_t *is_a_block_free(size_t size, size_t alignement)
     {
         if (block->attrib < 0 && ABS(block->attrib) >= size
         && IS_ALIGNED(block, alignement)) {
+	       block = divide_block(block, size);
            block->attrib *= -1;
            return (block);     
         }
@@ -232,7 +238,7 @@ void kfree(virtaddr_t virt)
 	if (block->attrib < 0)
 		cosmos_panic(ERR_KHEAP_DOUBLE_FREE);
 	block->attrib = - block->attrib;
-	chain_back_merge_free_blocks(block);
+	chain_merge_free_blocks(block);
 }
 
 /*
