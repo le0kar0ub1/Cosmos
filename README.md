@@ -53,22 +53,22 @@ let's go again.
 
 - [X] Kernel architecture
 - [X] Kernel loaded higher-half
-- [ ] Boot(strap)
+- [X] Boot(strap)
   - [X] Multiboot 2
   - [X] Paging setup
   - [X] GDT setup
   - [X] IDT setup
   - [X] Interrupts handling
-  - [ ] TSS setup
-  - [ ] SMP init
 - [ ] Boot hook
   - [X] VGA
   - [X] UART
   - [X] PIC (DISABLED)
-  - [ ] ACPI
-  - [ ] APIC
   - [X] Physical Memory Management
-  - [ ] Virtual Memory Management
+  - [X] Virtual Memory Management
+  - [ ] ACPI
+  - [ ] APIC/IOAPIC
+  - [ ] TSS setup
+  - [ ] SMP init
   - [ ] kernel allocator
   - [ ] Memory Abstractor
 - [ ] Pure hook
