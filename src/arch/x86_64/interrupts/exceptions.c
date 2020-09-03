@@ -8,6 +8,7 @@
 \******************************************************************************/
 
 # include <arch/x86_64/interrupts/interrupts.h>
+# include <lib/krn.h>
 # include <arch/x86_64/asm.h>
 # include <drivers/uart16650.h>
 
@@ -55,6 +56,7 @@ void exceptions_handler(struct interrupt_frame *frame)
             "Exceptions occured: %s\n", 
             exceptions[frame->int_num] == NULL ? exceptions_default : exceptions[frame->int_num]
         );
+      handmade_debug(frame);
         break;
     }
     hlt();

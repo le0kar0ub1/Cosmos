@@ -9,8 +9,4 @@
 
 local = $(CALLED_LOCAL_DIRECTORY)
 
-TARGET_OBJECTS	+= $(addprefix $(local),		\
-						xklog.o					\
-						hexdump.o				\
-						checksum.o				\
-					)
+sinclude $(local)/acpi/Makefile		\

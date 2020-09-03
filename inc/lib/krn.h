@@ -14,12 +14,20 @@
 # include <kernel/def/def.h>
 # include <drivers/vga.h>
 
-void ARCH_FUNCTION_MAPPING(cpudump)(void);
-void cpudump(void);
+static inline void cpudump(void)
+{
+    asm volatile("int $0x40");
+}
 
 void hexdump(void *area, u32_t sz);
 
 void xklog(char const *what, enum vga_color color, char const *fmt, ...);
+
+
+u8_t checksum8(u8_t *buffer, size_t size);
+u16_t checksum16(u16_t *buffer, size_t size);
+u32_t checksum32(u32_t *buffer, size_t size);
+u64_t checksum64(u64_t *buffer, size_t size);
 
 /*
 ** Kernel info

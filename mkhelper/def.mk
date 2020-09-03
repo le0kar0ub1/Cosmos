@@ -73,13 +73,13 @@ export CCFLAGS	=	-isystem $(PROJECT_PATH)/inc		\
 					-fno-builtin						\
 					-march=x86-64						\
 					-static 							\
-					-O2									\
 					-fno-tree-loop-vectorize 			\
 					-fno-tree-slp-vectorize				\
 					-m64 								\
 					-mgeneral-regs-only 				\
 					-Wno-override-init					\
 	  	  			-mcmodel=large 						\
+	  	  			#-O2									\
 
 # Some macros
 CCFLAGS			+=	-D PROJECT=$(PROJECT)							\
