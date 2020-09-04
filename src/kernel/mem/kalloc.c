@@ -257,6 +257,18 @@ virtaddr_t kalloc_dev(physaddr_t phys, size_t sz)
 }
 
 /*
+ * Kalloc device wrapper
+*/
+virtaddr_t kmap_dev(physaddr_t phys, size_t sz)
+{
+	uintptr_t offset = phys % KCONFIG_MMU_PAGESIZE;
+	sz = ALIGN_PAGE(sz);
+	phys = ROUND_DOWN(phys, KCONFIG_MMU_PAGESIZE);
+	return ((virtaddr_t)ADD_PTR(kalloc_dev(phys, sz), offset));
+}
+
+
+/*
 ** classical realloc() function
 */
 virtaddr_t krealloc(virtaddr_t oldptr, size_t size)

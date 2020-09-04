@@ -86,7 +86,6 @@ virtaddr_t acpi_get_table(char const *signature)
 
 /*
  * ACPI map all tables
- * The usage assume that the kernel will not be remap
 */
 static virtaddr_t acpi_map_table(void)
 {

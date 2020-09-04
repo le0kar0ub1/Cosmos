@@ -8,6 +8,7 @@
 \******************************************************************************/
 
 # include <arch/x86_64/boot/multiboot2.h>
+# include <bios/acpi.h>
 # include <kernel/init/inithooks.h>
 # include <kernel/init/initcalls.h>
 # include <kernel/def/def.h>
@@ -36,6 +37,7 @@ static void boot_hook(void)
     ** The following initializations depend of the first above
     */
     ARCH_FUNCTION_MAPPING(vmm_init)();
+    acpi_init();
 }
 
 REGISTER_BOOT_INITHOOK(boot_hook);
