@@ -43,17 +43,20 @@ void vmm_init(void);
 virtaddr_t vmm_mmap(virtaddr_t virt, size_t sz, mmap_attrib_t attrib);
 void vmm_unmap(virtaddr_t virt, size_t sz, mmap_attrib_t attrib);
 bool vmm_is_mapped(virtaddr_t virt);
+bool vmm_is_addr_range_mapped(virtaddr_t virt, size_t size);
 virtaddr_t vmm_mmap_dev(virtaddr_t virt, physaddr_t phys, size_t size, mmap_attrib_t attrib);
+physaddr_t vmm_get_paddr(virtaddr_t virt);
+physaddr_t vmm_get_mapped_frame(virtaddr_t virt);
 
 /*
 ** Arch-depend prototypes
 */
 
-bool x86_64_vmm_is_mapped(virtaddr_t virt);
-physaddr_t x86_64_vmm_get_mapped_frame(virtaddr_t virt);
-result_t x86_64_vmm_map_phys(virtaddr_t virt, physaddr_t phys, mmap_attrib_t attrib);
-result_t x86_64_vmm_map_virt(virtaddr_t virt, mmap_attrib_t attrib);
-void x86_64_vmm_unmap(virtaddr_t virt, munmap_attrib_t attrib);
-void x86_64_vmm_init(void);
+bool ARCH_FUNCTION_MAPPING(vmm_is_mapped)(virtaddr_t virt);
+physaddr_t ARCH_FUNCTION_MAPPING(vmm_get_mapped_frame)(virtaddr_t virt);
+result_t ARCH_FUNCTION_MAPPING(vmm_map_phys)(virtaddr_t virt, physaddr_t phys, mmap_attrib_t attrib);
+result_t ARCH_FUNCTION_MAPPING(vmm_map_virt)(virtaddr_t virt, mmap_attrib_t attrib);
+void ARCH_FUNCTION_MAPPING(vmm_unmap)(virtaddr_t virt, munmap_attrib_t attrib);
+void ARCH_FUNCTION_MAPPING(vmm_init)(void);
 
 #endif /* !_KERNEL_MEM_VMM_H_ */

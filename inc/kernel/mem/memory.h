@@ -13,8 +13,8 @@
 # include <kernel/def/def.h>
 # include <kconfig.h>
 
-# define P2V(x) ((uintptr)x + (uintptr)&__KERNEL_ADDR_TRNS)
-# define V2P(x) ((uintptr)x - (uintptr)&__KERNEL_ADDR_TRNS)
+# define P2V(x) ((virtaddr_t)((uintptr)x + (uintptr)&__KERNEL_ADDR_TRNS))
+# define V2P(x) ((physaddr_t)((uintptr)x - (uintptr)&__KERNEL_ADDR_TRNS))
 
 # define IS_ALIGNED(x, y)   (!(((uintptr)x) & (y - 0x1)))
 # define IS_PAGE_ALIGNED(x) (IS_ALIGNED(x, KCONFIG_MMU_PAGESIZE))

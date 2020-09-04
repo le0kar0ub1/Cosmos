@@ -48,6 +48,7 @@ typedef uint64_t        u64_t;
 
 typedef void *          virtaddr_t;
 typedef uintptr_t       physaddr_t;
+# define PHYSNULL ((physaddr_t)0x0)
 
 typedef uintptr         archv_t;
 typedef uintptr *       archp_t;

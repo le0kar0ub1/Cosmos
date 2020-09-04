@@ -277,7 +277,7 @@ void x86_64_vmm_init(void)
     /*
     ** Allocate all the kernel pml4 entries 
     */
-    # pragma message "allocate my pml4 boy"
+    # pragma message "allocate my pml4 please"
 }
 
 /*

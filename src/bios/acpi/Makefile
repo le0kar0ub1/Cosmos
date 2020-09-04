@@ -10,5 +10,5 @@
 local = $(CALLED_LOCAL_DIRECTORY)
 
 TARGET_OBJECTS	+= $(addprefix $(local),	\
-						init.o				\
+					tables.o				\
 					)
