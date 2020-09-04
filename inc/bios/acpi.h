@@ -46,13 +46,13 @@ struct sdt_header
 struct rsdt
 {
 	struct sdt_header hdr;
-	u32_t sdt_phys_addr;
+	u32_t sdt_phys_addr[];
 };
 
 struct xsdt
 {
 	struct sdt_header hdr;
-	u64_t sdt_phys_addr;
+	u64_t sdt_phys_addr[];
 };
 
 void acpi_init(void);

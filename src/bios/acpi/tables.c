@@ -10,6 +10,7 @@
 # include <cosmos.h>
 # include <bios/acpi.h>
 # include <lib/string.h>
+# include <drivers/uart16650.h>
 # include <lib/krn.h>
 # include <kernel/mem/memory.h>
 # include <kernel/mem/vmm.h>
@@ -74,17 +75,28 @@ virtaddr_t acpi_find_table(char const *signature)
 	u32_t entries = ((struct sdt_header *)vsdt)->lenght;
 	entries /= rsdp_revision(vrsdp) == RSDP_REVISION_V1 ? 4 : 8;
 	struct sdt_header *current = (struct sdt_header *)vsdt;
+	u32_t entry = 0;
 
-	uart16650_printf("entries = %d\n", ((struct sdt_header *)vsdt)->lenght);
-	while (entries > 0)
+	while (entry < entries)
 	{
 		physaddr_t phys_sdt = rsdp_revision(vrsdp) == RSDP_REVISION_V1 ?
-		    (physaddr_t)((struct rsdt *)current)->sdt_phys_addr:
-		    (physaddr_t)((struct xsdt *)current)->sdt_phys_addr;
-		// if (!vmm_is_addr_range_mapped(P2V((physaddr_t)phys_sdt), sizeof(struct xsdt)))
-		current = (struct sdt_header *)P2V(phys_sdt);
-		uart16650_printf("HERE %s\n", current->signature);
-		entries--;
+		    (physaddr_t)((struct rsdt *)vsdt)->sdt_phys_addr[entry]:
+		    (physaddr_t)((struct xsdt *)vsdt)->sdt_phys_addr[entry];
+		if (!phys_sdt)
+			break;
+		if (!vmm_is_addr_range_mapped(P2V((physaddr_t)phys_sdt), KCONFIG_MMU_PAGESIZE))
+			current = ADD_PTR(
+						kalloc_dev(
+							ROUND_DOWN(phys_sdt, KCONFIG_MMU_PAGESIZE), 
+							KCONFIG_MMU_PAGESIZE * 2
+						),
+						phys_sdt % KCONFIG_MMU_PAGESIZE
+					);
+		else
+			current = (struct sdt_header *)ADD_PTR(vmm_get_mapped_frame(current), phys_sdt % KCONFIG_MMU_PAGESIZE);
+		if (memcmp(current->signature, signature, 4))
+			return ((virtaddr_t)current);
+		entry++;
 	}
 	return (NULL);
 }
@@ -99,17 +111,19 @@ void acpi_init(void)
 
 	if (!prsdp)
 		panic("RSDP not found, needed by ACPI");
-    if (rsdp_revision(vrsdp) == RSDP_REVISION_V2) {
+    if (rsdp_revision(vrsdp) == RSDP_REVISION_V2)
     	psdt = (physaddr_t)((struct rsdp_desc_v2 *)vrsdp)->xsdt_phys_addr;
-    } else {
+    else
 	    psdt = (physaddr_t)((struct rsdp_desc_v1 *)vrsdp)->rsdt_phys_addr;
-    } 
 	if (!vmm_is_addr_range_mapped(P2V((physaddr_t)psdt), KCONFIG_MMU_PAGESIZE))
-		vsdt = kalloc_dev(ROUND_DOWN(psdt, KCONFIG_MMU_PAGESIZE), KCONFIG_MMU_PAGESIZE * 2);
+		vsdt = ADD_PTR(
+					kalloc_dev(
+						ROUND_DOWN(psdt, KCONFIG_MMU_PAGESIZE), 
+						KCONFIG_MMU_PAGESIZE * 2
+					),
+					psdt % KCONFIG_MMU_PAGESIZE
+				);
 	else 
 		vsdt = (virtaddr_t)P2V((physaddr_t)psdt);
-	*((uint64 *)vsdt) = 0x0;
-	hlt();
-	vsdt = P2V(psdt);
-    acpi_find_table("FACP");
+    acpi_find_table("APIC");
 }
