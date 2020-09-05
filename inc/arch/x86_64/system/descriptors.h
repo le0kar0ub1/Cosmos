@@ -7,8 +7,8 @@
 **
 \******************************************************************************/
 
-#ifndef _ARCH_x86_64_DESCRIPTORS_H_
-# define _ARCH_x86_64_DESCRIPTORS_H_
+#ifndef _ARCH_x86_64_SYSTEM_DESCRIPTORS_H_
+# define _ARCH_x86_64_SYSTEM_DESCRIPTORS_H_
 
 enum x86_64_descriptors
 {
@@ -51,4 +51,4 @@ enum x86_64_dpl
 
 typedef enum x86_64_dpl x86_64_dpl_t;
 
-#endif /* !_ARCH_x86_64_DESCRIPTORS_H_ */
+#endif /* !_ARCH_x86_64_SYSTEM_DESCRIPTORS_H_ */

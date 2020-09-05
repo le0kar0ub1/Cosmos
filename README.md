@@ -65,11 +65,11 @@ let's go again.
   - [X] PIC (DISABLED)
   - [X] Physical Memory Management
   - [X] Virtual Memory Management
-  - [ ] ACPI
+  - [X] kernel allocator
+  - [X] ACPI (RSDP/SDT/...)
   - [ ] APIC/IOAPIC
   - [ ] TSS setup
   - [ ] SMP init
-  - [ ] kernel allocator
   - [ ] Memory Abstractor
 - [ ] Pure hook
   - [ ] Threads

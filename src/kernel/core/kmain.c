@@ -8,7 +8,7 @@
 \******************************************************************************/
 
 # include <cosmos.h>
-# include <arch/x86_64/descriptors/idt.h>
+# include <arch/x86_64/system/idt.h>
 # include <kernel/init/inithooks.h>
 # include <kernel/init/initcalls.h>
 # include <drivers/uart16650.h>
@@ -25,8 +25,6 @@ void kmain(void)
 {
     run_inithooks();
 
-	acpi_enable();
-	acpi_madt_init();
     uart16650_puts("Cosmos initialization done.\n");
     // cpudump();
     while (1);

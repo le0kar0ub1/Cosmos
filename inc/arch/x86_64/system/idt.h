@@ -7,13 +7,13 @@
 **
 \******************************************************************************/
 
-#ifndef _ARCH_x86_64_IDT_H_
-# define _ARCH_x86_64_IDT_H_
+#ifndef _ARCH_x86_64_SYSTEM_IDT_H_
+# define _ARCH_x86_64_SYSTEM_IDT_H_
 
 # include <kernel/def/def.h>
 # include <kernel/def/access.h>
 # include <kernel/def/assert.h>
-# include <arch/x86_64/descriptors/descriptors.h>
+# include <arch/x86_64/system/descriptors.h>
 
 struct x86_64_idt_gate
 {
@@ -47,4 +47,4 @@ static_assert(sizeof(struct x86_64_idt_ptr) == 10ul);
 
 void idt_init(void);
 
-#endif /* !_ARCH_x86_64_IDT_H_ */
+#endif /* !_ARCH_x86_64_SYSTEM_IDT_H_ */

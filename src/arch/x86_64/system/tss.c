@@ -9,7 +9,7 @@
 \******************************************************************************/
 
 # include <cosmos.h>
-# include <arch/x86_64/descriptors/tss.h>
+# include <arch/x86_64/system/tss.h>
 # include <kernel/mem/kalloc.h>
 
 struct x86_64_tss *tss;

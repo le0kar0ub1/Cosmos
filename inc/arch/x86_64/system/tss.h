@@ -7,13 +7,13 @@
 **
 \******************************************************************************/
 
-#ifndef _ARCH_x86_64_TSS_H_
-# define _ARCH_x86_64_TSS_H_
+#ifndef _ARCH_x86_64_SYSTEM_TSS_H_
+# define _ARCH_x86_64_SYSTEM_TSS_H_
 
 # include <kernel/def/def.h>
 # include <kernel/def/access.h>
 # include <kernel/def/assert.h>
-# include <arch/x86_64/descriptors/descriptors.h>
+# include <arch/x86_64/system/descriptors.h>
 
 struct x86_64_tss
 {
@@ -38,4 +38,4 @@ static_assert(sizeof(struct x86_64_tss) == 0x68);
 
 void tss_init(u32_t entries);
 
-#endif /* !_ARCH_x86_64_TSS_H_ */
+#endif /* !_ARCH_x86_64_SYSTEM_TSS_H_ */

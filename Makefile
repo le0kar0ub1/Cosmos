@@ -47,3 +47,4 @@ run: iso
 						-m 4G												\
 						$(QEMUOPT)											\
 						-enable-kvm											\
+						-smp 4

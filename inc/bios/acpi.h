@@ -147,13 +147,15 @@ struct acpi_table_madt
 	u32_t flags;
 } __packed;
 
+physaddr_t acpi_madt_get_phys_loc_apic(void);
+
 enum acpi_madt_entry_type
 {
-	ACPI_MADT_ENTRY_TYPE_0,
-	ACPI_MADT_ENTRY_TYPE_1,
-	ACPI_MADT_ENTRY_TYPE_2,
-	ACPI_MADT_ENTRY_TYPE_4,
-	ACPI_MADT_ENTRY_TYPE_5,
+	ACPI_MADT_ENTRY_TYPE_0 = 0x0,
+	ACPI_MADT_ENTRY_TYPE_1 = 0x1,
+	ACPI_MADT_ENTRY_TYPE_2 = 0x2,
+	ACPI_MADT_ENTRY_TYPE_4 = 0x4,
+	ACPI_MADT_ENTRY_TYPE_5 = 0x5,
 };
 
 struct acpi_madt_et_flag

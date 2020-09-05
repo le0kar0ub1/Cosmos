@@ -10,7 +10,7 @@
 local := $(CALLED_LOCAL_DIRECTORY)
 
 sinclude $(local)/boot/Makefile				\
-		 $(local)/descriptors/Makefile		\
+		 $(local)/smp/Makefile				\
+		 $(local)/system/Makefile		\
 		 $(local)/interrupts/Makefile		\
-		 $(local)/klib/Makefile				\
 		 $(local)/mem/Makefile				\

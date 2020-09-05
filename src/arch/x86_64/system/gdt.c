@@ -8,7 +8,7 @@
 \******************************************************************************/
 
 # include <cosmos.h>
-# include <arch/x86_64/descriptors/gdt.h>
+# include <arch/x86_64/system/gdt.h>
 
 /*
 ** Entire x86_64 gdt

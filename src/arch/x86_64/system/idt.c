@@ -7,8 +7,8 @@
 **
 \******************************************************************************/
 
-# include <arch/x86_64/descriptors/idt.h>
-# include <arch/x86_64/descriptors/descriptors.h>
+# include <arch/x86_64/system/idt.h>
+# include <arch/x86_64/system/descriptors.h>
 # include <arch/x86_64/interrupts/interrupts.h>
 
 /*
