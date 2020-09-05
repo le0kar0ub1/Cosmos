@@ -128,4 +128,5 @@ void acpi_init(void)
 	else 
 		vsdt = (virtaddr_t)P2V((physaddr_t)psdt);
 	acpi_map_table();
+	acpi_fadt_init();
 }

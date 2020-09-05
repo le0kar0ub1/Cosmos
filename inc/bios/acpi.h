@@ -138,6 +138,85 @@ struct acpi_table_fadt
 
 void acpi_enable(void);
 void acpi_disable(void);
+void acpi_fadt_init(void);
+
+struct acpi_table_madt
+{
+	struct sdt_header header;
+	u32_t loc_apic_addr;
+	u32_t flags;
+} __packed;
+
+enum acpi_madt_entry_type
+{
+	ACPI_MADT_ENTRY_TYPE_0,
+	ACPI_MADT_ENTRY_TYPE_1,
+	ACPI_MADT_ENTRY_TYPE_2,
+	ACPI_MADT_ENTRY_TYPE_4,
+	ACPI_MADT_ENTRY_TYPE_5,
+};
+
+struct acpi_madt_et_flag
+{
+	u8_t entry_type;
+	u8_t record_lenght;
+};
+
+/*
+ * single physical core & local interrupt controller
+ */
+struct acpi_madt_et0_cpu_loc_apic
+{
+	struct acpi_madt_et_flag header;
+	u8_t acpi_cpu_id;
+	u8_t apic_id;
+	u32_t flags; // bit 0 = cpu enabled, bit 1 = online capable
+} __packed;
+
+/*
+ * single IOAPIC
+ */
+struct acpi_madt_et1_ioapic
+{
+	struct acpi_madt_et_flag header;
+	u8_t ioapic_id;
+	u8_t _reserved;
+	u32_t ioapic_addr;
+	u32_t glob_sys_int_base;
+} __packed;
+
+/*
+ * Interrupt source overriding
+ */
+struct acpi_madt_et2_int_src_override
+{
+	struct acpi_madt_et_flag header;
+	u8_t bus_src;
+	u8_t irq_src;
+	u32_t glob_sys_int;
+	u16_t flags;
+} __packed;
+
+/*
+ * LVT NMI
+ */
+struct acpi_madt_et4_nmi
+{
+	struct acpi_madt_et_flag header;
+	u8_t acpi_cpu_id;
+	u16_t flags;
+	u8_t lint;
+} __packed;
+
+/*
+ * 64 bits system override local apic
+ */
+struct acpi_madt_et5_apic_addr_override
+{
+	struct acpi_madt_et_flag header;
+	u16_t _reserved;
+	u64_t loc_apic_addr;
+} __packed;
 
 void acpi_init(void);
 virtaddr_t acpi_get_table(char const *signature);

@@ -22,7 +22,7 @@ struct io_port {
 
 # define REGISTER_IO_PORT(pname, vport)                           \
     __aligned(sizeof(void *)) __used __section(".cosmos_io_port") \
-    static const struct io_port const pname = {                   \
+    static struct io_port pname = {                   	  		  \
         .name = #pname,                                           \
         .port = vport                                             \
     }

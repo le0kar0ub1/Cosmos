@@ -8,9 +8,18 @@
 \******************************************************************************/
 
 # include <cosmos.h>
+# include <kernel/io/port.h>
 # include <bios/acpi.h>
 # include <lib/string.h>
 # include <drivers/uart16650.h>
+
+/*
+ * Port will be update in runtime
+*/
+REGISTER_IO_PORT(
+	acpi_smi_cmd,
+	0x0
+);
 
 static inline struct acpi_table_fadt *acpi_get_fadt(void)
 {
@@ -19,10 +28,15 @@ static inline struct acpi_table_fadt *acpi_get_fadt(void)
 
 void acpi_enable(void)
 {
-	acpi_get_fadt()->acpi_enable = true;
+	outb(&acpi_smi_cmd, acpi_get_fadt()->acpi_enable, 0x0);
 }
 
 void acpi_disable(void)
 {
-	acpi_get_fadt()->acpi_disable = true;
+	outb(&acpi_smi_cmd, acpi_get_fadt()->acpi_disable, 0x0);
+}
+
+void acpi_fadt_init(void)
+{
+	acpi_smi_cmd.port = (u16_t)acpi_get_fadt()->smi_command;
 }
