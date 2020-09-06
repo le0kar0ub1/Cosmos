@@ -15,5 +15,4 @@ void apic_init(void)
 {
 	if (!cpuid_get_feature(CPUID_FEAT_EDX_APIC))
 		panic("APIC feature isn't available");
-
 }

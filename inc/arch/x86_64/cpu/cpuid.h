@@ -76,8 +76,45 @@ enum __cpuid_features
 static inline bool cpuid_get_feature(enum __cpuid_features feature)
 {
 	u32_t eax, unused, edx;
+
     __get_cpuid(1, &eax, &unused, &unused, &edx);
     return (edx & feature);
+}
+
+static inline void cpuid_get_cpu_vendor(char *vendor)
+{
+	u32_t eax;
+	u8_t ebx[4], edx[4], ecx[4];
+
+	__get_cpuid(0, &eax, &ebx, &ecx, &edx);
+	vendor[0] = ebx[0];
+	vendor[1] = ebx[1];
+	vendor[2] = ebx[2];
+	vendor[3] = ebx[3];
+	vendor[4] = edx[0];
+	vendor[5] = edx[1];
+	vendor[6] = edx[2];
+	vendor[7] = edx[3];
+	vendor[8] = ecx[0];
+	vendor[9] = ecx[1];
+	vendor[10] = ecx[2];
+	vendor[11] = ecx[3];
+}
+
+static inline u8_t cpuid_get_apic_id(void)
+{
+	u32_t eax, ebx, unused;
+
+	__get_cpuid(1, &eax, &ebx, &unused, &unused);
+	return ((u8_t)(ebx >> 24));
+}
+
+static inline u64_t cpuid_get_lower_cpu_serialnbr(void)
+{
+	u32_t eax, ecx, edx, unused;
+
+	__get_cpuid(3, &eax, &unused, &ecx, &edx);
+	return (((u64_t)ecx) + ((u64_t)edx << 32));
 }
 
 #endif /* !_ARCH_x86_64_CPU_CPUID_H_ */

@@ -38,6 +38,7 @@ static void boot_hook(void)
     */
     ARCH_FUNCTION_MAPPING(vmm_init)();
     acpi_init();
+    apic_init();
 }
 
 REGISTER_BOOT_INITHOOK(boot_hook);
