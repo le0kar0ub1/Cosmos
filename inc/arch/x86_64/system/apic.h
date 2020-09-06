@@ -14,8 +14,6 @@
 
 # define APIC_PHYS_BASE_ADDR	(physaddr_t)0xFEE00000
 
-# define APIC_INIT_CLOCK_WAIT	300000000ull
-
 /*
  * Local APIC registers offset
  */

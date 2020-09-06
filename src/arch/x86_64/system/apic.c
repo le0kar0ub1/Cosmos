@@ -12,6 +12,7 @@
 # include <kernel/io/mem.h>
 # include <arch/x86_64/system/apic.h>
 # include <arch/x86_64/cpu/cpuid.h>
+# include <arch/x86_64/asm.h>
 
 static volatile u32_t *apic = NULL;
 
@@ -29,6 +30,13 @@ static void apic_write_reg(enum apic_reg reg, u32_t val)
 static u32_t apic_read_reg(enum apic_reg reg)
 {
 	return (*((volatile u32_t *)ADD_PTR(apic, reg)));
+}
+
+static void rdtsc_mwait(void)
+{
+	u64_t start = rdtsc();
+
+	while (rdtsc() < start +  300000000ul);
 }
 
 void apic_init(void)

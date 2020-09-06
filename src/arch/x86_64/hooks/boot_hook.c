@@ -7,13 +7,15 @@
 **
 \******************************************************************************/
 
-# include <arch/x86_64/boot/multiboot2.h>
-# include <bios/acpi.h>
+# include <kernel/def/def.h>
 # include <kernel/init/inithooks.h>
 # include <kernel/init/initcalls.h>
-# include <kernel/def/def.h>
 # include <drivers/vga.h>
+# include <bios/acpi.h>
+# include ARCH_HEADER(boot/multiboot2.h)
 # include ARCH_HEADER(mem/vmm.h)
+# include ARCH_HEADER(system/apic.h)
+# include ARCH_HEADER(system/ioapic.h)
 
 extern char const *cosmos_signature_asciiart;
 
@@ -39,6 +41,7 @@ static void boot_hook(void)
     ARCH_FUNCTION_MAPPING(vmm_init)();
     acpi_init();
     apic_init();
+    ioapic_init();
 }
 
 REGISTER_BOOT_INITHOOK(boot_hook);

@@ -7,11 +7,8 @@
 ##
 ###############################################################################
 
-local := $(CALLED_LOCAL_DIRECTORY)
+local = $(CALLED_LOCAL_DIRECTORY)
 
-sinclude $(local)/boot/Makefile				\
-		 $(local)/smp/Makefile				\
-		 $(local)/system/Makefile			\
-		 $(local)/interrupts/Makefile		\
-		 $(local)/mem/Makefile				\
-		 $(local)/hooks/Makefile			\
+TARGET_OBJECTS	+= $(addprefix $(local),	\
+						boot_hook.o			\
+					)
