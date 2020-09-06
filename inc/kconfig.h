@@ -12,7 +12,7 @@
 
 # define KCONFIG_MMU_PAGESIZE 0x1000
 
-# define KCONFIG_MAXCPUS      0x1
+# define KCONFIG_MAXCPUS      0x4
 
 # define KCONFIG_MAXTHREADS   0x20
 

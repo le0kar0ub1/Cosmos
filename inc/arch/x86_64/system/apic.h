@@ -7,19 +7,19 @@
 **
 \******************************************************************************/
 
-#ifndef _ARCH_x86_64_SYSTEM_APIC_APIC_H_
-# define _ARCH_x86_64_SYSTEM_APIC_APIC_H_
+#ifndef _ARCH_x86_64_SYSTEM_APIC_H_
+# define _ARCH_x86_64_SYSTEM_APIC_H_
 
 # include <cosmos.h>
 
-# define APIC_BASE_ADDR			0xFEE00000
+# define APIC_PHYS_BASE_ADDR	(physaddr_t)0xFEE00000
 
 # define APIC_INIT_CLOCK_WAIT	300000000ull
 
 /*
  * Local APIC registers offset
  */
-enum apic_registers
+enum apic_reg
 {
 	APIC_ID				= 0x020, /* ID */
 	APIC_VERSION		= 0x030, /* Version */
@@ -86,4 +86,4 @@ enum apic_timer_mode
 
 void apic_init(void);
 
-#endif /* !_ARCH_x86_64_SYSTEM_APIC_APIC_H_ */
+#endif /* !_ARCH_x86_64_SYSTEM_APIC_H_ */

@@ -12,6 +12,9 @@
 
 # include <cpuid.h>
 
+/*
+ * x86 CPUID feature list
+ */
 enum __cpuid_features
 {
 	CPUID_FEAT_ECX_SSE3         = 1 << 0, 
@@ -107,6 +110,14 @@ static inline u8_t cpuid_get_apic_id(void)
 
 	__get_cpuid(1, &eax, &ebx, &unused, &unused);
 	return ((u8_t)(ebx >> 24));
+}
+
+static inline u32_t cpuid_get_cpu_signature(void)
+{
+	u32_t eax,  unused;
+
+	__get_cpuid(1, &eax, &unused, &unused, &unused);
+	return (eax);
 }
 
 static inline u64_t cpuid_get_lower_cpu_serialnbr(void)

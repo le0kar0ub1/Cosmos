@@ -13,6 +13,6 @@ TARGET_OBJECTS	+= $(addprefix $(local),	\
 						gdt.o				\
 						idt.o				\
 						tss.o				\
+						apic.o				\
+						ioapic.o			\
 					)
-
-sinclude $(local)/apic/Makefile

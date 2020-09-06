@@ -317,4 +317,28 @@ static inline void io_delay(void)
     asm volatile("outb %%al, $0x80" : : "a"(0));
 }
 
+enum msr_id
+{
+	MSR_APIC_BASE = 0x1B
+};
+
+static inline uint64 msr_read(enum msr_id msr)
+{
+	u32_t low;
+	u32_t high;
+
+	asm volatile("rdmsr" : "=a"(low), "=d"(high) : "c"((u32_t)msr));
+	return (((u64_t)high << 32u) | (u64_t)low);
+}
+
+static inline void msr_write(enum msr_id msr, u64_t val)
+{
+	u32_t low;
+	u32_t high;
+
+	low = (u32_t)val;
+	high = (u32_t)(val >> 32u);
+	asm volatile("wrmsr" : : "a"(low), "d"(high), "c"((u32_t)msr));
+}
+
 #endif /* !_ARCH_x86_64_ASM_H_ */
