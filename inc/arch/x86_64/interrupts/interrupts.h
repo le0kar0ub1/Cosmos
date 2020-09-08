@@ -113,4 +113,9 @@ void exceptions_handler(struct interrupt_frame *);
 
 void handmade_debug(struct interrupt_frame *);
 
+
+void apic_spurious_interrupt_handler(struct interrupt_frame *frame);
+void apic_error_interrupt_handler(struct interrupt_frame *frame);
+void apic_timer_interrupt_handler(struct interrupt_frame *frame);
+
 #endif /* !_ARCH_x86_64_INTERRUPTS_H_ */

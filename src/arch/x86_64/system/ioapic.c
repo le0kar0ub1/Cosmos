@@ -11,6 +11,7 @@
 # include <kernel/mem/kalloc.h>
 # include <kernel/io/mem.h>
 # include <arch/x86_64/system/ioapic.h>
+# include <arch/x86_64/system/apic.h>
 # include <arch/x86_64/cpu/cpuid.h>
 # include <arch/x86_64/interrupts/interrupts.h>
 
@@ -48,7 +49,7 @@ void ioapic_unmask_vector(u32_t vector)
 	entry.trigger_mode = IOAPIC_TRIGGER_EDGE;
 	entry.mask = IOAPIC_UNMASK;
 	entry.destination_mode = IOAPIC_DEST_MODE_PHYSICAL;
-	// entry.destination = apic_get_id();
+	entry.destination = apic_get_id();
 	ioapic_write_reg(IOAPIC_TABLE + (2 * (vector - INT_IRQ0)), entry.low32);
 	ioapic_write_reg(IOAPIC_TABLE + (2 * (vector - INT_IRQ0)) + 1, entry.high32);
 }
@@ -67,7 +68,7 @@ void ioapic_mask_vector(u32_t vector)
 	entry.trigger_mode = IOAPIC_TRIGGER_EDGE;
 	entry.mask = IOAPIC_MASK;
 	entry.destination_mode = IOAPIC_DEST_MODE_PHYSICAL;
-	// entry.destination = apic_get_id();
+	entry.destination = apic_get_id();
 	ioapic_write_reg(IOAPIC_TABLE +( 2 * (vector - INT_IRQ0)), entry.low32);
 	ioapic_write_reg(IOAPIC_TABLE +( 2 * (vector - INT_IRQ0)) + 1, entry.high32);
 }

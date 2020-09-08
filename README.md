@@ -59,7 +59,7 @@ let's go again.
   - [X] GDT setup
   - [X] IDT setup
   - [X] Interrupts handling
-- [ ] Boot hook
+- [ ] Boot hook (arch-specific)
   - [X] VGA
   - [X] UART
   - [X] PIC (DISABLED)
@@ -67,14 +67,15 @@ let's go again.
   - [X] Virtual Memory Management
   - [X] kernel allocator
   - [X] ACPI (RSDP/SDT/...)
-  - [ ] APIC/IOAPIC
+  - [ ] APIC
+  - [ ] IOAPIC
+  - [ ] Timer
   - [ ] TSS setup
   - [ ] SMP init
   - [ ] Memory Abstractor
 - [ ] Pure hook
   - [ ] Threads
   - [ ] Basic Scheduling
-  - [ ] Timer
   - [ ] ELF Loader
   - [ ] Syscall interface
   - [ ] PS/2 Keyboard

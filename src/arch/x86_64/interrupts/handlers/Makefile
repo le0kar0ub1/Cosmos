@@ -11,4 +11,7 @@ local = $(CALLED_LOCAL_DIRECTORY)
 
 TARGET_OBJECTS	+= $(addprefix $(local),	\
 						debug.o				\
+						apic_error.o		\
+						apic_spurious.o		\
+						apic_timer.o		\
 					)

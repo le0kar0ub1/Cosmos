@@ -83,5 +83,8 @@ enum apic_timer_mode
 };
 
 void apic_init(void);
+u32_t apic_get_id(void);
+void apic_eoi(void);
+void apic_send_ipi(u32_t apicid, u32_t attrib);
 
 #endif /* !_ARCH_x86_64_SYSTEM_APIC_H_ */

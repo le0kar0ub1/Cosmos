@@ -76,12 +76,20 @@ enum __cpuid_features
     CPUID_FEAT_EDX_PBE          = 1 << 31
 };
 
-static inline bool cpuid_get_feature(enum __cpuid_features feature)
+static inline bool cpuid_get_edx_feature(enum __cpuid_features feature)
 {
 	u32_t eax, unused, edx;
 
     __get_cpuid(1, &eax, &unused, &unused, &edx);
     return (edx & feature);
+}
+
+static inline bool cpuid_get_ecx_feature(enum __cpuid_features feature)
+{
+	u32_t eax, unused, ecx;
+
+	__get_cpuid(1, &eax, &unused, &ecx, &unused);
+	return (ecx & feature);
 }
 
 static inline void cpuid_get_cpu_vendor(char *vendor)
