@@ -112,9 +112,11 @@ void apic_init(void)
 		panic("APIC feature isn't available");
 	/*
      * DO NOT PANIC if x2APIC isn't available
+     * We will probably not implement x2apic in this kernel
+     * The improvements done for x2apic aren't relevant for us
      */
-	if (!cpuid_get_ecx_feature(CPUID_FEAT_ECX_x2APIC))
-	    panic("x2APIC unavailable");
+	//if (!cpuid_get_ecx_feature(CPUID_FEAT_ECX_x2APIC))
+	//    panic("x2APIC unavailable");
 	apic = kmap_dev(APIC_PHYS_BASE_ADDR, KCONFIG_MMU_PAGESIZE);
 	assert(apic);
 
