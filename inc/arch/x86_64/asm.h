@@ -13,7 +13,7 @@
 # include <kernel/def/def.h>
 
 typedef volatile uint32 atomic32_t;
-typedef volatile uint64 atomic64_t;
+typedef volatile u64_t atomic64_t;
 
 typedef atomic32_t kref_t;
 
@@ -121,17 +121,17 @@ static inline void atomic_write32(atomic32_t *var, uint32 val)
 }
 
 
-static inline uint64 atomic_read64(atomic64_t *var)
+static inline u64_t atomic_read64(atomic64_t *var)
 {
     return __atomic_load_n(var, __ATOMIC_SEQ_CST);
 }
 
-static inline uint64 atomic_inc_read64(atomic64_t *var)
+static inline u64_t atomic_inc_read64(atomic64_t *var)
 {
     return __atomic_add_fetch(var, 1, __ATOMIC_SEQ_CST);
 }
 
-static inline uint64 atomic_dec_read64(atomic64_t *var)
+static inline u64_t atomic_dec_read64(atomic64_t *var)
 {
     return __atomic_sub_fetch(var, 1, __ATOMIC_SEQ_CST);
 }
@@ -214,9 +214,9 @@ static inline void set_cr0(uintptr cr0)
     asm volatile("mov %0, %%cr0" :: "r"(cr0));
 }
 
-static inline uint64 rdtsc(void)
+static inline u64_t rdtsc(void)
 {
-    uint64 ret;
+    u64_t ret;
     asm volatile("rdtsc" : "=A"(ret));
     return (ret);
 }
@@ -279,28 +279,52 @@ static inline void interrupt(uchar vector)
     asm volatile("int %0" :: "i"(vector));
 }
 
-static inline uint64 read_rflags(void)
+static inline u64_t read_rflags(void)
 {
     return (__builtin_ia32_readeflags_u64());
 }
-static inline void write_rflags(uint64 rflags)
+static inline void write_rflags(u64_t rflags)
 {
     __builtin_ia32_writeeflags_u64(rflags);
 }
 
-static inline uint64 get_rflags(void)
-{
-    uint64 e;
+struct rflags {
+    u64_t cf     : 1;  /* Carry Flag */
+    u64_t _res1  : 1;  /* Reserved */
+    u64_t pf     : 1;  /* Parity Flag */
+    u64_t _res2  : 1;  /* Reserved */
+    u64_t af     : 1;  /* Auxiliary Carry Flag */
+    u64_t _res3  : 1;  /* Reserved */
+    u64_t zf     : 1;  /* Zero Flag */
+    u64_t sf     : 1;  /* Sign Flag */
+    u64_t tf     : 1;  /* Trap Flag */
+    u64_t ief    : 1;  /* Interrupt Enable Flag */
+    u64_t df     : 1;  /* Direction Flag */
+    u64_t of     : 1;  /* Overflow Flag */
+    u64_t iopbl  : 2;  /* I/O Privilege Level */
+    u64_t nt     : 1;  /* Nested Task */
+    u64_t _res4  : 1;  /* Reserved */
+    u64_t rf     : 1;  /* Resume Flag */
+    u64_t vm     : 1;  /* Virtual-8086 Mode */
+    u64_t ac     : 1;  /* Alignment Check / Access Control */
+    u64_t wif    : 1;  /* Virtual Interrupt Flag */
+    u64_t vip    : 1;  /* Virtual Interrupt Pending */
+    u64_t id     : 1;  /* ID Flag */
+    u64_t _res5  : 41; /* Reserved */
+} __aligned;
 
-    asm volatile("pushfq; pop %0" : "=rm"(e) :: "memory");
-    return (e);
+static inline struct rflags rflags_get(void)
+{
+    struct rflags r;
+
+    asm volatile("pushfq; pop %0" : "=rm"(r) :: "memory");
+    return (r);
 }
 
-static inline void set_rflags(uint64 value)
+static inline void rflags_set(struct rflags r)
 {
-    asm volatile("push %0; popfq" :: "g"(value) : "memory", "cc");
+    asm volatile("push %0; popfq" :: "g"(r) : "memory", "cc");
 }
-
 
 static inline void preempt_inc(void)
 {
@@ -322,7 +346,7 @@ enum msr_id
 	MSR_APIC_BASE = 0x1B
 };
 
-static inline uint64 msr_read(enum msr_id msr)
+static inline u64_t msr_read(enum msr_id msr)
 {
 	u32_t low;
 	u32_t high;

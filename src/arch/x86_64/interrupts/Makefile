@@ -14,6 +14,7 @@ TARGET_OBJECTS	+= $(addprefix $(local),	\
 						dispatcher.o		\
 						register-handlers.o	\
 						exceptions.o		\
+						interrupts.o		\
 					)
 
 sinclude $(local)/handlers/Makefile

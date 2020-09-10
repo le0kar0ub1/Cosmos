@@ -20,5 +20,6 @@ struct cpu
 } __packed;
 
 u32_t cpu_get_id(void);
+struct cpu *cpu_get_desc(void);
 
 #endif /* !_KERNEL_CPU_CPUS_H_ */
