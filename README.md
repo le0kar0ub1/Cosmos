@@ -72,8 +72,8 @@ let's go again.
   - [ ] Timer
   - [ ] TSS setup
   - [ ] SMP init
-  - [ ] Memory Abstractor
 - [ ] Pure hook
+  - [ ] Memory Abstractor
   - [ ] Threads
   - [ ] Basic Scheduling
   - [ ] ELF Loader

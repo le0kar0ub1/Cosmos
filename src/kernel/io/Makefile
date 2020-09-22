@@ -9,10 +9,6 @@
 
 local = $(CALLED_LOCAL_DIRECTORY)
 
-sinclude $(local)/core/Makefile		\
-		 $(local)/drivers/Makefile	\
-		 $(local)/init/Makefile		\
-		 $(local)/cosmos/Makefile	\
-		 $(local)/mem/Makefile		\
-		 $(local)/cpu/Makefile		\
-		 $(local)/io/Makefile		\
+TARGET_OBJECTS	+= $(addprefix $(local),	\
+						dsp.o				\
+					)

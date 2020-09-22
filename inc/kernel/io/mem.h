@@ -16,7 +16,8 @@
 /*
 ** A memory area
 */
-struct memory_area {
+struct memory_area
+{
     char const    *name;
     physaddr_t    start;
     physaddr_t    end;

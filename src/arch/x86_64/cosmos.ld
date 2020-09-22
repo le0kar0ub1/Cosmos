@@ -138,6 +138,16 @@ SECTIONS
     }
 
     /*
+    ** register display function by type
+    */
+    .cosmos_io_dsp ALIGN(0x8) : AT(ADDR(.cosmos_io_dsp) - __KERNEL_ADDR_TRNS)
+    {
+        PROVIDE(__cosmos_io_dsp_start = .);
+        KEEP(*(.cosmos_io_dsp));
+        PROVIDE(__cosmos_io_dsp_end = .);
+    }
+
+    /*
     ** Cosmos specific datas
     */
     .cosmos ALIGN(0x8) : AT(ADDR(.cosmos) - __KERNEL_ADDR_TRNS)

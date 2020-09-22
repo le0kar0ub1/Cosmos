@@ -9,6 +9,7 @@
 
 # include <drivers/uart16650.h>
 # include <lib/stdio.h>
+# include <kernel/io/dsp.h>
 
 void uart16650_printf(char const *fmt, ...)
 {
@@ -22,3 +23,9 @@ void uart16650_vprintf(char const *fmt, __builtin_va_list ap)
 {
     generic_vprintf(uart16650_szputs, fmt, ap);
 }
+
+REGISTER_DSP_FNCT(
+	uart16650_printf,
+	DSP_FUNCTION_PRINTF,
+	DSP_FUNCTION_UART
+);
