@@ -46,4 +46,6 @@ struct dsp_fnct
         .name     = #mfunc,                                       	\
     };
 
+virtaddr_t get_dsp_kernel(enum dsp_function_target_type tgt, enum dsp_function_type type);
+
 #endif /* !_KERNEL_IO_DSP_H_ */
