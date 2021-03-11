@@ -9,6 +9,6 @@
 
 local = $(CALLED_LOCAL_DIRECTORY)
 
-TARGET_OBJECTS	+= $(addprefix $(local),	\
-						dsp.o				\
+TARGET_OBJECTS	+= $(addprefix $(local),		\
+						display.o				\
 					)

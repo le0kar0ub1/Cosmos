@@ -7,8 +7,8 @@
 **
 \******************************************************************************/
 
+# include <kernel/drivers/drivers.h>
 # include <kernel/io/port.h>
-# include <kernel/init/initcalls.h>
 # include <drivers/pic.h>
 # include <arch/x86_64/interrupts/interrupts.h>
 # include <arch/x86_64/asm.h>
@@ -67,7 +67,7 @@ static inline void pic_unmask(u8_t irq)
 /*
 ** Init then disable PIC
 */
-void pic_init(void)
+static void pic_probe(void)
 {
     /* Start init sequence in cascade mode */
     pic_outb(&pic_master_command, 0x0, 0x11);
@@ -93,6 +93,20 @@ void pic_init(void)
     pic_outb(&pic_slave_data, 0x0,  0xFF);
 }
 
-REGISTER_BOOT_INITCALL(pic_init);
+static void pic_remove(void) {}
+
+REGISTER_DRIVER(
+    pic,
+    "PIC driver",
+    COSMOS_HOOK_BOOT,
+    pic_probe,
+    pic_remove,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+);
 
 #undef PIC_EOI

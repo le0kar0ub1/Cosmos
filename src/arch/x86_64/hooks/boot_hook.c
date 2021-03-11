@@ -8,14 +8,14 @@
 \******************************************************************************/
 
 # include <kernel/def/def.h>
+# include <kernel/drivers/drivers.h>
 # include <kernel/init/inithooks.h>
-# include <kernel/init/initcalls.h>
 # include <drivers/vga.h>
 # include <bios/acpi.h>
-# include ARCH_HEADER(boot/multiboot2.h)
-# include ARCH_HEADER(mem/vmm.h)
-# include ARCH_HEADER(system/apic.h)
-# include ARCH_HEADER(system/ioapic.h)
+# include <arch/x86_64/boot/multiboot2.h>
+# include <arch/x86_64/mem/vmm.h>
+# include <arch/x86_64/system/apic.h>
+# include <arch/x86_64/system/ioapic.h>
 
 extern char const *cosmos_signature_asciiart;
 
@@ -33,12 +33,12 @@ static void helloFromCosmos(void)
 static void boot_hook(void)
 {
     multiboot_parse_tags();
-    run_boot_initcalls();
+    driver_probe_runhook(COSMOS_HOOK_BOOT);
     helloFromCosmos();
     /*
     ** The following initializations depend of the first above
     */
-    ARCH_FUNCTION_MAPPING(vmm_init)();
+    x86_64_vmm_init();
     acpi_init();
     apic_init();
     ioapic_init();

@@ -9,7 +9,7 @@
 
 # include <arch/x86_64/interrupts/interrupts.h>
 
-static void (*interrupt_handlers[MAX_INT])(struct interrupt_frame *) = {0};
+static void (*interrupt_handlers[MAX_INT])(struct interrupt_frame *) = {NULL};
 
 /*
 ** register a particular interrupt handler

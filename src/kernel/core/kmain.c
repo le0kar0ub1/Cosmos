@@ -10,7 +10,6 @@
 # include <cosmos.h>
 # include <arch/x86_64/system/idt.h>
 # include <kernel/init/inithooks.h>
-# include <kernel/init/initcalls.h>
 # include <drivers/uart16650.h>
 # include <arch/x86_64/asm.h>
 # include <lib/krn.h>

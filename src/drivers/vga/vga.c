@@ -12,7 +12,6 @@
 # include <kernel/io/mem.h>
 # include <kernel/io/port.h>
 # include <kernel/mem/memory.h>
-# include <kernel/init/initcalls.h>
 # include <kernel/drivers/drivers.h>
 # include <lib/string.h>
 
@@ -30,7 +29,7 @@ REGISTER_IO_PMM(
 /*
 ** VGA handling data
 */
-static struct vga vga =
+static struct vga hvga =
 {
     .attrib = 0x0,
     .buff = (u16_t *)P2V(0xB8000),
@@ -84,7 +83,7 @@ void vga_cursor_disable(void)
 */
 static void vga_cursor_update(void)
 {
-    uint pos = vga.posy * VGA_WIDTH + vga.posx;
+    uint pos = hvga.posy * VGA_WIDTH + hvga.posx;
     outb(&crtc_index, 0x0, 14);
     outb(&crtc_data, 0x0, pos >> 8);
     outb(&crtc_index, 0x0, 15);
@@ -110,7 +109,7 @@ uint16 vga_cursor_get_position(void)
 */
 void vga_set_color(enum vga_color bg, enum vga_color fg)
 {
-    vga.attrib = ((bg << 0x4) | (fg & 0xF)) << 0x8;
+    hvga.attrib = ((bg << 0x4) | (fg & 0xF)) << 0x8;
 }
 
 /*
@@ -119,13 +118,13 @@ void vga_set_color(enum vga_color bg, enum vga_color fg)
 static void vga_scroll(void)
 {
     void *start = (void *)(vga_buffer.start + (VGA_WIDTH * 2));
-    uint32_t size = vga.posy * VGA_WIDTH * 2;
+    uint32_t size = hvga.posy * VGA_WIDTH * 2;
 
-    if(vga.posy < VGA_HEIGHT - 0x1)
+    if(hvga.posy < VGA_HEIGHT - 0x1)
         return;
     memcpy((void *)vga_buffer.start, start, size);
     start = (void *)(vga_buffer.start + size);
-    memsetw(start, vga.attrib | 0x20, VGA_WIDTH);
+    memsetw(start, hvga.attrib | 0x20, VGA_WIDTH);
 }
 
 /*
@@ -133,9 +132,9 @@ static void vga_scroll(void)
 */
 void vga_clear(void)
 {
-    memsetw(vga.buff, vga.attrib | 0x20, VGA_WIDTH * VGA_HEIGHT);
-    vga.posx = 0x0;
-    vga.posy = 0x0;
+    memsetw(hvga.buff, hvga.attrib | 0x20, VGA_WIDTH * VGA_HEIGHT);
+    hvga.posx = 0x0;
+    hvga.posy = 0x0;
     vga_cursor_update();
 }
 
@@ -147,33 +146,33 @@ static void vga_putchar(int c)
     switch (c)
     {
         case '\n': /* new line */
-            vga.posx = 0x0;
-            vga.posy++;
+            hvga.posx = 0x0;
+            hvga.posy++;
             break;
         case '\t': /* tabulation */
-            vga.posx = (vga.posx + 8u) & ~7u;
+            hvga.posx = (hvga.posx + 8u) & ~7u;
             break;
         case '\r': /* carriage return */
-            vga.posx = 0;
+            hvga.posx = 0;
             break;
         case '\b': /* backspace */
-            if (vga.posx == 0) {
-                vga.posy -= (vga.posy > 0);
-                vga.posx = VGA_WIDTH - 1;
+            if (hvga.posx == 0) {
+                hvga.posy -= (hvga.posy > 0);
+                hvga.posx = VGA_WIDTH - 1;
             } else {
-                vga.posx -= (vga.posx > 0);
+                hvga.posx -= (hvga.posx > 0);
             }
             break;
         default:
-            *(vga.buff + vga.posy * VGA_WIDTH + vga.posx) = vga.attrib | (uchar)c;
-            vga.posx += 1;
+            *(hvga.buff + hvga.posy * VGA_WIDTH + hvga.posx) = hvga.attrib | (uchar)c;
+            hvga.posx += 1;
             break;
     }
-    vga.posy += (vga.posx >= VGA_WIDTH);
-    vga.posx *= (vga.posx < VGA_WIDTH);
-    while (vga.posy >= VGA_HEIGHT) {
+    hvga.posy += (hvga.posx >= VGA_WIDTH);
+    hvga.posx *= (hvga.posx < VGA_WIDTH);
+    while (hvga.posy >= VGA_HEIGHT) {
         vga_scroll();
-        vga.posy -= 1;
+        hvga.posy -= 1;
     }
 }
 
@@ -206,18 +205,24 @@ void vga_puts(char const *s)
 /*
 ** Clear the screen & set the color 
 */
-static void vga_init(void)
+static void vga_probe(void)
 {
     vga_set_color(VGA_BLACK, VGA_WHITE);
     vga_clear();
 }
 
-REGISTER_BOOT_INITCALL(vga_init);
+static void vga_remove(void) {}
 
 REGISTER_DRIVER(
-    "vga",
-    vga_init,
+    vga,
+    "VGA driver",
+    COSMOS_HOOK_BOOT,
+    vga_probe,
+    vga_remove,
     NULL,
     NULL,
+    NULL,
+    NULL,
+    vga_buffer,
     NULL
 );

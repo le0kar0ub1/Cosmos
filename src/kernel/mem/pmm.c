@@ -8,8 +8,8 @@
 \******************************************************************************/
 
 # include <cosmos.h>
+# include <kernel/drivers/drivers.h>
 # include <kernel/mem/pmm.h>
-# include <kernel/init/initcalls.h>
 # include <kernel/io/mem.h>
 # include <arch/x86_64/spinlock.h>
 # include <arch/x86_64/boot/multiboot2.h>
@@ -109,7 +109,7 @@ extern uintptr_t __KERNEL_PHYS_LINK;
 extern uintptr_t __cosmos_io_mem_start;
 extern uintptr_t __cosmos_io_mem_end;
 
-static void pmm_init(void)
+static void pmm_probe(void)
 {
     struct multiboot_mmap_entry const *mmap;
 
@@ -163,7 +163,21 @@ static void pmm_init(void)
     physaddr_t end   = ALIGN(&__KERNEL_PHYS_END, KCONFIG_MMU_PAGESIZE); 
     pmm_mark_range_frame_as_allocated(start, end);
 
-    assert(pmm_is_frame_allocated(ROUND_DOWN(V2P(pmm_init), KCONFIG_MMU_PAGESIZE)));
+    assert(pmm_is_frame_allocated(ROUND_DOWN(V2P(pmm_probe), KCONFIG_MMU_PAGESIZE)));
 }
 
-REGISTER_BOOT_INITCALL(pmm_init);
+static void pmm_remove(void) {}
+
+REGISTER_DRIVER(
+    pmm,
+    "PMM driver",
+    COSMOS_HOOK_BOOT,
+    pmm_probe,
+    pmm_remove,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+)

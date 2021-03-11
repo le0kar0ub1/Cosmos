@@ -9,7 +9,7 @@
 
 # include <drivers/vga.h>
 # include <lib/stdio.h>
-# include <kernel/io/dsp.h>
+# include <kernel/io/display.h>
 
 void vga_printf(char const *fmt, ...)
 {
@@ -24,8 +24,8 @@ void vga_vprintf(char const *fmt, __builtin_va_list ap)
     generic_vprintf(vga_szputs, fmt, ap);
 }
 
-REGISTER_DSP_FNCT(
+REGISTER_DISPLAY_FNCT(
 	vga_printf,
-	DSP_FUNCTION_PRINTF,
-	DSP_FUNCTION_TEXT
+	DISPLAY_FUNCTION_PRINTF,
+	DISPLAY_FUNCTION_TEXT
 );

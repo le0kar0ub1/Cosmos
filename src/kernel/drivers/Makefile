@@ -10,5 +10,12 @@
 local = $(CALLED_LOCAL_DIRECTORY)
 
 TARGET_OBJECTS	+= $(addprefix $(local),		\
-						drivers.o				\
+						probe.o					\
+						remove.o				\
+						reset.o					\
+						start.o					\
+						stop.o					\
+						initialized.o			\
+						running.o				\
+						fetch.o					\
 					)

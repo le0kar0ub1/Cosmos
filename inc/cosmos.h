@@ -19,7 +19,6 @@
 # include <kernel/def/assert.h>
 # include <kernel/io/port.h>
 # include <kernel/io/mem.h>
-# include <kernel/drivers/drivers.h>
 # include <kconfig.h>
 
 void kmain(void);
@@ -27,5 +26,18 @@ void panic(char const *fmt, ...);
 
 # define cosmos_panic(x) panic(STRINGIFY(x))
 # define cosmos_verbose_panic(x, y) panic("%s %s", STRINGIFY(x), y)
+
+enum COSMOS_HOOKS {
+    COSMOS_HOOK_BOOT = 0,
+    COSMOS_HOOK_PURE = 1,
+    COSMOS_HOOK_CORE = 2,
+    COSMOS_HOOK_POSTCORE = 3,
+    COSMOS_HOOK_DRIVER = 4,
+    COSMOS_HOOK_SUBSYS = 5,
+    COSMOS_HOOK_COMMAND = 6,
+    COSMOS_HOOK_SERVER = 7,
+    COSMOS_HOOK_GUI = 8,
+    COSMOS_HOOK_LAST = 9
+};
 
 #endif /* !_COSMOS_H_ */

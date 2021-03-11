@@ -9,7 +9,6 @@
 
 # include <drivers/uart16650.h>
 # include <arch/x86_64/spinlock.h>
-# include <kernel/init/initcalls.h>
 # include <kernel/drivers/drivers.h>
 
 REGISTER_IO_PORT(
@@ -91,7 +90,7 @@ void uart16650_puts(char const *s)
 /*
 ** UART16650 init sequence
 */
-static void uart16650_init(void)
+static void uart16650_probe(void)
 {
     outb(&uart16650_com1, 0x1, 0x00);  // Disable all interrupts
     outb(&uart16650_com1, 0x3, 0x80);  // Enable DLAB (set baud rate divisor)
@@ -102,11 +101,17 @@ static void uart16650_init(void)
     outb(&uart16650_com1, 0x4, 0x0B);  // IRQs enabled, RTS/DSR set
 }
 
-REGISTER_BOOT_INITCALL(uart16650_init);
+static void uart16650_remove(void) {}
 
 REGISTER_DRIVER(
-    "uart16650",
-    uart16650_init,
+    uart16650,
+    "uart16650 driver",
+    COSMOS_HOOK_BOOT,
+    uart16650_probe,
+    uart16650_remove,
+    NULL,
+    NULL,
+    NULL,
     NULL,
     NULL,
     NULL

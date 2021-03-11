@@ -39,8 +39,6 @@ static char const *exceptions[] =
     [0x1E] = "Security exception",
 };
 
-static char const *exceptions_default = "Unknow interrupt";
-
 /*
 ** Print if an exception occured
 ** Then halt the system
@@ -54,9 +52,9 @@ void exceptions_handler(struct interrupt_frame *frame)
     default:
         uart16650_printf(
             "Exceptions occured: %s\n", 
-            exceptions[frame->int_num] == NULL ? exceptions_default : exceptions[frame->int_num]
+            exceptions[frame->int_num] ? exceptions[frame->int_num] : "Unknow interrupt"
         );
-      handmade_debug(frame);
+        handmade_debug(frame);
         break;
     }
     hlt();

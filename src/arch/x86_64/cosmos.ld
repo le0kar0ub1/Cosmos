@@ -39,56 +39,6 @@ SECTIONS
     }
 
     /*
-    ** section initcalls, used to register functions to call by init level
-    */
-    .initcall ALIGN(0x8) : AT(ADDR(.initcall) - __KERNEL_ADDR_TRNS)
-    {
-        PROVIDE(__initcall_start = .);
-
-        PROVIDE(__initcall0_start = .);
-        KEEP(*(.initcall_0.text));
-        PROVIDE(__initcall0_end = .);
-
-        PROVIDE(__initcall1_start = .);
-        KEEP(*(.initcall_1.text));
-        PROVIDE(__initcall1_end = .);
-
-        PROVIDE(__initcall2_start = .);
-        KEEP(*(.initcall_2.text));
-        PROVIDE(__initcall2_end = .);
-
-        PROVIDE(__initcall3_start = .);
-        KEEP(*(.initcall_3.text));
-        PROVIDE(__initcall3_end = .);
-
-        PROVIDE(__initcall4_start = .);
-        KEEP(*(.initcall_4.text));
-        PROVIDE(__initcall4_end = .);
-
-        PROVIDE(__initcall5_start = .);
-        KEEP(*(.initcall_5.text));
-        PROVIDE(__initcall5_end = .);
-
-        PROVIDE(__initcall6_start = .);
-        KEEP(*(.initcall_6.text));
-        PROVIDE(__initcall6_end = .);
-
-        PROVIDE(__initcall7_start = .);
-        KEEP(*(.initcall_7.text));
-        PROVIDE(__initcall7_end = .);
-
-        PROVIDE(__initcall8_start = .);
-        KEEP(*(.initcall_8.text));
-        PROVIDE(__initcall8_end = .);
-
-        PROVIDE(__initcall9_start = .);
-        KEEP(*(.initcall_9.text));
-        PROVIDE(__initcall9_end = .);
-
-        PROVIDE(__initcall_end = .);
-    }
-
-    /*
     ** section inithook, used to register functions wich will be init each hook level
     */
     .inithook ALIGN(0x8) : AT(ADDR(.inithook) - __KERNEL_ADDR_TRNS)
@@ -118,6 +68,16 @@ SECTIONS
     }
 
     /*
+    ** register a driver
+    */
+    .cosmos_drivers ALIGN(0x8) : AT(ADDR(.cosmos_drivers) - __KERNEL_ADDR_TRNS)
+    {
+        PROVIDE(__cosmos_drivers_start = .);
+        KEEP(*(.cosmos_drivers));
+        PROVIDE(__cosmos_drivers_end = .);
+    }
+
+    /*
     ** register used io port
     */
     .cosmos_io_port ALIGN(0x8) : AT(ADDR(.cosmos_io_port) - __KERNEL_ADDR_TRNS)
@@ -140,11 +100,11 @@ SECTIONS
     /*
     ** register display function by type
     */
-    .cosmos_io_dsp ALIGN(0x8) : AT(ADDR(.cosmos_io_dsp) - __KERNEL_ADDR_TRNS)
+    .cosmos_io_display ALIGN(0x8) : AT(ADDR(.cosmos_io_display) - __KERNEL_ADDR_TRNS)
     {
-        PROVIDE(__cosmos_io_dsp_start = .);
-        KEEP(*(.cosmos_io_dsp));
-        PROVIDE(__cosmos_io_dsp_end = .);
+        PROVIDE(__cosmos_io_display_start = .);
+        KEEP(*(.cosmos_io_display));
+        PROVIDE(__cosmos_io_display_end = .);
     }
 
     /*
