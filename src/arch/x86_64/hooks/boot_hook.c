@@ -17,8 +17,6 @@
 # include <arch/x86_64/system/apic.h>
 # include <arch/x86_64/system/ioapic.h>
 
-extern char const *cosmos_signature_asciiart;
-
 /*
 ** Cosmos signature & acquired start
 */

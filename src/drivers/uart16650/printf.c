@@ -9,7 +9,6 @@
 
 # include <drivers/uart16650.h>
 # include <lib/stdio.h>
-# include <kernel/io/display.h>
 
 void uart16650_printf(char const *fmt, ...)
 {
@@ -23,9 +22,3 @@ void uart16650_vprintf(char const *fmt, __builtin_va_list ap)
 {
     generic_vprintf(uart16650_szputs, fmt, ap);
 }
-
-REGISTER_DISPLAY_FNCT(
-	uart16650_printf,
-	DISPLAY_FUNCTION_PRINTF,
-	DISPLAY_FUNCTION_UART
-);

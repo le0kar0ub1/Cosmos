@@ -9,6 +9,10 @@
 
 local := $(CALLED_LOCAL_DIRECTORY)
 
+TARGET_OBJECTS	+= $(addprefix $(local),	\
+						@config.o			\
+					)
+
 sinclude $(local)/boot/Makefile				\
 		 $(local)/smp/Makefile				\
 		 $(local)/system/Makefile			\

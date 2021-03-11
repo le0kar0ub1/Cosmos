@@ -1,3 +1,12 @@
+/******************************************************************************\
+**
+**  This file is part of the Cosmos project, and is made available under
+**  the terms of the GNU General Public License version 3.
+**
+**  Copyright (C) 2020 - Leo Karoubi
+**
+\******************************************************************************/
+
 OUTPUT_FORMAT(elf64-x86-64);
 ENTRY(_start)
 
@@ -65,6 +74,16 @@ SECTIONS
         KEEP(*(.inithook_9.text));
         PROVIDE(__inithook9 = .);
         PROVIDE(__inithook_end = .);
+    }
+
+    /*
+    ** Cosmos config
+    */
+    .cosmos_config ALIGN(0x8) : AT(ADDR(.cosmos_config) - __KERNEL_ADDR_TRNS)
+    {
+        PROVIDE(__cosmos_config_start = .);
+        KEEP(*(.cosmos_config));
+        PROVIDE(__cosmos_config_end = .);
     }
 
     /*

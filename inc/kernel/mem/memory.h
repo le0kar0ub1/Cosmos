@@ -11,7 +11,7 @@
 # define _KERNEL_MEM_MEMORY_H_
 
 # include <kernel/def/def.h>
-# include <kconfig.h>
+# include <cosmoskcfg.h>
 
 # define P2V(x) ((virtaddr_t)((uintptr)x + (uintptr)&__KERNEL_ADDR_TRNS))
 # define V2P(x) ((physaddr_t)((uintptr)x - (uintptr)&__KERNEL_ADDR_TRNS))

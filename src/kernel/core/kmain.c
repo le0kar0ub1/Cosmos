@@ -22,6 +22,10 @@
 */
 void kmain(void)
 {
+    struct cosmos_config *cfg = cosmos_get_config();
+
+    assert(cfg->signature == cosmos_signature_hex);
+
     run_inithooks();
 
     uart16650_puts("Cosmos initialization done.\n");

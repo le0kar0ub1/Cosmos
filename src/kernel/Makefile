@@ -15,4 +15,3 @@ sinclude $(local)/core/Makefile		\
 		 $(local)/cosmos/Makefile	\
 		 $(local)/mem/Makefile		\
 		 $(local)/cpu/Makefile		\
-		 $(local)/io/Makefile		\
