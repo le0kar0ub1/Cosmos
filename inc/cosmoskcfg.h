@@ -28,10 +28,17 @@ enum COSMOS_HOOKS {
 struct cosmos_config
 {
     uint32_t signature;
+    char archsign[8];
+
     uint32_t mmu_pagesize;
+
     uint32_t max_cpus;
     uint32_t max_threads;
-    uint32_t max_hook;    
+    uint32_t max_hook;
+
+    void (*printf_uart)(char const *fmt, ...);
+    void (*printf_text)(char const *fmt, ...);
+    void (*printf_gui)(char const *fmt, ...);
 };
 
 struct cosmos_config *cosmos_get_config(void);
@@ -48,7 +55,6 @@ extern char const *cosmos_signature_asciiart;
 # define KCONFIG_MAXTHREADS   0x20
 
 # define KCONFIG_INITLEVEL    0x9
-
 
 # define KDEBUG_PRINTF(...)       vga_printf(__VA_ARGS__)
 # define KDEBUG_QEMU_PRINTF(...)  uart16650_printf(__VA_ARGS__)

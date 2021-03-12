@@ -8,12 +8,18 @@
 \******************************************************************************/
 
 # include <cosmos.h>
+# include <drivers/uart16650.h>
+# include <drivers/vga.h>
 
 __attribute__((__used__, __aligned__(sizeof(void *)), __section__(".cosmos_config")))
 static const struct cosmos_config cosmos_config = {
     .signature = 0xC05A05,
-    .mmu_pagesize = KCONFIG_MMU_PAGESIZE,
-    .max_cpus = KCONFIG_MAX_CPUS,
-    .max_threads = KCONFIG_MAXTHREADS,
-    .max_hook = KCONFIG_INITLEVEL
+    .archsign = "x86_64",
+    .mmu_pagesize = 0x1000,
+    .max_cpus = 0x8,
+    .max_threads = 0x20,
+    .printf_uart = uart16650_printf,
+    .printf_text = vga_printf,
+    .printf_gui = NULL,
+    .max_hook = COSMOS_HOOK_LAST
 };

@@ -88,19 +88,19 @@ typedef uintptr *       archp_t;
 ** Generate the following data in cosmos section 
 */
 struct cosmos_data {
+    char const name[32];
     u32_t blksize;
     u32_t datasize;
     void *data;
-    char const *name;
 } __packed;
 
 # define REGISTER_COSMOS_DATA(xname, xdata, xdatasize)          \
-    __section(".cosmos") __used                                 \
+    __section(".cosmos_data") __used                            \
     static const struct cosmos_data const xname = {             \
+        .name = #xname,                                         \
         .blksize = sizeof(#xname) + sizeof(void *) + xdatasize, \
         .datasize = xdatasize,                                  \
-        .data = xdata,                                          \
-        .name = #xname                                          \
+        .data = xdata                                           \
     }
 
 extern uintptr_t __KERNEL_ADDR_TRNS;
@@ -113,5 +113,12 @@ extern uintptr_t __KERNEL_PHYS_END;
 # define SUB_PTR(x, y) ((typeof(x))((uintptr_t)x - (uintptr_t)y))
 
 # define ABS(x) (x < 0 ? x * -1 : x)
+
+# define bitfield_read1(val, bit)  ((bool)(val & (1 << bit)))
+// inclusive from, exclusive to
+# define bitfield_readx(val, from, to) ((typeof(val))(((typeof(val))((val) << (sizeof(val) * 8 - (to)))) >> (sizeof(val) * 8 - (to) + (from)))) 
+
+# define bitfield_set_bit(val, bit)   (typeof(val))(val | (1 << bit))
+# define bitfield_clear_bit(val, bit) (typeof(val))(val & ~(1 << bit))
 
 #endif /* !_COSMOS_DEF_H_ */

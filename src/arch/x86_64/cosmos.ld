@@ -129,10 +129,10 @@ SECTIONS
     /*
     ** Cosmos specific datas
     */
-    .cosmos ALIGN(0x8) : AT(ADDR(.cosmos) - __KERNEL_ADDR_TRNS)
+    .cosmos_data ALIGN(0x8) : AT(ADDR(.cosmos_data) - __KERNEL_ADDR_TRNS)
     {
         PROVIDE(__cosmos_start = .);
-        KEEP(*(.cosmos));
+        KEEP(*(.cosmos_data));
         PROVIDE(__cosmos_end = .);
     }
 
