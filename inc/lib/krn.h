@@ -14,15 +14,14 @@
 # include <kernel/def/def.h>
 # include <drivers/vga.h>
 
-static inline void cpudump(void)
-{
-    asm volatile("int $0x40");
-}
+/**
+ * The 0x40 interrupt is mapped on a debugger
+ */
+#define cpudump() asm volatile("int $0x40")
 
 void hexdump(void *area, u32_t sz);
 
 void xklog(char const *what, enum vga_color color, char const *fmt, ...);
-
 
 u8_t checksum8(u8_t *buffer, size_t size);
 u16_t checksum16(u16_t *buffer, size_t size);

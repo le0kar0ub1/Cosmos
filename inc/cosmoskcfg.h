@@ -37,8 +37,9 @@ struct cosmos_config
     uint32_t max_hook;
 
     void (*printf_uart)(char const *fmt, ...);
+    void (*vprintf_uart)(char const *fmt, __builtin_va_list ap);
     void (*printf_text)(char const *fmt, ...);
-    void (*printf_gui)(char const *fmt, ...);
+    void (*vprintf_text)(char const *fmt, __builtin_va_list ap);
 };
 
 struct cosmos_config *cosmos_get_config(void);
@@ -54,9 +55,7 @@ extern char const *cosmos_signature_asciiart;
 
 # define KCONFIG_MAXTHREADS   0x20
 
-# define KCONFIG_INITLEVEL    0x9
-
-# define KDEBUG_PRINTF(...)       vga_printf(__VA_ARGS__)
-# define KDEBUG_QEMU_PRINTF(...)  uart16650_printf(__VA_ARGS__)
+# define KDEBUG_PRINTF(...)       printf_text(__VA_ARGS__)
+# define KDEBUG_QEMU_PRINTF(...)  printf_uart(__VA_ARGS__)
 
 #endif /* !_COSMOSKCFG_H_ */

@@ -7,7 +7,7 @@
 **
 \******************************************************************************/
 
-# include <kernel/init/inithooks.h>
+# include <kernel/def/inithooks.h>
 
 extern inithook_t __inithook_start[];
 extern inithook_t __inithook_end[];

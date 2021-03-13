@@ -8,6 +8,7 @@
 \******************************************************************************/
 
 # include <kernel/def/def.h>
+# include <kernel/io/display.h>
 # include <drivers/vga.h>
 
 /*
@@ -16,10 +17,10 @@
 __noreturn
 void panic(char const *fmt, ...)
 {
-    vga_printf("Kernel panicked:\n    ");
+    printf_text("Kernel panicked:\n    ");
     __builtin_va_list ap;
     __builtin_va_start(ap, fmt);
-    vga_vprintf(fmt, ap);
+    vprintf_text(fmt, ap);
     __builtin_va_end(ap);
     while (1);
 }

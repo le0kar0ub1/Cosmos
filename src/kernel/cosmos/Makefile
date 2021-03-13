@@ -12,4 +12,5 @@ local = $(CALLED_LOCAL_DIRECTORY)
 TARGET_OBJECTS	+= $(addprefix $(local),	\
 						signature.o			\
 						@config.o			\
+						inithooks.o			\
 					)

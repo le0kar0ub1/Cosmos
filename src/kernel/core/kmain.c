@@ -9,10 +9,11 @@
 
 # include <cosmos.h>
 # include <arch/x86_64/system/idt.h>
-# include <kernel/init/inithooks.h>
+# include <kernel/def/inithooks.h>
 # include <drivers/uart16650.h>
 # include <arch/x86_64/asm.h>
 # include <lib/krn.h>
+# include <kernel/io/display.h>
 
 /*
 ** Kernel main setup.
@@ -28,7 +29,7 @@ void kmain(void)
 
     run_inithooks();
 
-    uart16650_puts("Cosmos initialization done.\n");
-    // cpudump();
+    printf_uart("Cosmos initialization done.\n");
+    cpudump();
     while (1);
 }

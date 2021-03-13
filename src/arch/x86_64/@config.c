@@ -19,7 +19,8 @@ static const struct cosmos_config cosmos_config = {
     .max_cpus = 0x8,
     .max_threads = 0x20,
     .printf_uart = uart16650_printf,
+    .vprintf_uart = uart16650_vprintf,
     .printf_text = vga_printf,
-    .printf_gui = NULL,
+    .vprintf_text = vga_vprintf,
     .max_hook = COSMOS_HOOK_LAST
 };

@@ -9,7 +9,7 @@
 
 # include <kernel/def/def.h>
 # include <kernel/drivers/drivers.h>
-# include <kernel/init/inithooks.h>
+# include <kernel/def/inithooks.h>
 # include <drivers/vga.h>
 # include <bios/acpi.h>
 # include <arch/x86_64/boot/multiboot2.h>

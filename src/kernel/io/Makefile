@@ -9,6 +9,6 @@
 
 local = $(CALLED_LOCAL_DIRECTORY)
 
-TARGET_OBJECTS	+= $(addprefix $(local),	\
-						inithooks.o			\
+TARGET_OBJECTS	+= $(addprefix $(local),		\
+						display.o				\
 					)

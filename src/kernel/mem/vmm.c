@@ -11,9 +11,10 @@
 # include <kernel/mem/pmm.h>
 # include <kernel/mem/vmm.h>
 # include <kernel/mem/kalloc.h>
-# include ARCH_HEADER(asm.h)
 # include ARCH_HEADER(spinlock.h)
 # include <lib/string.h>
+
+# pragma message "Use a fckin wrapper for spinlock or semaphore"
 
 static spinlock_t lock = SPINLOCK_UNLOCKED();
 
