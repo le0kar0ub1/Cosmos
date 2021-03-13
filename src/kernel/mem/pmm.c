@@ -11,7 +11,7 @@
 # include <kernel/drivers/drivers.h>
 # include <kernel/mem/pmm.h>
 # include <kernel/io/mem.h>
-# include <arch/x86_64/spinlock.h>
+# include <kernel/io/spinlock.h>
 # include <arch/x86_64/boot/multiboot2.h>
 # include <lib/string.h>
 

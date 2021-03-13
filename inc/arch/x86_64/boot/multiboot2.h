@@ -15,8 +15,8 @@ struct multiboot_info
 {
     char const *cmd_line;
     char const *bootloader;
-    uintptr mem_lower;
-    uintptr mem_upper;
+    uintptr_t mem_lower;
+    uintptr_t mem_upper;
     struct multiboot_mmap_entry const *mmap_start;
     struct multiboot_mmap_entry const *mmap_end;
     size_t mmap_entry_size;

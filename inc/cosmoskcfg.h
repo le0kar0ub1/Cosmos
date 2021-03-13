@@ -27,14 +27,14 @@ enum COSMOS_HOOKS {
 
 struct cosmos_config
 {
-    uint32_t signature;
+    u32_t signature;
     char archsign[8];
 
-    uint32_t mmu_pagesize;
+    u32_t mmu_pagesize;
 
-    uint32_t max_cpus;
-    uint32_t max_threads;
-    uint32_t max_hook;
+    u32_t max_cpus;
+    u32_t max_threads;
+    u32_t max_hook;
 
     void (*printf_uart)(char const *fmt, ...);
     void (*vprintf_uart)(char const *fmt, __builtin_va_list ap);
@@ -45,7 +45,7 @@ struct cosmos_config
 struct cosmos_config *cosmos_get_config(void);
 bool cosmos_check_config(void);
 
-extern uint32_t cosmos_signature_hex;
+extern u32_t cosmos_signature_hex;
 extern char const *cosmos_signature_char;
 extern char const *cosmos_signature_asciiart;
 

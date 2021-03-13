@@ -50,8 +50,8 @@ typedef void *          virtaddr_t;
 typedef uintptr_t       physaddr_t;
 # define PHYSNULL ((physaddr_t)0x0)
 
-typedef uintptr         archv_t;
-typedef uintptr *       archp_t;
+typedef uintptr_t         archv_t;
+typedef uintptr_t *       archp_t;
 
 /*
 ** c11 keyword shortcuts
@@ -77,7 +77,7 @@ typedef uintptr *       archp_t;
 /*
 ** align and keep given type 
 */
-# define ALIGN(x, y)     ((typeof(x))(((uintptr)(x) + ((y) - 1)) & ~((y) - 1)))
+# define ALIGN(x, y)     ((typeof(x))(((uintptr_t)(x) + ((y) - 1)) & ~((y) - 1)))
 
 /*
 ** Generate the following data in boot section 

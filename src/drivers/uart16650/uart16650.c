@@ -8,7 +8,7 @@
 \******************************************************************************/
 
 # include <drivers/uart16650.h>
-# include <arch/x86_64/spinlock.h>
+# include <kernel/io/spinlock.h>
 # include <kernel/drivers/drivers.h>
 
 REGISTER_IO_PORT(

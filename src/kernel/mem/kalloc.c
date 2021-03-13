@@ -8,13 +8,13 @@
 \******************************************************************************/
 
 # include <kernel/mem/kalloc.h>
-# include <arch/x86_64/spinlock.h>
+# include <kernel/io/spinlock.h>
 # include <drivers/uart16650.h>
 # include <lib/string.h>
 
 static spinlock_t lock = SPINLOCK_UNLOCKED();
 
-# define KHEAP_START ALIGN_PAGE((uintptr)(&__KERNEL_VIRT_END))
+# define KHEAP_START ALIGN_PAGE((uintptr_t)(&__KERNEL_VIRT_END))
 # define KHEAP_DEFAULT_ALIGNEMENT sizeof(uintptr_t)
 
 /*

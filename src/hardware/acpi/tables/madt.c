@@ -8,7 +8,7 @@
 \******************************************************************************/
 
 # include <cosmos.h>
-# include <bios/acpi.h>
+# include <hardware/acpi.h>
 
 /*
  * Get the acpi madt table

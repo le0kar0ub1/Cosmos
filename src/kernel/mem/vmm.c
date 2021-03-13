@@ -11,10 +11,8 @@
 # include <kernel/mem/pmm.h>
 # include <kernel/mem/vmm.h>
 # include <kernel/mem/kalloc.h>
-# include ARCH_HEADER(spinlock.h)
+# include <kernel/io/spinlock.h>
 # include <lib/string.h>
-
-# pragma message "Use a fckin wrapper for spinlock or semaphore"
 
 static spinlock_t lock = SPINLOCK_UNLOCKED();
 
@@ -29,7 +27,7 @@ virtaddr_t vmm_mmap(virtaddr_t virt, size_t sz, mmap_attrib_t attrib)
     assert(IS_PAGE_ALIGNED(sz));
 
     spinlock_lock(&lock);
-    while ((uintptr)virt < (uintptr)ADD_PTR(keep, sz))
+    while ((uintptr_t)virt < (uintptr_t)ADD_PTR(keep, sz))
     {
         if (RESULT_IS_ERR(ARCH_FUNCTION_MAPPING(vmm_map_virt)(virt, attrib))) {
             spinlock_unlock(&lock);
@@ -52,7 +50,7 @@ void vmm_unmap(virtaddr_t virt, size_t sz, mmap_attrib_t attrib)
     assert(IS_PAGE_ALIGNED(sz));
 
     spinlock_lock(&lock);
-    while ((uintptr)virt < (uintptr)ADD_PTR(keep, sz))
+    while ((uintptr_t)virt < (uintptr_t)ADD_PTR(keep, sz))
     {
         ARCH_FUNCTION_MAPPING(vmm_unmap)(virt, attrib);
         virt = ADD_PTR(virt, KCONFIG_MMU_PAGESIZE);
@@ -75,7 +73,7 @@ virtaddr_t vmm_mmap_dev(virtaddr_t virt, physaddr_t phys, size_t size, mmap_attr
     if (!virt || !phys)
         return (NULL);
     spinlock_lock(&lock);
-    while ((uintptr)virt < (uintptr)ADD_PTR(keep, size))
+    while ((uintptr_t)virt < (uintptr_t)ADD_PTR(keep, size))
     {
         status = ARCH_FUNCTION_MAPPING(vmm_map_phys)(virt, phys, attrib);
         if (RESULT_IS_ERR(status))
@@ -85,7 +83,7 @@ virtaddr_t vmm_mmap_dev(virtaddr_t virt, physaddr_t phys, size_t size, mmap_attr
             spinlock_unlock(&lock);
             return (NULL);
         }
-        phys = (uintptr)ADD_PTR(phys, KCONFIG_MMU_PAGESIZE);
+        phys = (uintptr_t)ADD_PTR(phys, KCONFIG_MMU_PAGESIZE);
         virt = (virtaddr_t)ADD_PTR(virt, KCONFIG_MMU_PAGESIZE);
     }
     spinlock_unlock(&lock);

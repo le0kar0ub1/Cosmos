@@ -8,14 +8,12 @@
 \******************************************************************************/
 
 # include <cosmos.h>
-# include <bios/acpi.h>
+# include <hardware/acpi.h>
 # include <lib/string.h>
-# include <drivers/uart16650.h>
 # include <lib/krn.h>
 # include <kernel/mem/memory.h>
 # include <kernel/mem/vmm.h>
 # include <kernel/mem/kalloc.h>
-# include <arch/x86_64/asm.h>
 
 # define RSDP_REVISION_V1 0x0
 # define RSDP_REVISION_V2 0x2

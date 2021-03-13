@@ -30,7 +30,7 @@ void *memsetd(void *x, int c, size_t sz)
 {
     if (x)
         for (u32_t i = 0; i < sz; i++)
-            ((uint32 *)x)[i] = (uint32)c;
+            ((u32_t *)x)[i] = (u32_t)c;
     return (x);
 }
 

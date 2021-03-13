@@ -14,7 +14,7 @@
 
 struct multiboot_info multiboot;
 
-uintptr multiboot_virtaddr = 0x0;
+uintptr_t multiboot_virtaddr = 0x0;
 
 /*
 ** Parse the multiboot structure

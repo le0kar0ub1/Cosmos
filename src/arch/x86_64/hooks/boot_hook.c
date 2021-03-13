@@ -11,7 +11,7 @@
 # include <kernel/drivers/drivers.h>
 # include <kernel/def/inithooks.h>
 # include <drivers/vga.h>
-# include <bios/acpi.h>
+# include <hardware/acpi.h>
 # include <arch/x86_64/boot/multiboot2.h>
 # include <arch/x86_64/mem/vmm.h>
 # include <arch/x86_64/system/apic.h>

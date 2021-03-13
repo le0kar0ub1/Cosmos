@@ -8,7 +8,7 @@
 \******************************************************************************/
 
 # include <drivers/vga.h>
-# include <arch/x86_64/spinlock.h>
+# include <kernel/io/spinlock.h>
 # include <kernel/io/mem.h>
 # include <kernel/io/port.h>
 # include <kernel/mem/memory.h>
@@ -118,7 +118,7 @@ void vga_set_color(enum vga_color bg, enum vga_color fg)
 static void vga_scroll(void)
 {
     void *start = (void *)(vga_buffer.start + (VGA_WIDTH * 2));
-    uint32_t size = hvga.posy * VGA_WIDTH * 2;
+    u32_t size = hvga.posy * VGA_WIDTH * 2;
 
     if(hvga.posy < VGA_HEIGHT - 0x1)
         return;

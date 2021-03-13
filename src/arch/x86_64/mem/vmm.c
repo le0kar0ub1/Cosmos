@@ -37,7 +37,7 @@ static inline struct pdp_t *get_pdp(u32_t pml4idx)
 {
     return (
         (struct pdp_t *)((0xffffff7fbfdfe000ul & ~((1ul << 21ul) - 1)) |
-        (((uintptr)pml4idx & 0x1FF) << 12ul)
+        (((uintptr_t)pml4idx & 0x1FF) << 12ul)
     ));
 }
 
@@ -48,8 +48,8 @@ static inline struct pd_t *get_pd(u32_t pml4idx, u32_t pdpidx)
 {
     return (
         (struct pd_t *)((0xffffff7fbfdfe000ul & ~((1ul << 30ul) - 1)) |
-        (((uintptr)pml4idx & 0x1FF) << 21ul) |
-        (((uintptr)pdpidx & 0x1FF) << 12ul)
+        (((uintptr_t)pml4idx & 0x1FF) << 21ul) |
+        (((uintptr_t)pdpidx & 0x1FF) << 12ul)
     ));
 }
 
@@ -60,9 +60,9 @@ static inline struct pt_t *get_pt(u32_t pml4idx, u32_t pdpidx, u32_t pdidx)
 {
     return (
         (struct pt_t *)((0xffffff7fbfdfe000ul & ~((1ul << 39ul) - 1)) |
-        (((uintptr)pml4idx & 0x1FF) << 30ul) |
-        (((uintptr)pdpidx & 0x1FF) << 21ul) |
-        (((uintptr)pdidx & 0x1FF) << 12ul)
+        (((uintptr_t)pml4idx & 0x1FF) << 30ul) |
+        (((uintptr_t)pdpidx & 0x1FF) << 21ul) |
+        (((uintptr_t)pdidx & 0x1FF) << 12ul)
     ));
 }
 
@@ -71,28 +71,28 @@ static inline struct pt_t *get_pt(u32_t pml4idx, u32_t pdpidx, u32_t pdidx)
 */
 static inline u32_t virt2pml4Idx(virtaddr_t va)
 {
-    return (((uintptr)(va) >> 39) & 0x1FF);
+    return (((uintptr_t)(va) >> 39) & 0x1FF);
 }
 
 static inline u32_t virt2pdpIdx(virtaddr_t va)
 {
-    return (((uintptr)(va) >> 30) & 0x1FF);
+    return (((uintptr_t)(va) >> 30) & 0x1FF);
 }
 
 static inline u32_t virt2pdIdx(virtaddr_t va)
 {
-    return (((uintptr)(va) >> 21) & 0x1FF);
+    return (((uintptr_t)(va) >> 21) & 0x1FF);
 }
 
 static inline u32_t virt2ptIdx(virtaddr_t va)
 {
-    return (((uintptr)(va) >> 12) & 0x1FF);
+    return (((uintptr_t)(va) >> 12) & 0x1FF);
 }
 
 static inline virtaddr_t idx2addr(u32_t pml4idx, u32_t pdpidx, u32_t pdidx, u32_t ptidx)
 {
-    uintptr addr = ((uintptr)pml4idx << 39ul) | ((uintptr)pdpidx << 30ul) | 
-                   ((uintptr)pdidx << 21ul)   | ((uintptr)ptidx << 12ul);
+    uintptr_t addr = ((uintptr_t)pml4idx << 39ul) | ((uintptr_t)pdpidx << 30ul) | 
+                   ((uintptr_t)pdidx << 21ul)   | ((uintptr_t)ptidx << 12ul);
 
     if ((bool)(addr & (1ul << 48ul)) == 1)
         addr |= ((1ul << 12ul) - 1) << 48ul;

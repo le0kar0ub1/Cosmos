@@ -79,7 +79,6 @@ export CCFLAGS	=	-isystem $(PROJECT_PATH)/inc		\
 					-mgeneral-regs-only 				\
 					-Wno-override-init					\
 	  	  			-mcmodel=large 						\
-	  	  			#-O2									\
 
 # Some macros
 CCFLAGS			+=	-D PROJECT=$(PROJECT)							\

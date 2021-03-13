@@ -12,7 +12,7 @@
 
 # include <kernel/def/def.h>
 
-typedef volatile uint32 atomic32_t;
+typedef volatile u32_t atomic32_t;
 typedef volatile u64_t atomic64_t;
 
 typedef atomic32_t kref_t;
@@ -51,8 +51,8 @@ typedef atomic32_t kref_t;
 static inline void *xchg_64(void *ptr, void *x)
 {
     asm volatile("xchgq %0,%1"
-            :"=r" ((uintptr) x)
-            :"m" (*(volatile uintptr *)ptr), "0" ((uintptr) x)
+            :"=r" ((uintptr_t) x)
+            :"m" (*(volatile uintptr_t *)ptr), "0" ((uintptr_t) x)
             :"memory");
     return x;
 }
@@ -89,7 +89,7 @@ static inline char atomic_bitsetandtest(void *ptr, int x)
     char out;
     asm volatile("lock; bts %2,%1\n"
             "sbb %0,%0\n"
-            :"=r" (out), "=m" (*(volatile uintptr *)ptr)
+            :"=r" (out), "=m" (*(volatile uintptr_t *)ptr)
             :"Ir" (x)
             :"memory");
     return out;
@@ -100,22 +100,22 @@ static inline uint atomic_exchange(volatile uint *ptr, uint value)
     return (xchg(ptr, value));
 }
 
-static inline uint32 atomic_read32(atomic32_t *var)
+static inline u32_t atomic_read32(atomic32_t *var)
 {
     return __atomic_load_n(var, __ATOMIC_SEQ_CST);
 }
 
-static inline uint32 atomic_inc_read32(atomic32_t *var)
+static inline u32_t atomic_inc_read32(atomic32_t *var)
 {
     return __atomic_add_fetch(var, 1, __ATOMIC_SEQ_CST);
 }
 
-static inline uint32 atomic_dec_read32(atomic32_t *var)
+static inline u32_t atomic_dec_read32(atomic32_t *var)
 {
     return __atomic_sub_fetch(var, 1, __ATOMIC_SEQ_CST);
 }
 
-static inline void atomic_write32(atomic32_t *var, uint32 val)
+static inline void atomic_write32(atomic32_t *var, u32_t val)
 {
     __atomic_store_n(var, val, __ATOMIC_SEQ_CST);
 }
@@ -136,7 +136,7 @@ static inline u64_t atomic_dec_read64(atomic64_t *var)
     return __atomic_sub_fetch(var, 1, __ATOMIC_SEQ_CST);
 }
 
-static inline void atomic_write64(atomic64_t *var, uint32 val)
+static inline void atomic_write64(atomic64_t *var, u32_t val)
 {
     __atomic_store_n(var, val, __ATOMIC_SEQ_CST);
 }
@@ -151,17 +151,17 @@ static inline void kref_dec(kref_t *k)
     atomic_dec_read32(k);
 }
 
-static inline uint32 kref_inc_read(kref_t *k)
+static inline u32_t kref_inc_read(kref_t *k)
 {
     return atomic_inc_read32(k);
 }
 
-static inline uint32 kref_dec_read(kref_t *k)
+static inline u32_t kref_dec_read(kref_t *k)
 {
     return atomic_dec_read32(k);
 }
 
-static inline uint32 kref_read(kref_t *k)
+static inline u32_t kref_read(kref_t *k)
 {
     return atomic_read32(k);
 }
@@ -171,45 +171,45 @@ static inline void invlpg(void *p)
     asm volatile("invlpg (%0)" : : "r"(p) : "memory");
 }
 
-static inline uintptr get_cr2(void)
+static inline uintptr_t get_cr2(void)
 {
-    uintptr out;
+    uintptr_t out;
     asm volatile("mov %%cr2, %0" : "=a"(out));
     return (out);
 }
 
-static inline uintptr get_cr3(void)
+static inline uintptr_t get_cr3(void)
 {
-    uintptr out;
+    uintptr_t out;
     asm volatile("mov %%cr3, %0" : "=a"(out));
     return (out);
 }
 
-static inline void set_cr3(uintptr cr3)
+static inline void set_cr3(uintptr_t cr3)
 {
     asm volatile("mov %0, %%cr3" :: "r"(cr3));
 }
 
-static inline uintptr get_cr4(void)
+static inline uintptr_t get_cr4(void)
 {
-    uintptr out;
+    uintptr_t out;
     asm volatile("mov %%cr4, %0" : "=a"(out));
     return (out);
 }
 
-static inline void set_cr4(uintptr cr4)
+static inline void set_cr4(uintptr_t cr4)
 {
     asm volatile("mov %0, %%cr4" :: "r"(cr4));
 }
 
-static inline uintptr get_cr0(void)
+static inline uintptr_t get_cr0(void)
 {
-    uintptr out;
+    uintptr_t out;
     asm volatile("mov %%cr0, %0" : "=a"(out));
     return (out);
 }
 
-static inline void set_cr0(uintptr cr0)
+static inline void set_cr0(uintptr_t cr0)
 {
     asm volatile("mov %0, %%cr0" :: "r"(cr0));
 }
@@ -221,7 +221,7 @@ static inline u64_t rdtsc(void)
     return (ret);
 }
 
-static inline void cpuid(uint32 id, uint32 *eax, uint32 *edx)
+static inline void cpuid(u32_t id, u32_t *eax, u32_t *edx)
 {
     asm volatile("cpuid" : "=a"(*eax), "=d"(*edx) : "a"(id) : "ebx", "ecx");
 }

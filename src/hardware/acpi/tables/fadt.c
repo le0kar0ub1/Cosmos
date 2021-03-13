@@ -9,9 +9,8 @@
 
 # include <cosmos.h>
 # include <kernel/io/port.h>
-# include <bios/acpi.h>
+# include <hardware/acpi.h>
 # include <lib/string.h>
-# include <drivers/uart16650.h>
 
 /*
  * Port will be update in runtime

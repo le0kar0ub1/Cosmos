@@ -11,7 +11,7 @@ Another birth of a x86_64 kernel named COSmOS (yeah, word count double).
 
 ## Install
 
-Cosmos use his own cross-compiler with freezed version, build it by executing the following command-line.
+Cosmos use his own cross-compiler with frozen version, build it by executing the following command-line.
 The dependencies are also checked-up.
 
 `./mktoolchain/mktoolchain`
